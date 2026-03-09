@@ -1,1 +1,1 @@
-# Astryx
+# Astryx Gaming

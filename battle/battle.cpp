@@ -65,6 +65,26 @@ void attack(Character &attacker, Character &target) {
     }
 }
 
+// Function buat nyari targer random
+Character& RandomTarget(vector<Character> &team) {
+    while (true) {
+        int i = rand() % team.size();
+        if (team[i].alive) {
+            return team[i];
+        }
+    }
+}
+
+// Function buat cek team
+bool teamAlive(vector<Character> &team) {
+    for (auto &c : team) {
+        if (c.alive) {
+            return true;
+        }
+        return false;
+    }
+}
+
 void actionselect() {
     cout << "Choose action:\n";
     return;

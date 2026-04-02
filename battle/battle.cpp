@@ -146,8 +146,56 @@ void playerTurn(vector<Character> &playerTeam, vector<Character> &enemyTeam) {
             }
 
             case SKILL: {
-                
+
             }
+
+            default: {
+                cout << "Invalid action\n";
+            }
+        }
+    }
+}
+
+// Buat action musuh
+void enemyTurn(vector<Character> &enemyTeam, vector<Character> &playerTeam) {
+    for (auto &e : enemyTeam) {
+        if (!e.alive) {
+            continue;
+        }
+
+        cout << "\nEnemy " << e.name << "'s turn\n";
+
+        int r = rand() % 100;
+
+        if (!e.skills.empty() and e.cdRemains == 0 and r > 80) {
+
+        }
+
+        else if (e.canDodge and r > 50) {
+            e.dodge = 1;
+            cout << e.name << " is dodging!\n"; 
+        }
+
+        else if (e.canDefend and r > 30) {
+            e.defend = 1;
+            cout << e.name << " is defending!\n";
+        }
+
+        else {
+            Character &target = RandomTarget(playerTeam);
+            attack(e, target);
+        }
+    }
+}
+
+// Buat reset action per turn
+void update(vector<Character> &team) {
+    for (auto &c : team) {
+        c.defend = 0;
+        c.dodge = 0;
+
+        if (c.cdRemains > 0) {
+            c.cdRemains--;
         }
     }
 }
@@ -155,4 +203,32 @@ void playerTurn(vector<Character> &playerTeam, vector<Character> &enemyTeam) {
 void actionselect() {
     cout << "Choose action:\n";
     return;
+}
+
+int main() {
+    srand(time(0));
+
+    Character knight = {"Knight", 60, 60, 10, 6, true, false, 0, 0};
+
+    vector<Character> playerTeam = {knight};
+
+    Character lurker = {"Lurker", 60, 60, 10, 5, false, true, 0, 0};
+
+    vector<Character> enemyTeam = {lurker};
+
+    while (teamAlive(playerTeam) and teamAlive(enemyTeam)) {
+        playerTurn(playerTeam, enemyTeam);
+        enemyTurn(enemyTeam, playerTeam);
+
+        update(playerTeam);
+        update(enemyTeam);
+    }
+
+    if (teamAlive(playerTeam)) {
+        cout << "\nVictory!\n";
+    } else {
+        cout << "\nDefeat...\n";
+    }
+
+    return 0;
 }

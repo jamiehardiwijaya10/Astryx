@@ -5,6 +5,13 @@
 #include <ctime>
 using namespace std;
 
+enum ActionChoice {
+    ATTACK = 1,
+    DEFEND,
+    DODGE,
+    SKILL
+};
+
 struct Character {
     string name;
     int maxhp; // ini max xp nya, jadi kalo heal ga bisa ngelebihin maxhp
@@ -82,6 +89,66 @@ bool teamAlive(vector<Character> &team) {
             return true;
         }
         return false;
+    }
+}
+
+// Buat action player
+void playerTurn(vector<Character> &playerTeam, vector<Character> &enemyTeam) {
+    for (auto &p : playerTeam) {
+        if (!p.alive) {
+            continue;
+        }
+
+        cout << "\n" << p.name << " HP : " << p.hp << endl;
+
+        cout << "1. Attack\n";
+        if (p.canDefend) {
+            cout << "2. Defend\n";
+        }
+        if (p.canDodge) {
+            cout << "3. Dodge\n";
+        }
+        if (!p.skills.empty()) {
+            cout << "4. Skill\n";
+        }
+
+        int choice; cin >> choice;
+
+        switch (choice) {
+            case ATTACK: {
+                int targetIndex;
+                cout << "Choose target : \n";
+
+                for (int i = 0; i < enemyTeam.size(); i++) {
+                    if (enemyTeam[i].alive) {
+                        cout << i << enemyTeam[i].name << " HP : " << enemyTeam[i].hp << endl;
+                    }
+                }
+                cin >> targetIndex;
+                attack(p, enemyTeam[targetIndex]);
+                break;
+            }
+
+            case DEFEND: {
+                if (p.canDefend) {
+                    p.defend = 1;
+                    cout << p.name << " is defending!\n";
+                }
+                break;
+            }
+
+            case DODGE: {
+                if (p.canDodge) {
+                    p.dodge = 1;
+                    cout << p.name << " prepared to dodge\n";
+                }
+                break;
+            }
+
+            case SKILL: {
+                
+            }
+        }
     }
 }
 

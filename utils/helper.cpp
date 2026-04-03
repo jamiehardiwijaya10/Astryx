@@ -1,5 +1,6 @@
 #include <iostream>
 #include <windows.h>
+
 using namespace std;
 
 void typing(string text, int delay = 30) {

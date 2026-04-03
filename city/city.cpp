@@ -73,7 +73,7 @@ string newGame(){
 
 
   //Tamvbah ke resources
-  ofstream file("../../databases/playerresources.txt", ios::app); //appendlibel
+  ofstream file("../databases/playerresources.txt", ios::app); //appendlibel
   if (!file.is_open())
   {
     cout << "File tidak ada" << endl;

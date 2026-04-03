@@ -73,7 +73,7 @@ string newGame(){
 
 
   //Tamvbah ke resources
-  ofstream file("../databases/playerresources.txt", ios::app); //appendlibel
+  ofstream file("../../databases/playerresources.txt", ios::app); //appendlibel
   if (!file.is_open())
   {
     cout << "File tidak ada" << endl;
@@ -84,7 +84,7 @@ string newGame(){
   file.close();
 
   //Tamcbah ke buildings
-  ofstream file2("../databases/building.txt", ios::app);
+  ofstream file2("../../databases/building.txt", ios::app);
   if (!file2.is_open())
   {
     cout << "File gaada";
@@ -98,7 +98,7 @@ string newGame(){
 
 void membaca(){
 
-  ifstream file("../databases/playerresources.txt");
+  ifstream file("../../databases/playerresources.txt");
   string line;
   getline(file, line);
   while (getline(file, line)) {
@@ -111,26 +111,37 @@ void membaca(){
 
     file.close();
 }
-
-void area(string username){
-  membaca();
-  AreaLock();
-  int pArea;
+void header(string username){
   for (auto &p : players)
   {
     if (p.nama == username)
     {
-      do{
-      system("cls");
+      //system("cls");
       cout << "[Token = " << p.token << "]                [" << "Turn ke-" << p.turn << "]"<< endl;
       garis(39);
       cout << "| Kayu: "<< p.kayu << "| Batu: "<< p.batu << "| Scrap: "<< p.scrap <<" |"<<endl;
       garis(39);
       cout << "|         Act 1 - Arriola Port        |" << endl;
       garis (39);
-      for(int i = 0; i<5; i++){
-        cout<< i+1 <<". "; if (daerah[i].unlock){cout<< daerah[i].nama;}
-                            else cout<<"(Terkunci)";
+    }
+  }
+}
+
+void area(string username){
+  AreaLock();
+  int pArea;
+  do{
+    //system("cls");
+    //cout << "[Token = " << p.token << "]                [" << "Turn ke-" << p.turn << "]"<< endl;
+    //garis(39);
+    //cout << "| Kayu: "<< p.kayu << "| Batu: "<< p.batu << "| Scrap: "<< p.scrap <<" |"<<endl;
+    //garis(39);
+    //cout << "|         Act 1 - Arriola Port        |" << endl;
+    //garis (39);
+    header(username);
+    for(int i = 0; i<5; i++){
+      cout<< i+1 <<". "; if (daerah[i].unlock){cout<< daerah[i].nama;}
+      else cout<<"(Terkunci)";
         cout<<endl;
       }
       cout<< "0. Kembali"<<endl;
@@ -138,37 +149,34 @@ void area(string username){
       cout <<"Pilih Area:"; cin>>pArea;
       switch(pArea){
             case 1:
-                system("cls");
-                cout << "[Token = " << p.token << "]                [" << "Turn ke-" << p.turn << "]"<< endl;
-                garis(39);
-                cout << "| Kayu: "<< p.kayu << "| Batu: "<< p.batu << "| Scrap: "<< p.scrap <<" |"<<endl;
-                garis(39);
+                //header(username);
                 cout<<"Selamat datang di Ariolla Monument "<< endl;
                 garis(39);
                 
                 break;           
             case 2:
-                system("cls");
+                header(username);
                 cout<<"Selamat datang di Village of Purification"<< endl;
                 break;           
             case 3:
+                header(username);
                 cout<<"Selamat datang di Rovenila"<< endl;
                 break;           
             case 4:
+                header(username);
                 cout<<"Selamat datang di Moncini Basin"<< endl;
                 break;
             case 5:
+                header(username);
                 cout<<"Selamat datang di Masonwood"<< endl;
                 break;
             case 0:
                 break;
             default: 
                 cout<<"Silahkan pilih kota yang tersedia"<<endl;
-        }
-      } while(pArea<0 || pArea>5);  
-    } 
-  }
-}
+              }
+            } while(pArea<0 || pArea>5);
+          } 
 
 void sapa(string username){
   string hmm;

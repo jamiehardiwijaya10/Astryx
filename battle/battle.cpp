@@ -3,14 +3,9 @@
 #include <vector>
 #include <cstdlib>
 #include <ctime>
-using namespace std;
+#include "../utils/helper.cpp"
 
-enum ActionChoice {
-    ATTACK = 1,
-    DEFEND,
-    DODGE,
-    SKILL
-};
+using namespace std;
 
 struct Skill {
     string name;
@@ -18,6 +13,8 @@ struct Skill {
     int power;
     int duration;
     int cooldown;
+
+    int currentCD = 0;
 };
 
 struct Character {
@@ -36,8 +33,6 @@ struct Character {
     int buffAttack = 0;
 
     vector<Skill> skills;
-    int cdRemains = 0;
-
     bool alive = true;
 };
 
@@ -67,7 +62,7 @@ void attack(Character &attacker, Character &target) {
     }
 
     target.hp -= damage;
-    cout << attacker.name << " deals " << damage << " to " << target.name << endl;
+    cout << attacker.name << " deals " << damage << " damage to " << target.name << endl;
 
     if (target.hp <= 0) {
         target.hp = 0;
@@ -83,12 +78,31 @@ void useSkill(Character &user, vector<Character> &enemyTeam) {
         return;
     }
 
-    if (user.cdRemains > 0) {
-        cout << "Skill on cooldown!\n";
+    cout << "\nChoose Skill : \n";
+    for (int i = 0; i < user.skills.size(); i++) {
+        cout << i + 1 << ". " << user.skills[i].name;
+        
+        if (user.skills[i].currentCD > 0) {
+            cout << " (CD : " << user.skills[i].currentCD << ")";
+        }
+        cout << endl;
+    }
+    
+    cout << "Choice : ";
+    int SkillChoice; cin >> SkillChoice;
+    SkillChoice -= 1;
+
+    if (SkillChoice < 0 or SkillChoice >= user.skills.size()) {
+        cout << "Invalid Skill!\n";
         return;
     }
 
-    Skill skill = user.skills[0];
+    Skill &skill = user.skills[SkillChoice];
+
+    if (skill.currentCD > 0) {
+        cout << "Skill on cooldown!\n";
+        return;
+    }
 
     cout << user.name << " uses " << skill.name << endl;
 
@@ -143,7 +157,7 @@ void useSkill(Character &user, vector<Character> &enemyTeam) {
         cout << user.name << " gains +" << skill.power << " attack this turn!\n";
     }
 
-    user.cdRemains = skill.cooldown;
+    skill.currentCD = skill.cooldown;
 }
 
 // Function buat nyari targert random
@@ -173,8 +187,20 @@ void playerTurn(vector<Character> &playerTeam, vector<Character> &enemyTeam) {
             continue;
         }
 
-        cout << "\n" << p.name << " HP : " << p.hp << endl;
+        garis(29,'=');
+        cout << "TURN : " << p.name << endl;
+        cout << "HP : " << p. hp << "/" << p.maxhp << endl;
+        garis(29,'-');
 
+        cout << "Enemies : \n";
+        for (int i = 0; i < enemyTeam.size(); i++) {
+            if (enemyTeam[i].alive) {
+                cout << i + 1 << ". " << enemyTeam[i].name << " (HP : " << enemyTeam[i].hp << ")\n";
+            }
+        }
+        garis(29,'-');
+        
+        cout << "Actions : \n";
         cout << "1. Attack\n";
         if (p.canDefend) {
             cout << "2. Defend\n";
@@ -186,6 +212,7 @@ void playerTurn(vector<Character> &playerTeam, vector<Character> &enemyTeam) {
             cout << "4. Skill\n";
         }
 
+        cout << "Choice : ";
         int choice; cin >> choice;
 
         if (choice == 1) {
@@ -195,10 +222,11 @@ void playerTurn(vector<Character> &playerTeam, vector<Character> &enemyTeam) {
 
             for (int i = 0; i < enemyTeam.size(); i++) {
                 if (enemyTeam[i].alive) {
-                    cout << i << ". " << enemyTeam[i].name << " HP : " << enemyTeam[i].hp << endl;
+                    cout << i + 1 << ". " << enemyTeam[i].name << " HP : " << enemyTeam[i].hp << endl;
                 }
             }
             cin >> targetIndex;
+            targetIndex -= 1;
             attack(p, enemyTeam[targetIndex]);
         }
 
@@ -235,7 +263,7 @@ void enemyTurn(vector<Character> &enemyTeam, vector<Character> &playerTeam) {
 
         int r = rand() % 100;
 
-        if (!e.skills.empty() and e.cdRemains == 0 and r > 80) {
+        if (!e.skills.empty() and r > 80) {
             useSkill(e, playerTeam);
         }
 
@@ -261,11 +289,12 @@ void update(vector<Character> &team) {
     for (auto &c : team) {
         c.defend = 0;
         c.dodge = 0;
-
         c.buffAttack = 0;
 
-        if (c.cdRemains > 0) {
-            c.cdRemains--;
+        for (auto &s : c.skills) {
+            if (s.currentCD > 0) {
+                s.currentCD--;
+            }
         }
     }
 }
@@ -283,7 +312,7 @@ int main() {
     Character knight = {"Knight", 60, 60, 10, 6, true, false, 0};
     Character jawajawa = {"Jawa Man", 100, 100, 100, 100, true, true, 50};
 
-    jawajawa.skills.push_back({"Jawa Blast", "aoe", 50, 2});
+    jawajawa.skills.push_back({"Jawa Blast", "aoe", 100, 2});
     jawajawa.skills.push_back({"Jawa Chants", "buff", 100, 2});
 
     vector<Character> playerTeam = {knight, jawajawa};

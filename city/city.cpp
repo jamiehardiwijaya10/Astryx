@@ -5,7 +5,7 @@
 #include <vector>
 using namespace std;
 
-struct sumberDaya
+struct SumberDaya
 {
   string nama;
   int kayu;
@@ -15,28 +15,30 @@ struct sumberDaya
   int turn;
 };
 
-struct lahan
+struct Lahan
 {
   string nama;
-  int bkp;
-  int bbp;
-  int bbs;
-  int pk;
-  int pb;
-  int ps;
+  bool rusak;
+  int bKayu;
+  int bBatu;
+  int bBesi;
+  int pKayu;
+  int pBatu;
+  int pScrap;
 };
 
-struct elkota
+struct Area
 {
   string nama;
-  lahan lahans[4];
-};
+  bool unlock;
+  Lahan bangunan[4];
+};Area daerah[5];
 
 
 
 //PEKTOR as Bucketk
-vector <elkota> city; 
-vector <sumberDaya> players;
+vector <Area> city; 
+vector <SumberDaya> players;
 
 void garis(int ukuran){
   int pilihan = 0;
@@ -45,23 +47,44 @@ void garis(int ukuran){
   pilihan = 0;
 }
 
+void AreaLock(){
+  daerah[0].nama = "Ariolla Monument";
+  daerah[0].unlock = true;
+  
+  daerah[1].nama = "Village of Purification";
+  daerah[1].unlock = false;
+  
+  daerah[2].nama = "Masonwood";
+  daerah[2].unlock = false;
+
+  daerah[3].nama = "Rovenilla";
+  daerah[3].unlock = false;
+
+  daerah[4].nama = "Moncini Basin";
+  daerah[4].unlock = false;
+}
+
+void lahanKosong(){
+  
+}
+
 string newGame(){
   string nama;
 
 
   //Tamvbah ke resources
-  ofstream file("../../databases/playerresources.txt", ios::app); //appendlibel
+  ofstream file("../databases/playerresources.txt", ios::app); //appendlibel
   if (!file.is_open())
   {
     cout << "File tidak ada" << endl;
   }
   cout << "Masukkan Username: "; getline(cin,nama); cout << endl;
        
-  file << nama << " " << "1000 1000 1000 10 1" << endl;
+  file << nama << " " << "100 100 100 10 1" << endl;
   file.close();
 
   //Tamcbah ke buildings
-  ofstream file2("../../databases/building.txt", ios::app);
+  ofstream file2("../databases/building.txt", ios::app);
   if (!file2.is_open())
   {
     cout << "File gaada";
@@ -75,12 +98,12 @@ string newGame(){
 
 void membaca(){
 
-  ifstream file("../../databases/playerresources.txt");
+  ifstream file("../databases/playerresources.txt");
   string line;
   getline(file, line);
   while (getline(file, line)) {
       stringstream hmm(line);
-      sumberDaya p;
+      SumberDaya p;
       hmm >> p.nama >> p.kayu >> p.batu >> p.scrap >> p.token >> p.turn;
       players.push_back(p);
     }
@@ -91,16 +114,58 @@ void membaca(){
 
 void area(string username){
   membaca();
+  AreaLock();
+  int pArea;
   for (auto &p : players)
   {
     if (p.nama == username)
     {
+      do{
       system("cls");
-      cout << "[Token = " << p.token << "] [" << "Turn ke-" << p.turn << "]"<< endl;
-      garis(24);
-      cout << "  Act 1 - Arriola Port  " << endl;
-      garis (24);
-
+      cout << "[Token = " << p.token << "]                [" << "Turn ke-" << p.turn << "]"<< endl;
+      garis(39);
+      cout << "| Kayu: "<< p.kayu << "| Batu: "<< p.batu << "| Scrap: "<< p.scrap <<" |"<<endl;
+      garis(39);
+      cout << "|         Act 1 - Arriola Port        |" << endl;
+      garis (39);
+      for(int i = 0; i<5; i++){
+        cout<< i+1 <<". "; if (daerah[i].unlock){cout<< daerah[i].nama;}
+                            else cout<<"(Terkunci)";
+        cout<<endl;
+      }
+      cout<< "0. Kembali"<<endl;
+      garis (39);
+      cout <<"Pilih Area:"; cin>>pArea;
+      switch(pArea){
+            case 1:
+                system("cls");
+                cout << "[Token = " << p.token << "]                [" << "Turn ke-" << p.turn << "]"<< endl;
+                garis(39);
+                cout << "| Kayu: "<< p.kayu << "| Batu: "<< p.batu << "| Scrap: "<< p.scrap <<" |"<<endl;
+                garis(39);
+                cout<<"Selamat datang di Ariolla Monument "<< endl;
+                garis(39);
+                
+                break;           
+            case 2:
+                system("cls");
+                cout<<"Selamat datang di Village of Purification"<< endl;
+                break;           
+            case 3:
+                cout<<"Selamat datang di Rovenila"<< endl;
+                break;           
+            case 4:
+                cout<<"Selamat datang di Moncini Basin"<< endl;
+                break;
+            case 5:
+                cout<<"Selamat datang di Masonwood"<< endl;
+                break;
+            case 0:
+                break;
+            default: 
+                cout<<"Silahkan pilih kota yang tersedia"<<endl;
+        }
+      } while(pArea<0 || pArea>5);  
     } 
   }
 }

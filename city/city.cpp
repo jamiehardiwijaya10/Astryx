@@ -37,7 +37,6 @@ struct Area
 
 
 //PEKTOR as Bucketk
-vector <Area> city; 
 vector <SumberDaya> players;
 
 void garis(int ukuran){
@@ -64,13 +63,8 @@ void AreaLock(){
   daerah[4].unlock = false;
 }
 
-void lahanKosong(){
-  
-}
-
 string newGame(){
   string nama;
-
 
   //Tamvbah ke resources
   ofstream file("../databases/playerresources.txt", ios::app); //appendlibel
@@ -84,33 +78,68 @@ string newGame(){
   file.close();
 
   //Tamcbah ke buildings
-  ofstream file2("../../databases/building.txt", ios::app);
+  ofstream file2("../databases/building.txt", ios::app);
   if (!file2.is_open())
   {
     cout << "File gaada";
   }
-  file2 << "ArriolaPort ArriolaMonument Kosong Kosong Kosong Kosong " << nama << endl;
+  file2 << nama  << ", Arriola Monument, "<< 1 <<", Kosong, Kosong, Kosong, Kosong "<< endl;
+  file2 << nama  << ", Village Of Purification, "<< 1 <<", Kosong, Kosong, Kosong, Kosong "<< endl;
+  file2 << nama  << ", Masonwood, "<<1<<", Kosong, Kosong, Kosong, Kosong "<< endl;
+  file2 << nama  << ", Rovenilla, "<<1<<", Kosong, Kosong, Kosong, Kosong "<< endl;
+  file2 << nama  << ", Moncini Basin, "<<1<<", Kosong, Kosong, Kosong, Kosong "<< endl;
   file2.close();
 
 
   return nama;
 }
 
-void membaca(){
-
-  ifstream file("../../databases/playerresources.txt");
+void membaca(string username){
+  ifstream file("../databases/playerresources.txt");
   string line;
   getline(file, line);
   while (getline(file, line)) {
-      stringstream hmm(line);
+      stringstream baca1(line);
       SumberDaya p;
-      hmm >> p.nama >> p.kayu >> p.batu >> p.scrap >> p.token >> p.turn;
+      baca1 >> p.nama >> p.kayu >> p.batu >> p.scrap >> p.token >> p.turn;
       players.push_back(p);
     }
-    
+  file.close();
 
-    file.close();
+  ifstream file2("../databases/building.txt");
+  int i = 0;
+  while (getline(file2, line)) {
+        stringstream baca2(line);
+        string name;
+        string areaName;
+        string unlockStatus;
+        string l1,l2,l3,l4;
+
+        getline(baca2, name, ',');
+        getline(baca2, areaName, ',');
+        getline(baca2, unlockStatus, ',');
+        getline(baca2, l1, ',');
+        getline(baca2, l2, ',');
+        getline(baca2, l3, ',');
+        getline(baca2, l4);
+
+        if (name == username && i < 5){
+
+            daerah[i].nama = areaName;
+
+            daerah[i].unlock = (unlockStatus == "1");
+
+            daerah[i].bangunan[0].nama = l1;
+            daerah[i].bangunan[1].nama = l2;
+            daerah[i].bangunan[2].nama = l3;
+            daerah[i].bangunan[3].nama = l4;
+
+            i++;
+          }
+        }
+  file2.close();
 }
+
 void header(string username){
   for (auto &p : players)
   {
@@ -120,25 +149,31 @@ void header(string username){
       cout << "[Token = " << p.token << "]                [" << "Turn ke-" << p.turn << "]"<< endl;
       garis(39);
       cout << "| Kayu: "<< p.kayu << "| Batu: "<< p.batu << "| Scrap: "<< p.scrap <<" |"<<endl;
-      garis(39);
-      cout << "|         Act 1 - Arriola Port        |" << endl;
-      garis (39);
     }
   }
+}
+
+
+void lahanKosong(){
+    cout<< "Lahan 1"<<endl;
+    cout<< "Lahan 2"<<endl;
+    cout<< "Lahan 3"<<endl;
+    cout<< "Lahan 4"<<endl;
+    cout<< "Pilih lahan"<<endl;
 }
 
 void area(string username){
   AreaLock();
   int pArea;
   do{
-    //system("cls");
+    system("cls");
     //cout << "[Token = " << p.token << "]                [" << "Turn ke-" << p.turn << "]"<< endl;
     //garis(39);
     //cout << "| Kayu: "<< p.kayu << "| Batu: "<< p.batu << "| Scrap: "<< p.scrap <<" |"<<endl;
-    //garis(39);
-    //cout << "|         Act 1 - Arriola Port        |" << endl;
-    //garis (39);
     header(username);
+    garis(39);
+    cout << "|           Act 1 - Arriola Port          |" << endl;
+    garis (39);
     for(int i = 0; i<5; i++){
       cout<< i+1 <<". "; if (daerah[i].unlock){cout<< daerah[i].nama;}
       else cout<<"(Terkunci)";
@@ -149,9 +184,12 @@ void area(string username){
       cout <<"Pilih Area:"; cin>>pArea;
       switch(pArea){
             case 1:
-                //header(username);
-                cout<<"Selamat datang di Ariolla Monument "<< endl;
+                system("cls");
+                cout<<"Selamat datang di Ariolla Monument\n "<< endl;
+                header(username);
                 garis(39);
+                cout << "|         Arriola Monument        |" << endl;
+                garis (39);
                 
                 break;           
             case 2:
@@ -179,22 +217,21 @@ void area(string username){
           } 
 
 void sapa(string username){
-  string hmm;
+  string baca1;
   system("cls");
   garis(20);
   cout << "   CITY BUILDING\n   Welcome " << username << "!" << endl;
   garis (20);
-  cout << "Ketik enter untuk melanjutkan...."; getline(cin, hmm);
+  cout << "Ketik enter untuk melanjutkan...."; getline(cin, baca1);
 }
 
 void mainCity(string username){
-    string hmm;
+    string baca1;
     garis(25);
     cout << "Welcome to Arriola Port" << endl;
     garis(25);
-    cout << "\nketik enter atau apa saja untuk melanjutkan..."; getline(cin,hmm) ; cout<<endl ;
+    cout << "\nketik enter atau apa saja untuk melanjutkan..."; getline(cin,baca1) ; cout<<endl ;
 
-  membaca();
   for (auto &p : players)
   {
     if (p.nama.empty() == true)

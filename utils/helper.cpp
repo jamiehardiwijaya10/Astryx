@@ -16,6 +16,11 @@ void title(string text) {
     cout << "=====================================\n\n";
 }
 
+void title2(string text) {
+    cout << "===========" << text << "============\n";
+    
+}
+
 bool waitOrSkip() {
     string input;
     cout << "\n(Enter = lanjut | ketik 's' = skip): ";
@@ -34,4 +39,10 @@ void garis(int ukuran,char hurup){
   pilihan += ukuran;
   cout << string(int(pilihan),hurup) << endl;
   pilihan = 0;
+}
+
+void waitEnter() {
+    string input;
+    cout << "\n(Tekan Enter untuk lanjut)";
+    getline(cin, input);
 }

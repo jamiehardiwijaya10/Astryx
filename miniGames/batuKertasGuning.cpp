@@ -45,7 +45,7 @@ string namaPilihan(char x){
     return "";
 }
 
-int main(){
+int play(){
     srand(time(0));
     char ulang;
 

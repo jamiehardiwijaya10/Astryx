@@ -130,7 +130,7 @@ void resetGame() {
     createGame();
 }
 
-int main() {
+int bsp() {
     createGame();
     int from, to;
     const int kapasitasLangkah = 15;

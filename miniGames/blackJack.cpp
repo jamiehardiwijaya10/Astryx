@@ -137,7 +137,6 @@ int main() {
         bool seri = false;
         int totalPlayer = total(pemain, p);
         int totalDealer = total(lawan, l);
-
         if (totalPlayer <= 21 && (totalDealer > 21 || totalPlayer > totalDealer)) {
             cout << "\nMenang! Langsung keluar game.\n";
             break;

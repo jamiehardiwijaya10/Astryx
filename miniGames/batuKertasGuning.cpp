@@ -96,9 +96,9 @@ int main(){
         }
 
         if(skorPlayer == 2){
-            cout << "Weh gelo kroco bisa menang boleh juga tuh hoki";
+            return 0;
         } else {
-            cout << "AWOWKOWKWO bot !!!";
+            cout << "Silahkan Coba Lagi";
         }
 
         do {

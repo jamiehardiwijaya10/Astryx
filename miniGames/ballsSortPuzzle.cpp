@@ -146,26 +146,23 @@ int main() {
         cout << "Langkah: " << langkah << "/" <<kapasitasLangkah << endl;
 
         if (menang()) {
-            cout << "\n Hoki doang ga usah bangga \n";
             return 0;
         }
 
         if (langkah >= kapasitasLangkah) {
-            cout << "\n awoKwOwKOWKOWKOWKWOWK Aduahai kroconya, ULANG AMPE BISA !!!!\n";
+            cout << "\nSilahkan Coba Lagi!\n";
             resetGame();
             continue;
         }
 
-        cout << "Dari tabung: ";
-        cin >> from;
+        cout << "Dari tabung: "; cin >> from;
         if (cin.fail()) {
             cin.clear(); cin.ignore();
             cout << "Input harus angka!\n";
             continue;
         }
 
-        cout << "Ke tabung: ";
-        cin >> to;
+        cout << "Ke tabung: "; cin >> to;
         if (cin.fail()) {
             cin.clear(); cin.ignore();
             cout << "Input harus angka!\n";

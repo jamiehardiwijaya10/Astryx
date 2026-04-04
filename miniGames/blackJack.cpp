@@ -14,26 +14,10 @@ int nilaiKartu(string kartu, int jumlahSaatIni, bool pemain = true) {
 }
 
 int total(string megang[], int berapaKartu, bool pemain = true) {
-    if (berapaKartu == 2 && megang[0] == "A" && megang[1] == "A") {
-        return 15;
-    }
-
     int total = 0;
-    int jumlahAs = 0;
     for (int i = 0; i < berapaKartu; i++) {
-        if (megang[i] == "A") {
-            total += 14;
-            jumlahAs++;
-        } else {
-            total += nilaiKartu(megang[i], total, pemain);
-        }
+        total += nilaiKartu(megang[i], total, pemain);
     }
-
-    while (total > 21 && jumlahAs > 0) {
-        total -= 13;
-        jumlahAs--;
-    }
-
     return total;
 }
 
@@ -55,10 +39,19 @@ void tampilkan(string megang[], int berapaKartu, bool sembunyi = false) {
 }
 
 int main() {
+    int saldo = 250;
     char ulang;
 
     do {
         system("CLS");
+        cout << "Gold Anda: " << saldo << " g\n";
+        int depo;
+        do {
+            cout << "Masukkan taruhan untuk ronde ini: "; cin >> depo;
+            if (depo <= 0 || depo > saldo)
+                cout << "Taruhan tidak valid! Masukkan angka antara 1 sampai saldo Anda.\n";
+        } while (depo <= 0 || depo > saldo);
+
         string kartuDasar[13] = {"2","3","4","5","6","7","8","9","10","J","Q","K","A"};
         string kartu[52];
         int index = 0;
@@ -71,9 +64,9 @@ int main() {
         string pemain[10], lawan[10];
         int p = 0, l = 0, top = 0;
     
-        pemain[p++] = "A";
+        pemain[p++] = kartu[top++];
         lawan[l++] = kartu[top++];
-        pemain[p++] = "A";
+        pemain[p++] = kartu[top++];
         lawan[l++] = kartu[top++];
     
         char pilih;
@@ -97,23 +90,16 @@ int main() {
             cout << endl;
     
             if (total(pemain, p) > 21) {
-                cout << "Player bust!\n";
+                cout << "AWOKWOWO bust!\n";
                 break;
             }
-
-            do {
-                cout << "Hit / Stand (h/s): "; cin >> pilih;
-                pilih = tolower(pilih);
-                if (pilih != 'h' && pilih != 's') {
-                    cout << "Input tidak valid! Masukkan hanya 'h' atau 's'.\n";
-                }
-            } while (pilih != 'h' && pilih != 's');
-
-        if (pilih == 'h')
-            pemain[p++] = kartu[top++];
-        else if (pilih == 's')
-            break;
-                }
+    
+            cout << "Hit / Stand (h/s): "; cin >> pilih;
+            if (pilih == 'h')
+                pemain[p++] = kartu[top++];
+            else if (pilih == 's')
+                break;
+        }
     
         cout << "\nGiliran Lawan ";
         for(int i = 0; i < 3; i++){
@@ -141,20 +127,25 @@ int main() {
             cout << "\nMenang! Langsung keluar game.\n";
             break;
         }
-        if (totalPlayer > 21 || (totalDealer <= 21 && totalDealer > totalPlayer)) {
-            cout << "\nKalah! Ulang otomatis...\n";
-            Sleep(1500);
-            ulang = 'y';
-        } 
-        else {
-            do {
-                cout << "\nSeri! Mau ulang (y/n): "; cin >> ulang;
-                if(ulang != 'y' && ulang != 'Y' && ulang != 'n' && ulang != 'N'){
-                    cout << "Input tidak valid! Masukkan hanya y atau n.\n";
-                }
-            } while(ulang != 'y' && ulang != 'Y' && ulang != 'n' && ulang != 'N');
+
+        cout << "Saldo sekarang: " << saldo << "\n";
+
+        if (saldo <= 0) {
+            cout << "Saldo habis! Permainan selesai.\n";
+            break;
         }
+
+        do {
+            cout << "\nApakah mau ulang (y/n): "; cin >> ulang;
+            if(ulang != 'y' && ulang != 'Y' && ulang != 'n' && ulang != 'N'){
+                cout << "Input tidak valid! Masukkan hanya y atau n.\n";
+            }
+        } while(ulang != 'y' && ulang != 'Y' && ulang != 'n' && ulang != 'N');
+
     } while(ulang == 'y' || ulang == 'Y');
+
+    system("CLS");
+    cout << "Nah thenks for playing.\nSaldo akhir: " << saldo << " g";
 
     return 0;
 }

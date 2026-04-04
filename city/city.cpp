@@ -56,6 +56,7 @@ string newGame(){
     cout << "File tidak ada" << endl;
   }
   cout << "Masukkan Username: "; getline(cin,nama); cout << endl;
+
        
   file << nama << " " << "100 100 100 10 1" << endl;
   file.close();
@@ -71,6 +72,14 @@ string newGame(){
   file2 << nama  << ",Masonwood,0,Kosong,Kosong,Kosong,Kosong"<< endl;
   file2 << nama  << ",Rovenilla,0,Kosong,Kosong,Kosong,Kosong"<< endl;
   file2 << nama  << ",Moncini Basin,0,Kosong,Kosong,Kosong,Kosong"<< endl;
+  file2.close();
+
+  ofstream file3("../../databases/player.txt", ios::app);
+  if (!file3.is_open())
+  {
+    cout << "File gaada";
+  }
+  file3 << nama << endl;
   file2.close();
 
 
@@ -367,6 +376,85 @@ void sapa(string username){
   cout << "Ketik enter untuk melanjutkan...."; getline(cin, baca1);
 }
 
+string menusepsepan(){
+  vector <string> nama;
+  ifstream file("../../databases/player.txt");
+  string line;
+  int logs;
+  
+  getline(file, line);
+  while (getline(file, line)) {
+    if (!line.empty())
+    nama.push_back(line);
+  }
+  file.close();
+  
+  //konsidi
+  if (nama.empty() == true)
+  {
+    return newGame();
+  }
+  
+  else if (nama.empty() == false)
+  {
+    while (true)
+    { 
+      system("cls");
+      garis(30);
+      cout << "          MORIVELLE           \n";
+      garis(30);
+      cout << "1. New Game\n2. Load" << endl;
+      garis(30);
+      cout << "Pilih: "; cin >> logs;
+      if (cin.fail())
+       {
+        cin.clear();
+        cin.ignore();
+        cout << "Masukkan angka\n";
+        continue;
+       }
+      if (logs == 1)
+      {
+        string bucket;
+        getline(cin,bucket); //bug yang belum di ajarin
+        return newGame();
+      }
+
+      else if (logs == 2)
+      {
+        while (true)
+        {
+          garis(30);
+          for (int i = 0; i < (int)nama.size(); i++)
+          {
+            cout << i+1 << ". " << nama[i];
+          }
+          int pilihanUser;
+          cout << "\nPilih index: "; cin >> pilihanUser;
+          if (cin.fail())
+       {
+        cin.clear();
+        cin.ignore();
+        cout << "Masukkan angka";
+        garis(30);
+        continue;
+       }
+
+          if (pilihanUser < 1 || pilihanUser > (int)nama.size())
+          {
+            cout << "Harap masukkan angka yang valid\n";
+            continue;
+          }
+          
+          return nama[pilihanUser-1];
+        }
+        
+        }
+    }
+  }
+}
+
+
 void mainCity(string username){
   string baca1;
   garis(25);
@@ -374,23 +462,17 @@ void mainCity(string username){
   garis(25);
   cout << "\nketik enter atau apa saja untuk melanjutkan..."; getline(cin,baca1) ; cout<<endl ;
   
-  for (auto &p : players)
-  {
-    if (p.nama.empty() == true)
-    {
-      cout << "Karena ini pertama kalinya,";
-    }
-  }
   membaca(username);
   sapa(username);
   area(username);
 }
 
 void turn(){
+  
 
 }
 
+
 int main(){
-  string nama = newGame();
-  mainCity(nama);
+  mainCity(menusepsepan());
 }

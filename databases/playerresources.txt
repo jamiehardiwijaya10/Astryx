@@ -1,2 +1,2 @@
 nama kayu batu scrap token turn
-lol 110 108 100 9 2
+ 100 100 100 10 1

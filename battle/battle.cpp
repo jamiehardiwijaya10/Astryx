@@ -3,6 +3,7 @@
 #include <vector>
 #include <cstdlib>
 #include <ctime>
+#include <windows.h>
 #include "../utils/helper.cpp"
 
 using namespace std;
@@ -77,88 +78,103 @@ void useSkill(Character &user, vector<Character> &enemyTeam) {
         cout << "No skill available!\n";
         return;
     }
-
-    cout << "\nChoose Skill : \n";
-    for (int i = 0; i < user.skills.size(); i++) {
-        cout << i + 1 << ". " << user.skills[i].name;
-        
-        if (user.skills[i].currentCD > 0) {
-            cout << " (CD : " << user.skills[i].currentCD << ")";
-        }
-        cout << endl;
-    }
     
-    cout << "Choice : ";
-    int SkillChoice; cin >> SkillChoice;
-    SkillChoice -= 1;
+    bool validSkill = false;
 
-    if (SkillChoice < 0 or SkillChoice >= user.skills.size()) {
-        cout << "Invalid Skill!\n";
-        return;
-    }
-
-    Skill &skill = user.skills[SkillChoice];
-
-    if (skill.currentCD > 0) {
-        cout << "Skill on cooldown!\n";
-        return;
-    }
-
-    cout << user.name << " uses " << skill.name << endl;
-
-    // Dmg Skill
-    if (skill.type == "damage") {
-        int targetIndex;
-
-        cout << "Choose target : \n";
-
-        for (int i = 0; i < enemyTeam.size(); i++) {
-            if (enemyTeam[i].alive) {
-                cout << i << enemyTeam[i].name << " HP : " << enemyTeam[i].hp << endl;
+    while (!validSkill) {
+        cout << "\nChoose Skill : \n";
+        for (int i = 0; i < user.skills.size(); i++) {
+            cout << i + 1 << ". " << user.skills[i].name;
+            
+            if (user.skills[i].currentCD > 0) {
+                cout << " [CD : " << user.skills[i].currentCD << "]";
+            } else {
+                cout << " [READY]";
             }
+            cout << endl;
         }
-        cin >> targetIndex;
 
-        attack(user, enemyTeam[targetIndex]);
-    }
+        cout << "Choice : ";
+        int SkillChoice; cin >> SkillChoice;
 
-    // Aoe Skill
-    else if (skill.type == "aoe") {
-        for (auto &enemy : enemyTeam) {
-            if (enemy.alive) {
-                enemy.hp -= skill.power;
+        SkillChoice -= 1;
+        
+        if (SkillChoice < 0 or SkillChoice >= user.skills.size()) {
+            system("cls");
 
-                cout << enemy.name << " takes " << skill.power << " damage\n";
+            cout << "Invalid Skill!\n";
+            continue;
+        }
 
-                if (enemy.hp <= 0) {
-                    enemy.hp = 0;
-                    enemy.alive = false;
+        Skill &skill = user.skills[SkillChoice];
 
-                    cout << enemy.name << " is defeated!\n";
+        if (skill.currentCD > 0) {
+            system("cls");
+            
+            cout << "Skill on cooldown!\n";
+            continue;
+        }
+
+        validSkill = true;
+
+        cout << user.name << " uses " << skill.name << endl;
+
+        // Dmg Skill
+        if (skill.type == "damage") {
+            int targetIndex;
+
+            cout << "Choose target : \n";
+
+            for (int i = 0; i < enemyTeam.size(); i++) {
+                if (enemyTeam[i].alive) {
+                    cout << i << enemyTeam[i].name << " HP : " << enemyTeam[i].hp << endl;
+                }
+            }
+            cin >> targetIndex;
+            
+            attack(user, enemyTeam[targetIndex]);
+        }
+
+        // Aoe Skill
+        else if (skill.type == "aoe") {
+            for (auto &enemy : enemyTeam) {
+                if (enemy.alive) {
+                    enemy.hp -= skill.power;
+
+                    cout << enemy.name << " takes " << skill.power << " damage\n";
+
+                    if (enemy.hp <= 0) {
+                        enemy.hp = 0;
+                        enemy.alive = false;
+
+                        cout << enemy.name << " is defeated!\n";
+                    }
                 }
             }
         }
-    }
 
-    // HEAL
-    else if (skill.type == "heal") {
-        user.hp += skill.power;
-        if (user.hp > user.maxhp) {
-            user.hp = user.maxhp;
+        // HEAL
+        else if (skill.type == "heal") {
+            user.hp += skill.power;
+            if (user.hp > user.maxhp) {
+                user.hp = user.maxhp;
+            }
+
+            cout << user.name << " heals " << skill.power << " HP\n";
         }
 
-        cout << user.name << " heals " << skill.power << " HP\n";
+        // Buff Skill
+        else if (skill.type == "buff") {
+            user.buffAttack += skill.power;
+
+            cout << user.name << " gains +" << skill.power << " attack this turn!\n";
+        }
+
+        skill.currentCD = skill.cooldown;
     }
-
-    // Buff Skill
-    else if (skill.type == "buff") {
-        user.buffAttack += skill.power;
-
-        cout << user.name << " gains +" << skill.power << " attack this turn!\n";
-    }
-
-    skill.currentCD = skill.cooldown;
 }
+
+    
 
 // Function buat nyari targert random
 Character& RandomTarget(vector<Character> &team) {
@@ -175,9 +191,9 @@ bool teamAlive(vector<Character> &team) {
     for (auto &c : team) {
         if (c.alive) {
             return true;
-        }
-        return false;
+        }   
     }
+    return false;
 }
 
 // Buat action player
@@ -188,14 +204,26 @@ void playerTurn(vector<Character> &playerTeam, vector<Character> &enemyTeam) {
         }
 
         garis(29,'=');
-        cout << "TURN : " << p.name << endl;
-        cout << "HP : " << p. hp << "/" << p.maxhp << endl;
-        garis(29,'-');
+
+        cout << "TURN : "; 
+        setColor(6); 
+        cout << p.name << endl;
+        setColor(7);
+        
+        cout << "HP : "; setColor(10); 
+        cout << p. hp << "/" << p.maxhp << endl;
+        setColor(7);
+        garis(29,'=');
 
         cout << "Enemies : \n";
         for (int i = 0; i < enemyTeam.size(); i++) {
             if (enemyTeam[i].alive) {
-                cout << i + 1 << ". " << enemyTeam[i].name << " (HP : " << enemyTeam[i].hp << ")\n";
+                cout << i + 1 << ". ";
+                setColor(4);
+                cout << enemyTeam[i].name;
+                setColor(10);
+                cout << " [HP : " << enemyTeam[i].hp << "]\n";
+                setColor(7);
             }
         }
         garis(29,'-');
@@ -212,42 +240,66 @@ void playerTurn(vector<Character> &playerTeam, vector<Character> &enemyTeam) {
             cout << "4. Skill\n";
         }
 
-        cout << "Choice : ";
-        int choice; cin >> choice;
+        garis(29, '-');
 
-        if (choice == 1) {
-            int targetIndex;
+        int choice; bool valid = false;
 
-            cout << "Choose target : \n";
+        while (!valid) {
+            cout << "Choose action : "; cin >> choice;
 
-            for (int i = 0; i < enemyTeam.size(); i++) {
-                if (enemyTeam[i].alive) {
-                    cout << i + 1 << ". " << enemyTeam[i].name << " HP : " << enemyTeam[i].hp << endl;
+            if (choice == 1) {
+                int targetIndex; bool validTarget = false;
+                
+                for (int i = 0; i < enemyTeam.size(); i++) {
+                    if (enemyTeam[i].alive) {
+                        cout << i + 1 << ". " << enemyTeam[i].name << " [HP : " << enemyTeam[i].hp << "]\n";
+                    }
                 }
+
+                while (!validTarget) {
+                    cout << "Choose target : ";
+                    cin >> targetIndex;
+                    targetIndex -= 1;
+
+                    if (targetIndex >= 0 and targetIndex < enemyTeam.size() and enemyTeam[targetIndex].alive) {
+                        validTarget = true;
+                    } else {
+                        cout << "Invalid target. Try again!\n";
+                    }
+                }
+                system("cls");
+                
+                attack(p, enemyTeam[targetIndex]);
+
+                valid = true;
             }
-            cin >> targetIndex;
-            targetIndex -= 1;
-            attack(p, enemyTeam[targetIndex]);
-        }
 
-        else if (choice == 2 and p.canDefend) {
-            p.defend = 1;
-            
-            cout << p.name << " is defending!\n";
-        }
+            else if (choice == 2 and p.canDefend) {
+                system("cls");
+                p.defend = 1;
+                
+                cout << p.name << " is defending!\n";
+                valid = true;
+            }
 
-        else if (choice == 3 and p.canDodge) {
-            p.dodge = 1;
+            else if (choice == 3 and p.canDodge) {
+                system("cls");
+                p.dodge = 1;
 
-            cout << p.name << " prepared to dodge\n";
-        }
+                cout << p.name << " prepared to dodge\n";
+                valid = true;
+            }
 
-        else if (choice == 4 and !p.skills.empty()) {
-            useSkill(p, enemyTeam);
-        }
+            else if (choice == 4 and !p.skills.empty()) {
+                system("cls");
+                useSkill(p, enemyTeam);
 
-        else {
-            cout << "Invalid action!\n";
+                valid = true;
+            }
+
+            else {
+                cout << "Invalid action. Try again!\n";
+            }
         }
     }
 }
@@ -269,7 +321,7 @@ void enemyTurn(vector<Character> &enemyTeam, vector<Character> &playerTeam) {
 
         else if (e.canDodge and r > 50) {
             e.dodge = 1;
-            cout << e.name << " is dodging!\n"; 
+            cout << e.name << " prepared to dodge!\n"; 
         }
 
         else if (e.canDefend and r > 30) {
@@ -281,6 +333,25 @@ void enemyTurn(vector<Character> &enemyTeam, vector<Character> &playerTeam) {
             Character &target = RandomTarget(playerTeam);
             attack(e, target);
         }
+    }
+}
+
+void showTeam(vector<Character> &team, string label) {
+    cout << "\n[" << label << "]\n";
+
+    for (int i = 0; i < team.size(); i++) {
+        cout << i + 1 << team[i].name << " | HP : " << team[i].hp << "/" << team[i].maxhp;
+        
+        if (!team[i].alive) {
+            cout << "[DEAD]";
+        } else {
+            if (team[i].dodge) {
+                cout << " [DODGE]";
+            } else if (team[i].defend) {
+                cout << " [DEF]";
+            }
+        }
+        cout << endl;
     }
 }
 
@@ -305,15 +376,16 @@ void actionselect() {
 }
 
 int main() {
-    // Nama - MaxHp - Hp - Atk - Def - CanDefend - CanDodge,
+    // Nama - MaxHp - Hp - Atk - Def - CanDefend - CanDodge - DodgeChance
+    // Nama - Type - Power - Duration - CD
 
     srand(time(0));
 
     Character knight = {"Knight", 60, 60, 10, 6, true, false, 0};
     Character jawajawa = {"Jawa Man", 100, 100, 100, 100, true, true, 50};
 
-    jawajawa.skills.push_back({"Jawa Blast", "aoe", 100, 2});
-    jawajawa.skills.push_back({"Jawa Chants", "buff", 100, 2});
+    jawajawa.skills.push_back({"Jawa Blast", "aoe", 100, 2, 2});
+    jawajawa.skills.push_back({"Jawa Chants", "buff", 100, 10, 2});
 
     vector<Character> playerTeam = {knight, jawajawa};
 

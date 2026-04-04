@@ -104,8 +104,14 @@ int main() {
          cout << "Giliran kamu (X)\n";
             
          do {
-            cout << "Pilih (1-9): ";
-            cin >> pilihan;
+            cout << "Pilih (1-9): "; cin >> pilihan;
+
+            if(cin.fail()){
+               cin.clear();
+               cin.ignore();
+               cout << "Input Tidak Valid! Pilih(1-9)\n";
+               continue;
+            }
 
             if (pilihan < 1 || pilihan > 9) {
                cout << "Input tidak valid!\n";
@@ -124,7 +130,6 @@ int main() {
             if (menang('X')) {
             system("CLS");
             tampilan();
-            cout << "GACORRRR MENANG!\n";
             break;
          }
 
@@ -145,7 +150,7 @@ int main() {
          if(menang('O')) {
             system("CLS");
             tampilan();
-            cout << "AWOKWOWK KALAH LAWAN BOT\n";
+            cout << "Yah Kalah! Silahkan Ulang!\n";
             break;
          }
          if(penuh()) {
@@ -156,17 +161,17 @@ int main() {
          }
       }
 
-      do {
-         cout << "\nMain lagi? (y/n): ";
-         cin >> ulang;
-
-         if (ulang != 'y' && ulang != 'Y' && ulang != 'n' && ulang != 'N') {
-                cout << "Input tidak valid!\n";
-         }
-      } while (ulang != 'y' && ulang != 'Y' && ulang != 'n' && ulang != 'N');
-
+      if (menang('O')) {
+         cout << "\nKalah! Ulang otomatis...\n";
+         Sleep(1500);
+         ulang = 'y';
+      } else if (menang('X')){
+         break;
+      } else {
+         cout << "\nSeri! Ulang otomatis...\n";
+         Sleep(1500);
+         ulang = 'y';
+      }
    } while (ulang == 'y' || ulang == 'Y');
-
-   cout << "\n=== Matur Suwun ===\n";
    return 0;
 }

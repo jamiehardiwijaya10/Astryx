@@ -1,4 +1,5 @@
 #include <iostream>
+#include <windows.h>
 using namespace std;
 
 const int kapasitasTabung = 5;
@@ -57,11 +58,7 @@ void tampilkan() {
     cout << "\n=========== BALL SORT PUZZLE ===========\n";
     cout << "Langkah: " << langkah << "\n\n";
 
-    for (int i = 0; i < kapasitasTabung; i++) {
-        cout << "  [" << i+1 << "]  ";
-    }
-    cout << endl;
-
+    
     for (int level = kapasitasBola - 1; level >= 0; level--) {
         for (int i = 0; i < kapasitasTabung; i++) {
             cout << "  ";
@@ -74,6 +71,11 @@ void tampilkan() {
         }
         cout << endl;
     }
+    cout << endl;
+    for (int i = 0; i < kapasitasTabung; i++) {
+        cout << "  [" << i+1 << "]  ";
+    }
+    cout << endl;
     cout << "===============================\n";
 }
 
@@ -130,27 +132,43 @@ void resetGame() {
 
 int main() {
     createGame();
-
     int from, to;
     const int kapasitasLangkah = 15;
 
     while (true) {
+        // cout<< "\nLoading";
+        // for(int i = 0; i < 3; i++){
+        //     cout << ".";
+        //     Sleep(100);
+        // }
+        // system("CLS");
         tampilkan();
         cout << "Langkah: " << langkah << "/" <<kapasitasLangkah << endl;
 
         if (menang()) {
-            cout << "\n Hoki doang ga usah bangga \n";
-            break;
+            return 0;
         }
 
         if (langkah >= kapasitasLangkah) {
-            cout << "\n awoKwOwKOWKOWKOWKWOWK Aduahai kroconya, ULANG AMPE BISA !!!!\n";
+            cout << "\nSilahkan Coba Lagi!\n";
             resetGame();
             continue;
         }
 
         cout << "Dari tabung: "; cin >> from;
+        if (cin.fail()) {
+            cin.clear(); cin.ignore();
+            cout << "Input harus angka!\n";
+            continue;
+        }
+
         cout << "Ke tabung: "; cin >> to;
+        if (cin.fail()) {
+            cin.clear(); cin.ignore();
+            cout << "Input harus angka!\n";
+            continue;
+        }
+
         from--; 
         to--;
 

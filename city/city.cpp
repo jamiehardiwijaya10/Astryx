@@ -81,6 +81,7 @@ string newGame(){
 }
 
 void membaca(string username){
+  players.clear();
   ifstream file("../databases/playerresources.txt");
   string line;
   getline(file, line);
@@ -125,66 +126,85 @@ void membaca(string username){
         }
   file2.close();
 }
+void PerhitunganSumberDaya(string username){
+  for (auto &p : players){
+    if(username == p.nama ){
+      int totalK = 0;
+      int totalB = 0;
+      int totalS = 0;
+      
+      for (int i=0; i<5; i++){
+        for(int j = 0; j<4; j++){
+            totalK += daerah[i].bangunan[j].pKayu;
+            totalB += daerah[i].bangunan[j].pBatu;
+            totalS += daerah[i].bangunan[j].pScrap;
+           }
+        }
+      p.kayu += totalK;
+      p.batu += totalB;
+      p.scrap += totalS;
+    }
+    p.turn++;
+    p.token--;
 
-// void updateData(string username){
-//   ifstream file("../databases/playerresources.txt");
-//   string line;
-//   getline(file, line);
-//   while (getline(file, line)) {
-//       stringstream baca1(line);
-//       SumberDaya p;
-//       baca1 >> p.nama >> p.kayu >> p.batu >> p.scrap >> p.token >> p.turn;
-//       players.push_back(p);
-//     }
-//   file.close();
+  }
+}
 
-//   offstream tulis1("../databases/playerresources.txt");
-  
+void updatePlayer(string username){
 
+  ofstream tulis1("../databases/playerresources.txt");
+  if (!tulis1.is_open())
+  {
+    cout << "File tidak ada" << endl;
+  }
+  tulis1<<"nama kayu batu scrap token turn"<<endl;
+  for (auto &p : players)
+  { if(username == p.nama){
+    players.clear();
+    tulis1 << p.nama << " " << p.kayu << " " << p.batu << " " << p.scrap << " " << p.token << " " << p.turn <<endl;
+      players.push_back(p);
+    }
+  }
+  tulis1.close();
+}
 
-//   ifstream file2("../databases/building.txt");
-//   int i = 0;
-//   while (getline(file2, line)) {
-//         stringstream baca2(line);
-//         string name;
-//         string areaName;
-//         string unlockStatus;
-//         string l1,l2,l3,l4;
+void updateBuilding(string username){
+    vector<string>semuaData;
+    string line;
+    int i = 0;
+    ifstream file2("../databases/building.txt");
+    while (getline(file2, line)){
+        stringstream baca2(line);
+        string name;
 
-//         getline(baca2, name, ',');
-//         getline(baca2, areaName, ',');
-//         getline(baca2, unlockStatus, ',');
-//         getline(baca2, l1, ',');
-//         getline(baca2, l2, ',');
-//         getline(baca2, l3, ',');
-//         getline(baca2, l4);
+        getline(baca2, name, ',');
 
-//         if (name == username && i < 5){
+        if (name != username && i < 5){
+          semuaData.push_back(line);
+          }
+        }
+    file2.close();
+    
+    for (int i=0; i<5; i++){
+        string baris;
 
-//             daerah[i].nama = areaName;
+        baris += username + ",";
+        baris += daerah[i].nama + ",";
+        baris += (daerah[i].unlock ? "1" : "0") + string(",");
 
-//             daerah[i].unlock = (unlockStatus == "1");
-
-//             daerah[i].bangunan[0].nama = l1;
-//             daerah[i].bangunan[1].nama = l2;
-//             daerah[i].bangunan[2].nama = l3;
-//             daerah[i].bangunan[3].nama = l4;
-
-//             i++;
-//           }
-//         }
-//   file2.close();
-//   if(username == p.nama){
-//     ofstream tulis2("../databases/playerresources.txt");
-//     tulis2<< p.nama <<" " 
-//           << p.kayu+ daerah[0].bangunan[0] <<" " 
-//           << p.batu <<" "
-//           << p.scrap<<" "
-//           << p.token<<" "
-//           << p.turn <<endl;
-//   }
-// }
-
+        for (int j=0; j<4; j++){
+            baris += daerah[i].bangunan[j].nama;
+            if (j < 3)
+                baris += ",";
+        }
+        semuaData.push_back(baris);
+    }
+    ofstream tulis("../databases/building.txt");
+    for (auto &data : semuaData){
+        tulis << data << endl;
+    }
+  tulis.close();
+}
 
 void header(string username){
   for (auto &p : players)
@@ -347,7 +367,7 @@ void area(string username){
       else cout<<"(Terkunci)";
       cout<<endl;
     }
-    cout<< "6. Mengumpulkan Sumber Daya"<<endl;
+    cout<< "6. Next Turn"<<endl;
     cout<< "0. Kembali"<<endl;
     garis (39);
     cout <<"Pilih Area: "; cin>>pArea;
@@ -410,8 +430,11 @@ void area(string username){
     }
 
     else if (pArea == 6)
-    {
-      cout<<"Maaf, Area ini masih terkunci";          
+    { 
+      PerhitunganSumberDaya(username);
+      updateBuilding(username);
+      updatePlayer(username);
+      system("cls");
       continue;
     }
 

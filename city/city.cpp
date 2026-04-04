@@ -46,23 +46,6 @@ void garis(int ukuran){
   pilihan = 0;
 }
 
-void AreaLock(){
-  daerah[0].nama = "Ariolla Monument";
-  daerah[0].unlock = true;
-  
-  daerah[1].nama = "Village of Purification";
-  daerah[1].unlock = false;
-  
-  daerah[2].nama = "Masonwood";
-  daerah[2].unlock = false;
-
-  daerah[3].nama = "Rovenilla";
-  daerah[3].unlock = false;
-
-  daerah[4].nama = "Moncini Basin";
-  daerah[4].unlock = false;
-}
-
 string newGame(){
   string nama;
 
@@ -83,11 +66,11 @@ string newGame(){
   {
     cout << "File gaada";
   }
-  file2 << nama  << ", Arriola Monument, "<< 1 <<", Kosong, Kosong, Kosong, Kosong "<< endl;
-  file2 << nama  << ", Village Of Purification, "<< 1 <<", Kosong, Kosong, Kosong, Kosong "<< endl;
-  file2 << nama  << ", Masonwood, "<<1<<", Kosong, Kosong, Kosong, Kosong "<< endl;
-  file2 << nama  << ", Rovenilla, "<<1<<", Kosong, Kosong, Kosong, Kosong "<< endl;
-  file2 << nama  << ", Moncini Basin, "<<1<<", Kosong, Kosong, Kosong, Kosong "<< endl;
+  file2 << nama  << ",Arriola Monument,1,Kosong,Kosong,Kosong,Kosong"<< endl;
+  file2 << nama  << ",Village Of Purification,0,Kosong,Kosong,Kosong,Kosong"<< endl;
+  file2 << nama  << ",Masonwood,0,Kosong,Kosong,Kosong,Kosong"<< endl;
+  file2 << nama  << ",Rovenilla,0,Kosong,Kosong,Kosong,Kosong"<< endl;
+  file2 << nama  << ",Moncini Basin,0,Kosong,Kosong,Kosong,Kosong"<< endl;
   file2.close();
 
 
@@ -140,6 +123,19 @@ void membaca(string username){
   file2.close();
 }
 
+// void updateData(string username){
+//   if(username == p.nama){
+//     ofstream tulis1("../databases/playerresources.txt");
+//     tulis1<< p.nama <<" " 
+//           << p.kayu+ daerah[0].bangunan[0] <<" " 
+//           << p.batu <<" "
+//           << p.scrap<<" "
+//           << p.token<<" "
+//           << p.turn <<ENDL;
+//   }
+// }
+
+
 void header(string username){
   for (auto &p : players)
   {
@@ -153,23 +149,92 @@ void header(string username){
   }
 }
 
+// void bangunLahan(){
+//   int pBangun;
+//   do{  
+//     cout << "Pilih bangunan:";
+//     cout << "1. Penebangan Kayu"<<endl;
+//     cout << "2. Penambangan Batu"<<endl;
+//     cout << "3. Pengumpulan Scrap"<<endl;
+//     cout << "0. Batal"<<endl;
+//     cout <<"Pilih Pembangunan pada lahan: ";cin<<pBangun;
+//     switch(pBangun)
+//     {
+//         case 1:
+//             daerah[i].bangunan[lahanIndex].nama = "Kayu";
+//             daerah[areaIndex].bangunan[lahanIndex].pKayu = 10;
+//             daerah[areaIndex].bangunan[lahanIndex].pBatu = 0;
+//             daerah[areaIndex].bangunan[lahanIndex].pScrap = 0;
+//             break;
 
-void lahanKosong(){
-    cout<< "Lahan 1"<<endl;
-    cout<< "Lahan 2"<<endl;
-    cout<< "Lahan 3"<<endl;
-    cout<< "Lahan 4"<<endl;
-    cout<< "Pilih lahan"<<endl;
+//         case 2:
+//             daerah[areaIndex].bangunan[lahanIndex].nama = "Batu";
+//             daerah[areaIndex].bangunan[lahanIndex].pKayu = 0;
+//             daerah[areaIndex].bangunan[lahanIndex].pBatu = 8;
+//             daerah[areaIndex].bangunan[lahanIndex].pScrap = 0;
+//             break;
+
+//         case 3:
+//             daerah[areaIndex].bangunan[lahanIndex].nama = "Scrap";
+//             daerah[areaIndex].bangunan[lahanIndex].pKayu = 0;
+//             daerah[areaIndex].bangunan[lahanIndex].pBatu = 0;
+//             daerah[areaIndex].bangunan[lahanIndex].pScrap = 6;
+//             break;
+
+//         case 0:
+//             break;
+
+//         default:
+//             cout << "Pilihan salah\n";
+//     }
+//   }
+// }
+
+void lahanKosong(string username,int i){
+  int pLahan;
+  do{
+    system("cls");
+    cout<<"Selamat datang di" << daerah[i].nama <<"\n" << endl;
+    header(username);
+    garis(39);
+    cout << "|          "<< daerah[i].nama <<"          |" << endl;
+    garis (39);
+    for(int j=0; j<4; j++){
+      cout<< j+1 <<". Lahan "<< daerah[i].bangunan[j].nama <<endl;
+    }
+    cout<< "0. Kembali "<<endl;
+    garis (39);
+    cout<<"Statistik Area:"<<endl;
+    cout<<"Kayu = "<<"/Turn" <<endl;
+    cout<<"Batu = "<<"/Turn" <<endl;
+    cout<<"Scrap= "<<"/Turn" <<endl;
+    garis (39);
+    cout<< "Pilih lahan: ";cin>>pLahan;
+    switch(pLahan){
+      case 1:
+        cout<< "1. Kembali "<<endl;
+        break;
+      case 2:
+        cout<< "2. Kembali "<<endl;
+        break;
+      case 3:
+        cout<< "3. Kembali "<<endl;
+        break;
+      case 4:
+        cout<< "4. Kembali "<<endl;
+        break;
+      case 0:
+        break;
+      default:
+        cout<<"Silahkan pilih lahan yang tersedia"<<endl;
+    }
+  } while(pLahan<1 || pLahan>4);
 }
 
 void area(string username){
-  AreaLock();
   int pArea;
   do{
     system("cls");
-    //cout << "[Token = " << p.token << "]                [" << "Turn ke-" << p.turn << "]"<< endl;
-    //garis(39);
-    //cout << "| Kayu: "<< p.kayu << "| Batu: "<< p.batu << "| Scrap: "<< p.scrap <<" |"<<endl;
     header(username);
     garis(39);
     cout << "|           Act 1 - Arriola Port          |" << endl;
@@ -181,40 +246,50 @@ void area(string username){
       }
       cout<< "0. Kembali"<<endl;
       garis (39);
-      cout <<"Pilih Area:"; cin>>pArea;
+      cout <<"Pilih Area: "; cin>>pArea;
       switch(pArea){
             case 1:
-                system("cls");
-                cout<<"Selamat datang di Ariolla Monument\n "<< endl;
-                header(username);
-                garis(39);
-                cout << "|         Arriola Monument        |" << endl;
-                garis (39);
-                
+            if (daerah[0].unlock)
+              {
+                lahanKosong(username,pArea-1);
+              }
+            else cout<<"Maaf, Area ini masih terkunci";
                 break;           
             case 2:
-                header(username);
-                cout<<"Selamat datang di Village of Purification"<< endl;
+            if (daerah[1].unlock)
+              {
+                lahanKosong(username,pArea-1);
+              }
+            else cout<<"Maaf, Area ini masih terkunci";
                 break;           
             case 3:
-                header(username);
-                cout<<"Selamat datang di Rovenila"<< endl;
+            if (daerah[2].unlock)
+              {
+                lahanKosong(username,pArea-1);
+              }
+            else cout<<"Maaf, Area ini masih terkunci";
                 break;           
             case 4:
-                header(username);
-                cout<<"Selamat datang di Moncini Basin"<< endl;
+            if (daerah[3].unlock)
+              {
+                lahanKosong(username,pArea-1);
+              }
+            else cout<<"Maaf, Area ini masih terkunci";
                 break;
             case 5:
-                header(username);
-                cout<<"Selamat datang di Masonwood"<< endl;
+            if (daerah[4].unlock)
+              {
+                lahanKosong(username,pArea-1);
+              }
+            else cout<<"Maaf, Area ini masih terkunci";
                 break;
             case 0:
                 break;
             default: 
                 cout<<"Silahkan pilih kota yang tersedia"<<endl;
-              }
-            } while(pArea<0 || pArea>5);
-          } 
+    }
+  } while(pArea<1 || pArea>5);
+} 
 
 void sapa(string username){
   string baca1;
@@ -239,10 +314,9 @@ void mainCity(string username){
       cout << "Karena ini pertama kalinya,";
     }
   }
-  
-
-  sapa(username);
-  area(username);
+    membaca(username);
+    sapa(username);
+    area(username);
 }
 
 int main(){

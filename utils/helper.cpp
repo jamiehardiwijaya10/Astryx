@@ -13,7 +13,7 @@ void typing(string text, int delay = 30) {
 
 void title(string text) {
     cout << "=====================================\n";
-    cout << "        " << text << "\n";
+    cout << "          " << text << "\n";
     cout << "=====================================\n\n";
 }
 

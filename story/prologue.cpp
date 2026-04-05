@@ -6,24 +6,22 @@ using namespace std;
 int prologue() {
     system("cls");
 
-    title("PROLOGUE");
+    typing("PROLOGUE", 100);
 
     typing("Demirgus University, 22 September 1891", 40);
     Sleep(800);
 
-     if (waitOrSkip()) {
+    if (waitOrSkip()) {
         return 0;
     }
-
     system("cls");
 
-    typing("Di dalam kota yang ramai dan penuh kehidupan.", 35);
-    typing("Seseorang sedang memperhatikan koral di pelabuhan.", 35);
+    typing("Di dalam kota yang ramai dan penuh kehidupan.", 40);
+    typing("Seseorang sedang memperhatikan koral di pelabuhan.", 40);
 
     if (waitOrSkip()) {
         return 0;
     }
-
     system("cls");
 
     typing("\"Apakah ini sebuah fenomena baru? Kenapa koral ini berwarna merah?\"", 50);
@@ -31,16 +29,16 @@ int prologue() {
     Sleep(500);
 
     system("cls");
-    typing("\"Koral yang sebelumnya berwarna putih kini berubah menjadi merah muda.\"", 40);
+    typing("\"Koral yang sebelumnya berubah berwarna hitam, yang ini berubah menjadi merah muda.\"", 40);
     typing("\"Mungkin fenomena The Red Tide merubah warnanya\"\n", 40);
     Sleep(500);
-    typing("Note : The Red Tide adalah fenomena alam dimana alam merubah dirinya sendiri menjadi sesuatu yang lebih berbahaya dan merusak. The Red Tide bisa merubah segala sesuatu yang ada di alam, termasuk makhluk hidup, menjadi sesuatu yang lebih berbahaya dan merusak.", 40);
+    typing("Note : The Red Tide adalah fenomena alam dimana alam merubah dirinya sendiri menjadi sesuatu yang lebih berbahaya dan merusak.", 40);
 
     if (waitOrSkip()) {
         return 0;
     }
-
     system("cls");
+
     typing("\"Hei Elias! Apakah koral disana juga berubah warna?\"", 40);
     typing("Seseorang berteriak ke peneliti tersebut dari kejauhan.\n", 40);
     Sleep(500);
@@ -51,7 +49,6 @@ int prologue() {
     if (waitOrSkip()) {
         return 0;
     }
-
     system("cls");
 
     typing("\"Kenapa kamu bertanya? Apakah ada yang salah dengan koral disini?\"", 40);
@@ -64,7 +61,6 @@ int prologue() {
     if (waitOrSkip()) {
         return 0;
     }
-
     system("cls");
 
     typing("\"Kenapa kau sangat tenang begitu? Apakah kamu sudah tahu apa yang terjadi?\"", 40);
@@ -81,7 +77,6 @@ int prologue() {
     if (waitOrSkip()) {
         return 0;
     }
-
     system("cls");
 
     typing("Di Demirgus Laboratory........", 40);
@@ -90,7 +85,6 @@ int prologue() {
      if (waitOrSkip()) {
         return 0;
     }
-
     system("cls");
 
     typing("\"Akhirnya selesai juga, tapi The Red Tide masih menyimpan misteri yang membuatku penasaran.\"", 40);
@@ -115,7 +109,6 @@ int prologue() {
     if (waitOrSkip()) {
         return 0;
     }
-
     system("cls");
 
     typing("Elias kembali fokus pada penelitiannya, mencoba mencari tahu lebih banyak tentang fenomena The Red Tide yang sedang menyebar dengan cepat.", 40);
@@ -126,7 +119,6 @@ int prologue() {
     if (waitOrSkip()) {
         return 0;
     }
-
     system("cls");
 
     typing("\"Elias, ini sudah malam. Kamu harus istirahat.\"", 40);
@@ -154,15 +146,14 @@ int prologue() {
     if (waitOrSkip()) {
         return 0;
     }
-
     system("cls");
+
     typing("Pelabuhan Elpis, 23 September 1891", 40);
     Sleep(800);
 
     if (waitOrSkip()) {
         return 0;
     }
-
     system("cls");
 
     typing("\"Aku tidak yakin pulang ke rumah dengan rasa penasaran dapat menjernihkan pikiranku. Lagipula, sudah tidak ada siapa siapa di sana.\"", 40);
@@ -175,7 +166,6 @@ int prologue() {
     if (waitOrSkip()) {
         return 0;
     }
-
     system("cls");
 
     typing("Seorang nelayan berdiri di samping kapalnya, memperhatikan Elias dari jauh.", 40);
@@ -205,7 +195,6 @@ int prologue() {
     if (waitOrSkip()) {
         return 0;
     }
-
     system("cls");
 
     typing("Elias terdiam sejenak, mencoba mencerna informasi yang baru saja dia dapatkan. Dia merasa sedikit panik, tapi dia juga merasa penasaran dengan apa yang sebenarnya terjadi di Morivelle.", 40);
@@ -223,7 +212,6 @@ int prologue() {
     if (waitOrSkip()) {
         return 0;
     }
-
     system("cls");
 
     typing("Tanpa pikir panjang, Elias membayar biaya untuk membeli kapal tersebut. Selain perasaan penasarannya yang sangat besar, dia juga mulai merindukan kota masa kecilnya.", 40);
@@ -233,7 +221,7 @@ int prologue() {
     if (waitOrSkip()) {
         return 0;
     }
-
     system("cls");
+    
     return 0;
 }

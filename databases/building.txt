@@ -10,3 +10,8 @@ Roven,Village Of Purification,1,Penebangan Kayu,Penambangan Batu,Pengumpulan Scr
 Roven,Masonwood,0,Kosong,Kosong,Kosong,Kosong
 Roven,Rovenilla,0,Kosong,Kosong,Kosong,Kosong
 Roven,Moncini Basin,0,Kosong,Kosong,Kosong,Kosong
+Romulus,Ariolla Monument,1,Patung Ariolla,Dermaga Kapal,Kosong,Kosong
+Romulus,Village Of Purification,1,Penebangan Kayu,Penambangan Batu,Pengumpulan Scrap,Penebangan Kayu
+Romulus,Masonwood,0,Kosong,Kosong,Kosong,Kosong
+Romulus,Rovenilla,0,Kosong,Kosong,Kosong,Kosong
+Romulus,Moncini Basin,0,Kosong,Kosong,Kosong,Kosong

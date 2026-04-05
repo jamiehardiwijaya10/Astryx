@@ -98,7 +98,7 @@ void tutupSemuaKartu(kartu *first) {
     }
 }
 
-int main() { 
+int mc() { 
     srand(time(0));
 
     while (true) {

@@ -625,21 +625,29 @@ string menusepsepan(){
           garis(30);
           for (int i = 0; i < (int)nama.size(); i++)
           {
-            cout << i+1 << ". " << nama[i];
+            cout << i+1 << ". " << nama[i] << endl;
           }
+          cout << "0. Kembali\n";
           int pilihanUser;
           cout << "\nPilih index: "; cin >> pilihanUser;
           if (cin.fail())
        {
         cin.clear();
         cin.ignore();
-        cout << "Masukkan angka";
+        system("cls");
         garis(30);
+        cout << "Masukkan angka\n";
         continue;
        }
 
           if (pilihanUser < 1 || pilihanUser > (int)nama.size())
           {
+            if (pilihanUser == 0)
+            {
+              break;
+            }
+            
+            garis(30);
             cout << "Harap masukkan angka yang valid\n";
             continue;
           }

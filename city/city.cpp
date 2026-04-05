@@ -53,18 +53,19 @@ string newGame(){
   string nama;
 
   //Tamvbah ke resources
-  ofstream file("../databases/playerresources.txt", ios::app); //appendlibel
+  ofstream file("../../databases/playerresources.txt", ios::app); //appendlibel
   if (!file.is_open())
   {
     cout << "File tidak ada" << endl;
   }
   cout << "Masukkan Username: "; getline(cin,nama); cout << endl;
+
        
   file << nama << " " << "100 100 100 10 1" << endl;
   file.close();
 
   //Tamcbah ke buildings
-  ofstream file2("../databases/building.txt", ios::app);
+  ofstream file2("../../databases/building.txt", ios::app);
   if (!file2.is_open())
   {
     cout << "File gaada";
@@ -76,13 +77,44 @@ string newGame(){
   file2 << nama  << ",Moncini Basin,0,Kosong,Kosong,Kosong,Kosong"<< endl;
   file2.close();
 
+  ofstream file3("../../databases/player.txt", ios::app);
+  if (!file3.is_open())
+  {
+    cout << "File gaada";
+  }
+  file3 << nama << endl;
+  file2.close();
+
 
   return nama;
 }
 
+void setProduksi(Lahan &l){
+    if (l.nama == "Penebangan Kayu"){
+        l.pKayu = 10;
+        l.pBatu = 0;
+        l.pScrap = 0;
+    }
+    else if (l.nama == "Penambangan Batu"){
+        l.pKayu = 0;
+        l.pBatu = 8;
+        l.pScrap = 0;
+    }
+    else if (l.nama == "Pengumpulan Scrap"){
+        l.pKayu = 0;
+        l.pBatu = 0;
+        l.pScrap = 6;
+    }
+    else if(l.nama == "Kosong"){
+        l.pKayu = 0;
+        l.pBatu = 0;
+        l.pScrap = 0;
+    }
+}
+
 void membaca(string username){
   players.clear();
-  ifstream file("../databases/playerresources.txt");
+  ifstream file("../../databases/playerresources.txt");
   string line;
   getline(file, line);
   while (getline(file, line)) {
@@ -93,8 +125,9 @@ void membaca(string username){
     }
   file.close();
 
-  ifstream file2("../databases/building.txt");
+  ifstream file2("../../databases/building.txt");
   int i = 0;
+  getline(file2, line);
   while (getline(file2, line)) {
         stringstream baca2(line);
         string name;
@@ -121,9 +154,15 @@ void membaca(string username){
             daerah[i].bangunan[2].nama = l3;
             daerah[i].bangunan[3].nama = l4;
 
+            setProduksi(daerah[i].bangunan[0]);
+            setProduksi(daerah[i].bangunan[1]);
+            setProduksi(daerah[i].bangunan[2]);
+            setProduksi(daerah[i].bangunan[3]);
+
             i++;
           }
         }
+
   file2.close();
 }
 void PerhitunganSumberDaya(string username){
@@ -143,36 +182,35 @@ void PerhitunganSumberDaya(string username){
       p.kayu += totalK;
       p.batu += totalB;
       p.scrap += totalS;
+      p.turn++;
+      p.token--;
     }
-    p.turn++;
-    p.token--;
 
   }
 }
 
 void updatePlayer(string username){
 
-  ofstream tulis1("../databases/playerresources.txt");
+  ofstream tulis1("../../databases/playerresources.txt");
   if (!tulis1.is_open())
   {
     cout << "File tidak ada" << endl;
   }
   tulis1<<"nama kayu batu scrap token turn"<<endl;
-  for (auto &p : players)
-  { if(username == p.nama){
-    players.clear();
+  for (auto &p : players){
+
     tulis1 << p.nama << " " << p.kayu << " " << p.batu << " " << p.scrap << " " << p.token << " " << p.turn <<endl;
-      players.push_back(p);
-    }
+    
   }
   tulis1.close();
-}
+  
+  }
 
 void updateBuilding(string username){
     vector<string>semuaData;
     string line;
     int i = 0;
-    ifstream file2("../databases/building.txt");
+    ifstream file2("../../databases/building.txt");
     while (getline(file2, line)){
         stringstream baca2(line);
         string name;
@@ -199,7 +237,7 @@ void updateBuilding(string username){
         }
         semuaData.push_back(baris);
     }
-    ofstream tulis("../databases/building.txt");
+    ofstream tulis("../../databases/building.txt");
     for (auto &data : semuaData){
         tulis << data << endl;
     }
@@ -460,30 +498,103 @@ void sapa(string username){
   cout << "Ketik enter untuk melanjutkan...."; getline(cin, baca1);
 }
 
+string menusepsepan(){
+  vector <string> nama;
+  ifstream file("../../databases/player.txt");
+  string line;
+  int logs;
+  
+  getline(file, line);
+  while (getline(file, line)) {
+    if (!line.empty())
+    nama.push_back(line);
+  }
+  file.close();
+  
+  //konsidi
+  if (nama.empty() == true)
+  {
+    return newGame();
+  }
+  
+  else if (nama.empty() == false)
+  {
+    while (true)
+    { 
+      system("cls");
+      garis(30);
+      cout << "          MORIVELLE           \n";
+      garis(30);
+      cout << "1. New Game\n2. Load" << endl;
+      garis(30);
+      cout << "Pilih: "; cin >> logs;
+      if (cin.fail())
+       {
+        cin.clear();
+        cin.ignore();
+        cout << "Masukkan angka\n";
+        continue;
+       }
+      if (logs == 1)
+      {
+        string bucket;
+        getline(cin,bucket); //bug yang belum di ajarin
+        return newGame();
+      }
+
+      else if (logs == 2)
+      {
+        while (true)
+        {
+          garis(30);
+          for (int i = 0; i < (int)nama.size(); i++)
+          {
+            cout << i+1 << ". " << nama[i];
+          }
+          int pilihanUser;
+          cout << "\nPilih index: "; cin >> pilihanUser;
+          if (cin.fail())
+       {
+        cin.clear();
+        cin.ignore();
+        cout << "Masukkan angka";
+        garis(30);
+        continue;
+       }
+
+          if (pilihanUser < 1 || pilihanUser > (int)nama.size())
+          {
+            cout << "Harap masukkan angka yang valid\n";
+            continue;
+          }
+          
+          return nama[pilihanUser-1];
+        }
+        
+        }
+    }
+  }
+}
+
+
 void mainCity(string username){
   string baca1;
   garis(25);
   cout << "Welcome to Arriola Port" << endl;
   garis(25);
   cout << "\nketik enter atau apa saja untuk melanjutkan..."; getline(cin,baca1) ; cout<<endl ;
-  
-  for (auto &p : players)
-  {
-    if (p.nama.empty() == true)
-    {
-      cout << "Karena ini pertama kalinya,";
-    }
-  }
+
   membaca(username);
   sapa(username);
   area(username);
 }
 
 void turn(){
+  
 
 }
 
+
 int main(){
-  string nama = newGame();
-  mainCity(nama);
+  mainCity(menusepsepan());
 }

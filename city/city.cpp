@@ -678,8 +678,3 @@ void turn(){
   
 
 }
-
-
-int main(){
-  mainCity(menusepsepan());
-}

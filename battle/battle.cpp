@@ -68,7 +68,7 @@ void attack(Character &attacker, Character &target) {
     if (target.hp <= 0) {
         target.hp = 0;
         target.alive = false;
-        cout << target.name << " is defeated";
+        cout << target.name << " is defeated\n";
     }
 }
 
@@ -123,14 +123,14 @@ void useSkill(Character &user, vector<Character> &enemyTeam) {
         if (skill.type == "damage") {
             int targetIndex;
 
-            cout << "Choose target : \n";
-
             for (int i = 0; i < enemyTeam.size(); i++) {
                 if (enemyTeam[i].alive) {
-                    cout << i << enemyTeam[i].name << " HP : " << enemyTeam[i].hp << endl;
+                    cout << i + 1 << enemyTeam[i].name << " HP : " << enemyTeam[i].hp << endl;
                 }
             }
-            cin >> targetIndex;
+            cout << "Choose target : \n";
+            cin >> targetIndex; targetIndex -= 1;
+
             
             attack(user, enemyTeam[targetIndex]);
         }
@@ -381,16 +381,14 @@ int main() {
 
     srand(time(0));
 
-    Character knight = {"Knight", 60, 60, 10, 6, true, false, 0};
-    Character jawajawa = {"Jawa Man", 100, 100, 100, 100, true, true, 50};
+    Character knight = {"Knight", 60, 60, 15, 6, true, false, 0};
 
-    jawajawa.skills.push_back({"Jawa Blast", "aoe", 100, 2, 2});
-    jawajawa.skills.push_back({"Jawa Chants", "buff", 100, 10, 2});
+    knight.skills.push_back({"Perseverance", "heal", 30, 1, 3});
 
-    vector<Character> playerTeam = {knight, jawajawa};
+    vector<Character> playerTeam = {knight};
 
-    Character lurker = {"Lurker", 60, 60, 10, 5, false, true, 30};
-    Character Ligma = {"Ligma Monster", 60, 60, 5, false, true, 30};
+    Character lurker = {"Lurker", 60, 60, 20, 5, false, false, 30};
+    Character Ligma = {"Ligma Monster", 60, 60, 15 , 5, false, true, 90};
 
     vector<Character> enemyTeam = {lurker, Ligma};
 

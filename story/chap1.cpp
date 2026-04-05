@@ -1,8 +1,8 @@
 #include <iostream>
 #include <windows.h>
-#include "../utils/helper.cpp"
 #include "../miniGames/ballsSortPuzzle.cpp"
 #include "../miniGames/batuKertasGuning.cpp"
+#include "../battle/battle.cpp"
 using namespace std;
 
 
@@ -125,10 +125,78 @@ int chap1b(){
     return 0;
 }
 
+int chap1c(){
+    system("cls");
+    typing("Patung berhasil dianalisis!\n", 40);
+    typing("Dari hasil analisis, Elias menemukan bahwa kerusakan yang terjadi di Ariolla Port seperti berasal dari satu arah.", 40);
+    typing("Kerusakan ini terlihat seperti berasal dari arah barat laut, yang berarti kemungkinan besar kerusakan ini berasal dari arah pusat Morivelle City.", 40);
+    typing("Elias memutuskan untuk pergi ke arah barat laut.", 40);
+    Sleep(800);
+
+    if (waitOrSkip()) {
+        return 0;
+    }
+
+    system("cls");
+
+    typing("Rovenila, Ariolla Port, Morivelle City.", 40);
+
+    if (waitOrSkip()) {
+        return 0;
+    }
+
+    system("cls");
+
+    typing("Elias tiba di Rovenila, sebuah daerah yang dulunya merupakan pusat pemerintahan region Ariolla Port", 40);
+    typing("Daerah ini dulunya dipenuhi dengan gedung-gedung pemerintahan yang megah, namun kini berubah menjadi reruntuhan yang sunyi dan dipenuhi dengan tanaman liar.", 40);
+    typing("Elias mulai menyusuri daerah ini, mencari petunjuk tentang apa yang terjadi di Ariolla.", 40);
+    Sleep(800);
+
+    if (waitOrSkip()) {
+        return 0;
+    }
+
+    system("cls");
+
+    typing("Disaat Elias menyusuri jalanan Rovenila, ada sesosok makhluk yang muncul dari balik reruntuhan. Makhluk ini terlihat seperti manusia, namun dengan kulit yang berwarna merah dan mata yang menyala-nyala.", 40);
+    typing("Makhluk ini datang menghampiri Elias dengan langkah yang lambat namun pasti, layaknya manusia normal yang sedang berjalan, namun aura yang dipancarkan makhluk ini sangat menakutkan dan mengintimidasi.", 40);
+    typing("Karena penasaran dan keingintahuan yang besar, Elias memutuskan untuk mendekati makhluk ini, berharap bisa mendapatkan petunjuk tentang apa yang terjadi di Ariolla.", 40);
+    Sleep(800);
+
+    if (waitOrSkip()) {
+        return 0;
+    }
+
+    system("cls");
+
+    typing("Elias mendekati makhluk tersebut dengan hati-hati, mencoba untuk tidak menimbulkan kecurigaan atau ancaman bagi makhluk tersebut.", 40);
+    typing("Namun, saat Elias semakin dekat, makhluk tersebut mendekati Elias juga dengan langkah terbata-bata, seolah-olah makhluk tersebut juga penasaran dengan Elias.", 40);
+    typing("Saat mereka berdua berada dalam jarak yang cukup dekat, makhluk tersebut tiba-tiba menyerang Elias", 40);
+    typing("Berbekal handgun serta refleks cepat, Elias berhasil menghindari serangan tersebut dan membalas dengan menembak makhluk tersebut beberapa kali.", 40);
+    typing("Namun, suara peluru membuat seisi Rovenila bergema, menarik perhatian makhluk serupa yang tersembunyi di balik reruntuhan.\n", 40);
+    typing("Notice : Anda akan memasuki battle untuk melawan makhluk tersebut. Jika anda menang, anda dapat melanjutkan cerita. Berusahalah menangkan battle ini!", 40);
+    Sleep(800);
+
+    if (waitOrSkip()) {
+        return 0;
+    }
+
+    system("cls");
+
+    return 0;
+
+}
+
+int chap1d(){
+
+}
+
 int main() {
     chap1a();
     bsp();
     chap1b();
     play();
+    chap1c();
+    battle1();
     return 0;
 }

@@ -111,4 +111,5 @@ int play(){
     } while(ulang == 'y' || ulang == 'Y');
 
     cout << "\n======== Matur Suwun ========\n";
+    return 0;
 }

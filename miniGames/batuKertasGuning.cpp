@@ -45,7 +45,7 @@ string namaPilihan(char x){
     return "";
 }
 
-int main(){
+int play(){
     srand(time(0));
     char ulang;
 
@@ -110,4 +110,5 @@ int main(){
     } while(ulang == 'y' || ulang == 'Y');
 
     cout << "\n======== Matur Suwun ========\n";
+    return 0;
 }

@@ -375,24 +375,57 @@ void actionselect() {
     return;
 }
 
-int main() {
+// int main() {
+//     // Nama - MaxHp - Hp - Atk - Def - CanDefend - CanDodge - DodgeChance
+//     // Nama - Type - Power - Duration - CD
+
+//     srand(time(0));
+
+//     Character knight = {"Knight", 60, 60, 10, 6, true, false, 0};
+//     Character jawajawa = {"Jawa Man", 100, 100, 100, 100, true, true, 50};
+
+//     jawajawa.skills.push_back({"Jawa Blast", "aoe", 100, 2, 2});
+//     jawajawa.skills.push_back({"Jawa Chants", "buff", 100, 10, 2});
+
+//     vector<Character> playerTeam = {knight, jawajawa};
+
+//     Character lurker = {"Lurker", 60, 60, 10, 5, false, true, 30};
+//     Character Ligma = {"Ligma Monster", 60, 60,10, 5, false, true, 30};
+
+//     vector<Character> enemyTeam = {lurker, Ligma};
+
+//     while (teamAlive(playerTeam) and teamAlive(enemyTeam)) {
+//         playerTurn(playerTeam, enemyTeam);
+//         enemyTurn(enemyTeam, playerTeam);
+
+//         update(playerTeam);
+//         update(enemyTeam);
+//     }
+
+//     if (teamAlive(playerTeam)) {
+//         cout << "\nVictory!\n";
+//     } else {
+//         cout << "\nDefeat...\n";
+//     }
+
+//     return 0;
+// }
+
+int battle1() {
     // Nama - MaxHp - Hp - Atk - Def - CanDefend - CanDodge - DodgeChance
     // Nama - Type - Power - Duration - CD
 
     srand(time(0));
 
-    Character knight = {"Knight", 60, 60, 10, 6, true, false, 0};
-    Character jawajawa = {"Jawa Man", 100, 100, 100, 100, true, true, 50};
+    Character Elias = {"Elias Viremont", 50, 50, 10, 5, true, false, 0};
 
-    jawajawa.skills.push_back({"Jawa Blast", "aoe", 100, 2, 2});
-    jawajawa.skills.push_back({"Jawa Chants", "buff", 100, 10, 2});
+    Elias.skills.push_back({"Ballscracker", "damage", 20, 2, 2});
 
-    vector<Character> playerTeam = {knight, jawajawa};
+    vector<Character> playerTeam = {Elias};
 
-    Character lurker = {"Lurker", 60, 60, 10, 5, false, true, 30};
-    Character Ligma = {"Ligma Monster", 60, 60, 5, false, true, 30};
+    Character sickman = {"Sickman", 20, 20, 5, 5, false, true, 30};
 
-    vector<Character> enemyTeam = {lurker, Ligma};
+    vector<Character> enemyTeam = {sickman, sickman};
 
     while (teamAlive(playerTeam) and teamAlive(enemyTeam)) {
         playerTurn(playerTeam, enemyTeam);

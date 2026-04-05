@@ -1,2 +1,4 @@
 nama kayu batu scrap token turn
- 100 100 100 10 1
+gio 100 100 100 100 1
+j 100 100 100 100 1
+l 130 124 118 97 4

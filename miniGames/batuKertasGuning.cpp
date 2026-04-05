@@ -98,16 +98,15 @@ int play(){
         if(skorPlayer == 2){
             return 0;
         } else {
-            cout << "Silahkan Coba Lagi";
-        }
-
-        do {
-            cout << "\nApakah mau ulang (y/n): "; cin >> ulang;
-
-            if(ulang != 'y' && ulang != 'Y' && ulang != 'n' && ulang != 'N'){
-                cout << "Input tidak valid! Masukkan hanya y atau n.\n";
+            cout << "Silahkan Coba Lagi\n";
+            cout << "Ulang Otomatis";
+            for(int i = 0; i < 3; i++){
+                cout << ".";
+                Sleep(1500);
             }
-        } while(ulang != 'y' && ulang != 'Y' && ulang != 'n' && ulang != 'N');
+            ulang = 'y';
+
+        }
     } while(ulang == 'y' || ulang == 'Y');
 
     cout << "\n======== Matur Suwun ========\n";

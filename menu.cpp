@@ -1,7 +1,7 @@
 #include <iostream>
 #include <string>
 #include <windows.h>
-#include "utils/helper.cpp"
+#include "story/prologue.cpp"
 using namespace std;
 
 #define RESET   "\033[0m"
@@ -25,19 +25,8 @@ void menu() {
     cout << CYAN   << "3. Exit\n" << RESET;
 }
 
-void newGame() {
-    system("cls");
-    cout << "Resident Evil.....\n";
-    waitEnter();
-}
 
-void continueGame() {
-    system("cls");
-    cout << "Devil May Cry.....\n";
-    waitEnter();
-}
-
-void mainMenu() {
+int mainMenu() {
     string input;
 
     while (true) {
@@ -51,10 +40,12 @@ void mainMenu() {
         getline(cin, input);
 
         if (input == "1") {
-            newGame();
+            prologue();
+            chap1();
         }
         else if(input == "2") {
-            continueGame();
+            cout << "Fitur tidak tersedia saat ini" << endl;
+            waitEnter();
         }
         else if(input == "3") {
             cout << "Keluar dari game...\n";
@@ -66,9 +57,4 @@ void mainMenu() {
             waitEnter();
         }
     }
-}
-
-int main() {
-    mainMenu();
-    return 0;
 }

@@ -2,7 +2,7 @@
 #include <windows.h>
 #include "../miniGames/ballsSortPuzzle.cpp"
 #include "../miniGames/batuKertasGuning.cpp"
-#include "../battle/battle.cpp"
+#include "../city/city.cpp"
 using namespace std;
 
 
@@ -456,7 +456,22 @@ int chap1d(){
     return 0;
 }
 
-int main() {
+int chap1e(){
+    system("cls");
+    typing("ACT 2 - Rovenila Secret", 100);
+    Sleep(800);
+
+    if (waitOrSkip()) {
+        return 0;
+    }
+
+    system("cls");
+    typing("To Be Continued....", 40);
+
+    return 0;
+}
+
+int chap1() {
     chap1a();
     bsp();
     chap1b();
@@ -464,6 +479,7 @@ int main() {
     chap1c();
     battle1();
     chap1d();
-    
+    mainCity(menusepsepan());
+    chap1e();
     return 0;
 }

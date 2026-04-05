@@ -3,7 +3,7 @@
 #include <fstream>
 #include <sstream>
 #include <vector>
-#include "../utils/helper.cpp"
+#include "../battle/battle.cpp"
 using namespace std;
 
 struct SumberDaya
@@ -39,7 +39,7 @@ struct Area
 };Area daerah[5];
 
 
-
+bool notifStory = false;
 //PEKTOR as Bucketk
 vector <SumberDaya> players;
 
@@ -56,7 +56,7 @@ string newGame(){
   vector <string> check;
 
   //Validasi akun baru
-  ifstream filecek("../../databases/player.txt");
+  ifstream filecek("databases/player.txt");
   getline(filecek,cek);
   while (getline(filecek,cek))
   {
@@ -93,7 +93,7 @@ string newGame(){
   }
   
   //Tamvbah ke resources
-  ofstream file("../../databases/playerresources.txt", ios::app); //appendlibel
+  ofstream file("databases/playerresources.txt", ios::app); //appendlibel
   if (!file.is_open())
   {
     cout << "File tidak ada" << endl;
@@ -102,7 +102,7 @@ string newGame(){
   file.close();
 
   //Tamcbah ke buildings
-  ofstream file2("../../databases/building.txt", ios::app);
+  ofstream file2("databases/building.txt", ios::app);
   if (!file2.is_open())
   {
     cout << "File gaada";
@@ -114,7 +114,7 @@ string newGame(){
   file2 << nama  << ",Moncini Basin,0,Kosong,Kosong,Kosong,Kosong"<< endl;
   file2.close();
 
-  ofstream file3("../../databases/player.txt", ios::app);
+  ofstream file3("databases/player.txt", ios::app);
   if (!file3.is_open())
   {
     cout << "File gaada";
@@ -150,7 +150,7 @@ void setProduksi(Lahan &l){
 
 void membaca(string username){
   players.clear();
-  ifstream file("../../databases/playerresources.txt");
+  ifstream file("databases/playerresources.txt");
   string line;
   getline(file, line);
   while (getline(file, line)) {
@@ -161,7 +161,7 @@ void membaca(string username){
     }
   file.close();
 
-  ifstream file2("../../databases/building.txt");
+  ifstream file2("databases/building.txt");
   int i = 0;
   getline(file2, line);
   while (getline(file2, line)) {
@@ -245,7 +245,7 @@ void PerhitunganSumberDaya(string username){
 
 void updatePlayer(string username){
 
-  ofstream tulis1("../../databases/playerresources.txt");
+  ofstream tulis1("databases/playerresources.txt");
   if (!tulis1.is_open())
   {
     cout << "File tidak ada" << endl;
@@ -264,7 +264,7 @@ void updateBuilding(string username){
     vector<string>semuaData;
     string line;
     int i = 0;
-    ifstream file2("../../databases/building.txt");
+    ifstream file2("databases/building.txt");
     while (getline(file2, line)){
         stringstream baca2(line);
         string name;
@@ -291,7 +291,7 @@ void updateBuilding(string username){
         }
         semuaData.push_back(baris);
     }
-    ofstream tulis("../../databases/building.txt");
+    ofstream tulis("databases/building.txt");
     for (auto &data : semuaData){
         tulis << data << endl;
     }
@@ -456,11 +456,26 @@ void lahanKosong(string username,int i){
   }
 }
 
+bool arriolaSelesai(){
+    for(int i = 0; i < 4; i++){
+        if(daerah[0].bangunan[i].nama == "Kosong"){
+            return false;
+        }
+    }
+    return true;
+}
 
 void area(string username){
   int pArea;
   while (true)
   {
+    if(arriolaSelesai() && !notifStory){
+      cout << "\n[!] Arriola Monument selesai!\n";
+      cout << "[!] Story baru tersedia!\n";
+      notifStory = true;
+      waitEnter();
+    }
+
     system("cls");
     header(username);
     garis(39);
@@ -472,6 +487,7 @@ void area(string username){
       cout<<endl;
     }
     cout<< "6. Next Turn"<<endl;
+    cout<< "7. Lanjut Story"<<endl;
     cout<< "0. Kembali"<<endl;
     garis (39);
     cout <<"Pilih Area: "; cin>>pArea;
@@ -552,6 +568,24 @@ void area(string username){
       continue;
     }
 
+    else if (pArea == 7){
+      if (arriolaSelesai()){
+        char pilih;
+        cout << "Ingin lanjut ke story? (y/n): ";
+        cin >> pilih;
+        if (pilih == 'y' || pilih == 'Y'){
+          cin.ignore();
+          waitEnter();
+          return; 
+        }
+      }
+      else{
+        cout << "Story belum tersedia!\n";
+        cin.ignore();
+        waitEnter();
+      }
+    }
+
     else if (pArea == 0)
     {
       break;
@@ -576,7 +610,7 @@ void sapa(string username){
 
 string menusepsepan(){
   vector <string> nama;
-  ifstream file("../../databases/player.txt");
+  ifstream file("databases/player.txt");
   string line;
   int logs;
   

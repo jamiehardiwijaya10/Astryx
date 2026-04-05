@@ -1,6 +1,6 @@
 #include <iostream>
 #include <windows.h>
-#include "../utils/helper.cpp"
+#include "chap1.cpp"
 using namespace std;
 
 int prologue() {
@@ -235,12 +235,5 @@ int prologue() {
     }
 
     system("cls");
-
-    typing("To Be Continued...", 100);
-    return 0;
-}
-
-int main() {
-    prologue();
     return 0;
 }

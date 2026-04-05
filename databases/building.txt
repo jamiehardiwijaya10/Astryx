@@ -1,2 +1,12 @@
 name area unlockStatus lahan1 lahan2 lahan3 lahan4
+Jamie,Arriola Monument,1,Kosong,Kosong,Kosong,Kosong
+Jamie,Village Of Purification,1,Penebangan Kayu,Penambangan Batu,Pengumpulan Scrap,Kosong
+Jamie,Masonwood,0,Kosong,Kosong,Kosong,Kosong
+Jamie,Rovenilla,0,Kosong,Kosong,Kosong,Kosong
+Jamie,Moncini Basin,0,Kosong,Kosong,Kosong,Kosong
 
+Roven,Arriola Monument,1,Kosong,Kosong,Kosong,Kosong
+Roven,Village Of Purification,1,Penebangan Kayu,Penambangan Batu,Pengumpulan Scrap,Kosong
+Roven,Masonwood,0,Kosong,Kosong,Kosong,Kosong
+Roven,Rovenilla,0,Kosong,Kosong,Kosong,Kosong
+Roven,Moncini Basin,0,Kosong,Kosong,Kosong,Kosong

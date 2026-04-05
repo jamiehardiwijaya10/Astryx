@@ -52,21 +52,57 @@ void garis(int ukuran){
 
 string newGame(){
   string nama;
+  string cek;
+  vector <string> check;
 
+  //Validasi akun baru
+  ifstream filecek("../../databases/player.txt");
+  getline(filecek,cek);
+  while (getline(filecek,cek))
+  {
+    check.push_back(cek);
+  }
+  bool ada = true;
+
+  while (ada)
+  {
+    system("cls");
+    cout << "Masukkan Username: ";
+    getline(cin, nama);
+    cout << endl;
+
+    bool ditemukan = false;
+    for (auto &anggota : check)
+    {
+      if (nama == anggota)
+      {
+        ditemukan = true;
+        break;
+      }
+    }
+
+    if (ditemukan)
+    {
+      cout << "Nama sudah digunakan!\n";
+      system("pause");
+    }
+    else
+    {
+      ada = false;
+    }
+  }
+  
   //Tamvbah ke resources
-  ofstream file("../databases/playerresources.txt", ios::app); //appendlibel
+  ofstream file("../../databases/playerresources.txt", ios::app); //appendlibel
   if (!file.is_open())
   {
     cout << "File tidak ada" << endl;
   }
-  cout << "Masukkan Username: "; getline(cin,nama); cout << endl;
-
-       
   file << nama << " " << "100 100 100 100 1" << endl;
   file.close();
 
   //Tamcbah ke buildings
-  ofstream file2("../databases/building.txt", ios::app);
+  ofstream file2("../../databases/building.txt", ios::app);
   if (!file2.is_open())
   {
     cout << "File gaada";
@@ -78,14 +114,13 @@ string newGame(){
   file2 << nama  << ",Moncini Basin,0,Kosong,Kosong,Kosong,Kosong"<< endl;
   file2.close();
 
-  ofstream file3("../databases/player.txt", ios::app);
+  ofstream file3("../../databases/player.txt", ios::app);
   if (!file3.is_open())
   {
     cout << "File gaada";
   }
   file3 << nama << endl;
   file2.close();
-
 
   return nama;
 }
@@ -115,7 +150,7 @@ void setProduksi(Lahan &l){
 
 void membaca(string username){
   players.clear();
-  ifstream file("../databases/playerresources.txt");
+  ifstream file("../../databases/playerresources.txt");
   string line;
   getline(file, line);
   while (getline(file, line)) {
@@ -126,7 +161,7 @@ void membaca(string username){
     }
   file.close();
 
-  ifstream file2("../databases/building.txt");
+  ifstream file2("../../databases/building.txt");
   int i = 0;
   getline(file2, line);
   while (getline(file2, line)) {
@@ -210,7 +245,7 @@ void PerhitunganSumberDaya(string username){
 
 void updatePlayer(string username){
 
-  ofstream tulis1("../databases/playerresources.txt");
+  ofstream tulis1("../../databases/playerresources.txt");
   if (!tulis1.is_open())
   {
     cout << "File tidak ada" << endl;
@@ -229,7 +264,7 @@ void updateBuilding(string username){
     vector<string>semuaData;
     string line;
     int i = 0;
-    ifstream file2("../databases/building.txt");
+    ifstream file2("../../databases/building.txt");
     while (getline(file2, line)){
         stringstream baca2(line);
         string name;
@@ -256,7 +291,7 @@ void updateBuilding(string username){
         }
         semuaData.push_back(baris);
     }
-    ofstream tulis("../databases/building.txt");
+    ofstream tulis("../../databases/building.txt");
     for (auto &data : semuaData){
         tulis << data << endl;
     }
@@ -541,7 +576,7 @@ void sapa(string username){
 
 string menusepsepan(){
   vector <string> nama;
-  ifstream file("../databases/player.txt");
+  ifstream file("../../databases/player.txt");
   string line;
   int logs;
   

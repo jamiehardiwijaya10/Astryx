@@ -107,7 +107,7 @@ string newGame(){
   {
     cout << "File gaada";
   }
-  file2 << nama  << ",Arriola Monument,1,Kosong,Kosong,Kosong,Kosong"<< endl;
+  file2 << nama  << ",Ariolla Monument,1,Kosong,Kosong,Kosong,Kosong"<< endl;
   file2 << nama  << ",Village Of Purification,1,Penebangan Kayu,Penambangan Batu,Pengumpulan Scrap,Kosong"<< endl;
   file2 << nama  << ",Masonwood,0,Kosong,Kosong,Kosong,Kosong"<< endl;
   file2 << nama  << ",Rovenilla,0,Kosong,Kosong,Kosong,Kosong"<< endl;
@@ -391,7 +391,7 @@ void bangunLahan(int area, int nomorlahan, string username){
        }
       }
 
-   if (daerah[area].nama == "Arriola Monument"){
+   if (daerah[area].nama == "Ariolla Monument"){
        int pilih;
 
        cout << "1. Patung Ariolla (Kayu 50)\n";
@@ -497,7 +497,7 @@ void lahanKosong(string username,int i){
   }
 }
 
-bool arriolaSelesai(){
+bool ariollaSelesai(){
     for(int i = 0; i < 4; i++){
         if(daerah[0].bangunan[i].nama == "Kosong"){
             return false;
@@ -510,8 +510,8 @@ void area(string username){
   int pArea;
   while (true)
   {
-    if(arriolaSelesai() && !notifStory){
-      cout << "\n[!] Arriola Monument selesai!\n";
+    if(ariollaSelesai() && !notifStory){
+      cout << "\n[!] Ariolla Monument selesai!\n";
       cout << "[!] Story baru tersedia!\n";
       notifStory = true;
       waitEnter();
@@ -520,7 +520,7 @@ void area(string username){
     system("cls");
     header(username);
     garis(39);
-    cout << "|           Act 1 - Arriola Port          |" << endl;
+    cout << "|           Act 1 - Ariolla Port          |" << endl;
     garis (39);
     for(int i = 0; i<5; i++){
       cout<< i+1 <<". "; if (daerah[i].unlock){cout<< daerah[i].nama;}
@@ -610,7 +610,7 @@ void area(string username){
     }
 
     else if (pArea == 7){
-      if (arriolaSelesai()){
+      if (ariollaSelesai()){
         char pilih;
         cout << "Ingin lanjut ke story? (y/n): ";
         cin >> pilih;
@@ -740,7 +740,7 @@ string menusepsepan(){
 void mainCity(string username){
   string baca1;
   garis(25);
-  cout << "Welcome to Arriola Port" << endl;
+  cout << "Welcome to Ariolla Port" << endl;
   garis(25);
   cout << "\nketik enter atau apa saja untuk melanjutkan..."; getline(cin,baca1) ; cout<<endl ;
 

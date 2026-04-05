@@ -34,7 +34,7 @@ int prologue() {
     typing("\"Koral yang sebelumnya berwarna putih kini berubah menjadi merah muda.\"", 40);
     typing("\"Mungkin fenomena The Red Tide merubah warnanya\"\n", 40);
     Sleep(500);
-    typing("Note : The Red Tide adalah fenomena alam yang ditandai dengan perubahan warna air laut menjadi merah akibat proliferasi alga.\n", 40);
+    typing("Note : The Red Tide adalah fenomena alam dimana alam merubah dirinya sendiri menjadi sesuatu yang lebih berbahaya dan merusak. The Red Tide bisa merubah segala sesuatu yang ada di alam, termasuk makhluk hidup, menjadi sesuatu yang lebih berbahaya dan merusak.", 40);
 
     if (waitOrSkip()) {
         return 0;

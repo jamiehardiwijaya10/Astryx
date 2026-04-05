@@ -73,16 +73,19 @@ void attack(Character &attacker, Character &target) {
 }
 
 // Buat action skill
-void useSkill(Character &user, vector<Character> &enemyTeam) {
+bool useSkill(Character &user, vector<Character> &enemyTeam) {
     if (user.skills.empty()) {
         cout << "No skill available!\n";
-        return;
+        return false;
     }
     
     bool validSkill = false;
 
     while (!validSkill) {
         cout << "\nChoose Skill : \n";
+        setColor(4);
+        cout << "0. Back\n";
+        setColor(7);
         for (int i = 0; i < user.skills.size(); i++) {
             cout << i + 1 << ". " << user.skills[i].name;
             
@@ -96,9 +99,17 @@ void useSkill(Character &user, vector<Character> &enemyTeam) {
 
         cout << "Choice : ";
         int SkillChoice; cin >> SkillChoice;
-
-        SkillChoice -= 1;
         
+        SkillChoice -= 1;
+
+        // Return to action menu
+        
+        if (SkillChoice == -1) {
+            system("cls");
+
+            return false;
+        }
+
         if (SkillChoice < 0 or SkillChoice >= user.skills.size()) {
             system("cls");
 
@@ -125,14 +136,47 @@ void useSkill(Character &user, vector<Character> &enemyTeam) {
 
             for (int i = 0; i < enemyTeam.size(); i++) {
                 if (enemyTeam[i].alive) {
-                    cout << i + 1 << enemyTeam[i].name << " HP : " << enemyTeam[i].hp << endl;
+                    cout << i + 1 << ". " << enemyTeam[i].name;
+                    setColor(10);
+                    cout << " [HP : " << enemyTeam[i].hp << "]\n";
+                    setColor(7);
                 }
             }
-            cout << "Choose target : \n";
+            cout << "Choose target : ";
             cin >> targetIndex; targetIndex -= 1;
 
-            
-            attack(user, enemyTeam[targetIndex]);
+            system("cls");
+
+            if (targetIndex >= 0 and targetIndex < enemyTeam.size() and enemyTeam[targetIndex].alive) {
+                Character &enemy = enemyTeam[targetIndex];
+
+                int damage = skill.power - enemy.def;
+                
+                if (enemy.dodge) {
+                    if (rand() % 100 < enemy.dodgechance) {
+                        cout << enemy.name << " dodged the skill!\n";
+                        return true;
+                    }
+                }
+
+                if (enemy.defend) {
+                    damage /= 2;
+                }
+
+                if (damage < 1) {
+                    damage = 1;
+                }
+
+                enemy.hp -= damage;
+
+                cout << user.name << " uses " << skill.name << " and deals " << damage << " damage to " << enemy.name << endl;
+
+                if (enemy.hp <= 0) {
+                    enemy.hp = 0;
+                    enemy.alive = false;
+                    cout << enemy.name << " is defeated!\n";
+                }
+            }
         }
 
         // Aoe Skill
@@ -171,6 +215,7 @@ void useSkill(Character &user, vector<Character> &enemyTeam) {
         }
 
         skill.currentCD = skill.cooldown;
+        return true;
     }
 }
 
@@ -203,48 +248,48 @@ void playerTurn(vector<Character> &playerTeam, vector<Character> &enemyTeam) {
             continue;
         }
 
-        garis(29,'=');
-
-        cout << "TURN : "; 
-        setColor(6); 
-        cout << p.name << endl;
-        setColor(7);
-        
-        cout << "HP : "; setColor(10); 
-        cout << p. hp << "/" << p.maxhp << endl;
-        setColor(7);
-        garis(29,'=');
-
-        cout << "Enemies : \n";
-        for (int i = 0; i < enemyTeam.size(); i++) {
-            if (enemyTeam[i].alive) {
-                cout << i + 1 << ". ";
-                setColor(4);
-                cout << enemyTeam[i].name;
-                setColor(10);
-                cout << " [HP : " << enemyTeam[i].hp << "]\n";
-                setColor(7);
-            }
-        }
-        garis(29,'-');
-        
-        cout << "Actions : \n";
-        cout << "1. Attack\n";
-        if (p.canDefend) {
-            cout << "2. Defend\n";
-        }
-        if (p.canDodge) {
-            cout << "3. Dodge\n";
-        }
-        if (!p.skills.empty()) {
-            cout << "4. Skill\n";
-        }
-
-        garis(29, '-');
-
         int choice; bool valid = false;
 
         while (!valid) {
+            garis(29,'=');
+
+            cout << "TURN : "; 
+            setColor(6); 
+            cout << p.name << endl;
+            setColor(7);
+            
+            cout << "HP : "; setColor(10); 
+            cout << p. hp << "/" << p.maxhp << endl;
+            setColor(7);
+            garis(29,'=');
+
+            cout << "Enemies : \n";
+            for (int i = 0; i < enemyTeam.size(); i++) {
+                if (enemyTeam[i].alive) {
+                    cout << i + 1 << ". ";
+                    setColor(4);
+                    cout << enemyTeam[i].name;
+                    setColor(10);
+                    cout << " [HP : " << enemyTeam[i].hp << "]\n";
+                    setColor(7);
+                }
+            }
+            garis(29,'-');
+            
+            cout << "Actions : \n";
+            cout << "1. Attack\n";
+            if (p.canDefend) {
+                cout << "2. Defend\n";
+            }
+            if (p.canDodge) {
+                cout << "3. Dodge\n";
+            }
+            if (!p.skills.empty()) {
+                cout << "4. Skill\n";
+            }
+
+            garis(29, '-');
+
             cout << "Choose action : "; cin >> choice;
 
             if (choice == 1) {
@@ -252,7 +297,12 @@ void playerTurn(vector<Character> &playerTeam, vector<Character> &enemyTeam) {
                 
                 for (int i = 0; i < enemyTeam.size(); i++) {
                     if (enemyTeam[i].alive) {
-                        cout << i + 1 << ". " << enemyTeam[i].name << " [HP : " << enemyTeam[i].hp << "]\n";
+                        cout << i + 1 << ". ";
+                        setColor(4);
+                        cout << enemyTeam[i].name;
+                        setColor(10);
+                        cout << " [HP : " << enemyTeam[i].hp << "]\n";
+                        setColor(7);
                     }
                 }
 
@@ -292,9 +342,9 @@ void playerTurn(vector<Character> &playerTeam, vector<Character> &enemyTeam) {
 
             else if (choice == 4 and !p.skills.empty()) {
                 system("cls");
-                useSkill(p, enemyTeam);
-
-                valid = true;
+                if (useSkill(p, enemyTeam)) {
+                    valid = true;
+                }
             }
 
             else {
@@ -375,22 +425,21 @@ void actionselect() {
     return;
 }
 
-int main() {
+int battle1() {
     // Nama - MaxHp - Hp - Atk - Def - CanDefend - CanDodge - DodgeChance
     // Nama - Type - Power - Duration - CD
 
     srand(time(0));
 
-    Character knight = {"Knight", 60, 60, 15, 6, true, false, 0};
+    Character Elias = {"Elias Viremont", 50, 50, 10, 5, true, false, 0};
 
-    knight.skills.push_back({"Perseverance", "heal", 30, 1, 3});
+    Elias.skills.push_back({"Ballscracker", "damage", 20, 2, 2});
 
-    vector<Character> playerTeam = {knight};
+    vector<Character> playerTeam = {Elias};
 
-    Character lurker = {"Lurker", 60, 60, 20, 5, false, false, 30};
-    Character Ligma = {"Ligma Monster", 60, 60, 15 , 5, false, true, 90};
+    Character sickman = {"Sickman", 20, 20, 10, 5, false, false, 0};
 
-    vector<Character> enemyTeam = {lurker, Ligma};
+    vector<Character> enemyTeam = {sickman, sickman};
 
     while (teamAlive(playerTeam) and teamAlive(enemyTeam)) {
         playerTurn(playerTeam, enemyTeam);
@@ -401,10 +450,13 @@ int main() {
     }
 
     if (teamAlive(playerTeam)) {
+        setColor(6);
         cout << "\nVictory!\n";
     } else {
+        setColor(4);
         cout << "\nDefeat...\n";
     }
+    setColor(7);
 
     return 0;
 }

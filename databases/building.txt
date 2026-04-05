@@ -1,2 +1,1 @@
-name area unlockStatus lahan1 lahan2 lahan3 lahan4 
-
+name area unlockStatus lahan1 lahan2 lahan3 lahan4

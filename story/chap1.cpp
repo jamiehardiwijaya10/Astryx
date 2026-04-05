@@ -472,13 +472,13 @@ int chap1e(){
 }
 
 int chap1() {
-    chap1a();
-    bsp();
-    chap1b();
-    play();
-    chap1c();
-    battle1();
-    chap1d();
+//     chap1a();
+//     bsp();
+//     chap1b();
+//     play();
+//     chap1c();
+//     battle1();
+//     chap1d();
     mainCity(menusepsepan());
     chap1e();
     return 0;

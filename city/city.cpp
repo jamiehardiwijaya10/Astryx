@@ -243,7 +243,7 @@ void PerhitunganSumberDaya(string username){
   }
 }
 
-void updatePlayer(string username){
+void updatePlayer(){
 
   ofstream tulis1("databases/playerresources.txt");
   if (!tulis1.is_open())
@@ -338,17 +338,58 @@ void bangunLahan(int area, int nomorlahan, string username){
        cout << "0. Batal\n";
        cout << "Pilih: "; cin >> pilih;
 
-       if (pilih == 1)
-           daerah[area].bangunan[nomorlahan].nama = "Penebangan Kayu";
-       else if (pilih == 2)
-           daerah[area].bangunan[nomorlahan].nama = "Penambangan Batu";
-       else if (pilih == 3)
-           daerah[area].bangunan[nomorlahan].nama = "Pengumpulan Scrap";
-       else return;
+       for (auto &p : players){
+        if (p.nama == username){
+
+          if (pilih == 1 && p.batu >= 30 && p.scrap >= 5){
+
+            if (daerah[area].bangunan[nomorlahan].nama == "Penebangan Kayu")
+            {
+              cout << "Tidak bisa membangun bangunan yang sama" << endl;
+              system("pause");
+            }
+            else
+            {
+            daerah[area].bangunan[nomorlahan].nama = "Penebangan Kayu";
+            p.batu -= 30;
+            p.scrap -= 5;
+            }
+          }
+
+          else if (pilih == 2 && p.kayu >=20 && p.scrap >= 5){
+            if (daerah[area].bangunan[nomorlahan].nama == "Penambangan Batu")
+            {
+              cout << "Tidak bisa membangun bangunan yang sama" << endl;
+              system("pause");
+            }
+            else
+            {
+            daerah[area].bangunan[nomorlahan].nama = "Penambangan Batu";
+            p.kayu -= 20;
+            p.scrap -= 5;
+            }
+          }
+
+          else if (pilih == 3 && p.kayu >= 30 && p.batu >= 30){
+            if (daerah[area].bangunan[nomorlahan].nama == "Pengumpulan Scrap")
+            {
+              cout << "Tidak bisa membangun bangunan yang sama" << endl;
+              system("pause");
+            }
+            else{
+            daerah[area].bangunan[nomorlahan].nama = "Pengumpulan Scrap";
+            p.kayu -= 30;
+            p.batu -= 30;
+            }
+
+          }
+          else return;
 
        setProduksi(daerah[area].bangunan[nomorlahan]);
        return;
-   }
+        }
+       }
+      }
 
    if (daerah[area].nama == "Arriola Monument"){
        int pilih;
@@ -563,7 +604,7 @@ void area(string username){
     { 
       PerhitunganSumberDaya(username);
       updateBuilding(username);
-      updatePlayer(username);
+      updatePlayer();
       system("cls");
       continue;
     }
@@ -706,9 +747,4 @@ void mainCity(string username){
   membaca(username);
   sapa(username);
   area(username);
-}
-
-void turn(){
-  
-
 }

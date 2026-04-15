@@ -73,7 +73,7 @@ void attack(Character &attacker, Character &target) {
 }
 
 // Buat action skill
-bool useSkill(Character &user, vector<Character> &enemyTeam) {
+bool useSkill(Character &user, vector<Character> &playerTeam, vector<Character> &enemyTeam) {
     if (user.skills.empty()) {
         cout << "No skill available!\n";
         return false;
@@ -83,9 +83,9 @@ bool useSkill(Character &user, vector<Character> &enemyTeam) {
 
     while (!validSkill) {
         cout << "\nChoose Skill : \n";
-        setColor(4);
+        setColor(RED_COLOR);
         cout << "0. Back\n";
-        setColor(7);
+        setColor(DEFAULT_COLOR);
         for (int i = 0; i < user.skills.size(); i++) {
             cout << i + 1 << ". " << user.skills[i].name;
             
@@ -199,27 +199,89 @@ bool useSkill(Character &user, vector<Character> &enemyTeam) {
 
         // HEAL
         else if (skill.type == "heal") {
-            user.hp += skill.power;
-            if (user.hp > user.maxhp) {
-                user.hp = user.maxhp;
+            int targetIndex; bool validTarget = false;
+
+            while (!validTarget) {
+                system("cls");
+                cout << "\nChoose target to heal : \n";
+
+                for (int i = 0; i < playerTeam.size(); i++) {
+                    if (playerTeam[i].alive) {
+                        cout << i + 1 << ". "; setColor(GREEN_COLOR);
+                        cout << playerTeam[i].name << " [HP : " <<  playerTeam[i].hp << "/" << playerTeam[i].maxhp << "]";
+                        setColor(DEFAULT_COLOR);
+
+                        if (&playerTeam[i] == &user) {
+                            printColor(" (SELF)", YELLOW_COLOR);
+                        }
+
+                        cout << endl;
+                    }
+                }
+
+                cout << "Choice : "; cin >> targetIndex;
+                targetIndex -= 1;
+
+                if (targetIndex >= 0 and targetIndex < playerTeam.size() and playerTeam[targetIndex].alive) {
+                    Character &ally = playerTeam[targetIndex];
+
+                    ally.hp += skill.power;
+                    if (ally.hp > ally.maxhp) {
+                        ally.hp = ally.maxhp;
+                    }
+
+                    setColor(GREEN_COLOR);
+                    cout << ally.name; printColor(" healed for ", DEFAULT_COLOR); cout << skill.power << " HP!\n";
+
+                    validTarget = true;
+                } else {
+                    cout << "Invalid target!\n";
+                }
             }
-
-            cout << user.name << " heals " << skill.power << " HP\n";
         }
-
+    
         // Buff Skill
         else if (skill.type == "buff") {
-            user.buffAttack += skill.power;
+            int targetIndex; bool validTarget = false;
 
-            cout << user.name << " gains +" << skill.power << " attack this turn!\n";
+            while (!validTarget) {
+                system("cls");
+                cout << "\nChoose target to buff : \n";
+
+                for (int i = 0; i < playerTeam.size(); i++) {
+                    if (playerTeam[i].alive) {
+                        cout << i + 1 << ". "; printColor(playerTeam[i].name, GREEN_COLOR); setColor(RED_COLOR);
+                        cout << " [ATK : " << playerTeam[i].atk << "]"; setColor(DEFAULT_COLOR);
+
+                        if (&playerTeam[i] == &user) {
+                            printColor(" (SELF)", YELLOW_COLOR);
+                        }
+
+                        cout << endl;
+                    }
+                }
+                cout << "\nChoose target : "; cin >> targetIndex;
+                targetIndex -= 1;
+
+                if (targetIndex >= 0 and targetIndex < playerTeam.size() and playerTeam[targetIndex].alive) {
+                    Character &ally = playerTeam[targetIndex];
+
+                    ally.buffAttack += skill.power;
+
+                    printColor(ally.name, GREEN_COLOR); cout << " gains "; setColor(RED_COLOR);
+                    cout << skill.power << " ATK!\n"; setColor(DEFAULT_COLOR);
+
+                    validTarget = true;
+                } else {
+                    cout << "Invalid target!\n";
+                }
+            }
         }
 
         skill.currentCD = skill.cooldown;
         return true;
     }
-}
-
-    
+}   
 
 // Function buat nyari targert random
 Character& RandomTarget(vector<Character> &team) {
@@ -244,6 +306,15 @@ bool teamAlive(vector<Character> &team) {
 // Buat action player
 void playerTurn(vector<Character> &playerTeam, vector<Character> &enemyTeam) {
     for (auto &p : playerTeam) {
+        if (!teamAlive(enemyTeam)) {
+            cout << "\nAll enemies defeated!";
+
+            Sleep(1000);
+            system("cls");
+
+            return;
+        }
+        
         if (!p.alive) {
             continue;
         }
@@ -254,10 +325,11 @@ void playerTurn(vector<Character> &playerTeam, vector<Character> &enemyTeam) {
             garis(29,'=');
 
             cout << "TURN : "; 
-            setColor(6); 
-            cout << p.name << endl;
-            setColor(7);
             
+            setColor(YELLOW_COLOR);
+            cout << p.name << endl;
+            
+            setColor(GREEN_COLOR);
             cout << "HP : "; setColor(10); 
             cout << p. hp << "/" << p.maxhp << endl;
             setColor(7);
@@ -342,7 +414,7 @@ void playerTurn(vector<Character> &playerTeam, vector<Character> &enemyTeam) {
 
             else if (choice == 4 and !p.skills.empty()) {
                 system("cls");
-                if (useSkill(p, enemyTeam)) {
+                if (useSkill(p, playerTeam ,enemyTeam)) {
                     valid = true;
                 }
             }
@@ -361,27 +433,124 @@ void enemyTurn(vector<Character> &enemyTeam, vector<Character> &playerTeam) {
             continue;
         }
 
-        cout << "\nEnemy " << e.name << "'s turn\n";
+        cout << "\nEnemy "; printColor(e.name, RED_COLOR); cout << "'s turn\n";
 
-        int r = rand() % 100;
+        bool actionDone = false;
 
-        if (!e.skills.empty() and r > 80) {
-            useSkill(e, playerTeam);
+        // Enemy will atk lowest HP
+        int target = -1;
+        for (int i = 0; i < playerTeam.size(); i++) {
+            if (playerTeam[i].alive) {
+                if (target == -1 or playerTeam[i].hp < playerTeam[target].hp) {
+                    target = i;
+                }
+            }
+        }
+        
+        // Enemy will do defensive shi if low hp
+        if (!actionDone and e.hp < e.maxhp * 0.3 ) {
+            for (auto &skill : e.skills) {
+                if (skill.type == "heal" and skill.currentCD == 0) {
+                    printColor(e.name, RED_COLOR); cout << " uses " << skill.name << "!\n";
+
+                    e.hp += skill.power;
+                    if (e.hp > e.maxhp) {
+                        e.hp = e.maxhp;
+                    }
+
+                    skill.currentCD = skill.cooldown;
+                    actionDone = true;
+                    break;
+                }
+            }
+
+            if (!actionDone and e.canDefend) {
+                e.defend = 1;
+                printColor(e.name, RED_COLOR); cout << " is defending!\n";
+                actionDone = true;
+            }
+
+            if (!actionDone and e.canDodge) {
+                e.dodge = 1;
+                printColor(e.name, RED_COLOR); cout << " prepares to dodge!\n";
+                actionDone = true;
+            }
         }
 
-        else if (e.canDodge and r > 50) {
-            e.dodge = 1;
-            cout << e.name << " prepared to dodge!\n"; 
+        // AOE Skill if many player
+        if (!actionDone) {
+            int aliveCount = 0;
+            
+            for (auto &p :playerTeam) {
+                if (p.alive) {
+                    aliveCount++;
+                }
+            }
+
+            if (aliveCount >= 2) {
+                for (auto &skill : e.skills) {
+                    if (skill.type == "aoe" and skill.currentCD == 0) {
+                        printColor(e.name, RED_COLOR); cout << "uses " << skill.name << "!\n";
+
+                        for (auto &p : playerTeam) {
+                            if (!p.alive) {
+                                continue;
+                            }
+
+                            p.hp -= skill.power;
+
+                            printColor(p.name, GREEN_COLOR); cout << " takes "; setColor(RED_COLOR);
+                            cout << skill.power << " damage!\n"; setColor(DEFAULT_COLOR);
+
+                            if (p.hp <= 0) {
+                                p.hp = 0;
+                                p.alive = false;
+                                cout << p.name << " is defeated!\n";
+                            }
+                        }
+                        skill.currentCD = skill.cooldown;
+                        actionDone = true;
+                        break;
+                    }
+                    
+                }
+            }
         }
 
-        else if (e.canDefend and r > 30) {
-            e.defend = 1;
-            cout << e.name << " is defending!\n";
+        // Damage Skill 
+        if (!actionDone) {
+            for (auto &skill : e.skills) {
+                if (skill.type == "damage" and skill.currentCD == 0) {
+                    if (rand() % 100 < 70) {
+                        printColor(e.name, RED_COLOR); cout << " uses " << skill.name << "!\n";
+
+                        int damage = skill.power - playerTeam[target].def;
+                        if (damage < 1) {
+                            damage = 1;
+                        }
+
+                        playerTeam[target].hp -= damage;
+
+                        printColor(playerTeam[target].name, GREEN_COLOR); cout << " takes "; setColor(RED_COLOR);
+                        cout << damage << " damage!\n"; setColor(DEFAULT_COLOR);
+
+                        if (playerTeam[target].hp <= 0) {
+                            playerTeam[target].hp = 0;
+                            playerTeam[target].alive = false;
+                            cout << playerTeam[target].name << " is defeated!\n";
+                        }
+
+                        skill.currentCD = skill.cooldown;
+                        actionDone = true;
+                        break;
+                    }
+                }
+            }
         }
 
-        else {
-            Character &target = RandomTarget(playerTeam);
-            attack(e, target);
+        // Default action
+        if (!actionDone and target != -1) {
+            attack(e, playerTeam[target]);
         }
     }
 }
@@ -425,7 +594,8 @@ void actionselect() {
     return;
 }
 
-int battle1() {
+int main() {
+    system("cls");
     // Nama - MaxHp - Hp - Atk - Def - CanDefend - CanDodge - DodgeChance
     // Nama - Type - Power - Duration - CD
 
@@ -450,13 +620,13 @@ int battle1() {
     }
 
     if (teamAlive(playerTeam)) {
-        setColor(6);
-        cout << "\nVictory!\n";
+        setColor(YELLOW_COLOR);
+        cout << "Victory!\n";
     } else {
-        setColor(4);
-        cout << "\nDefeat...\n";
+        setColor(RED_COLOR);
+        cout << "Defeat...\n";
     }
-    setColor(7);
+    setColor(DEFAULT_COLOR);
 
     return 0;
 }

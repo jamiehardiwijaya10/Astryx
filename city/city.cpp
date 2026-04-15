@@ -19,10 +19,6 @@ struct SumberDaya
 struct Lahan
 {
   string nama;
-  bool rusak;
-  int bKayu;
-  int bBatu;
-  int bBesi;
   int pKayu;
   int pBatu;
   int pScrap;
@@ -32,10 +28,11 @@ struct Area
 {
   string nama;
   bool unlock;
+  int kapasitas;
   int totalK;
   int totalB;
   int totalS;
-  Lahan bangunan[4];
+  Lahan bangunan[10];
 };Area daerah[5];
 
 
@@ -56,7 +53,7 @@ string newGame(){
   vector <string> check;
 
   //Validasi akun baru
-  ifstream filecek("databases/player.txt");
+  ifstream filecek("../databases/player.txt");
   getline(filecek,cek);
   while (getline(filecek,cek))
   {
@@ -93,7 +90,7 @@ string newGame(){
   }
   
   //Tamvbah ke resources
-  ofstream file("databases/playerresources.txt", ios::app); //appendlibel
+  ofstream file("../databases/playerresources.txt", ios::app); //appendlibel
   if (!file.is_open())
   {
     cout << "File tidak ada" << endl;
@@ -102,25 +99,25 @@ string newGame(){
   file.close();
 
   //Tamcbah ke buildings
-  ofstream file2("databases/building.txt", ios::app);
+  ofstream file2("../databases/building.txt", ios::app);
   if (!file2.is_open())
   {
     cout << "File gaada";
   }
-  file2 << nama  << ",Ariolla Monument,1,Kosong,Kosong,Kosong,Kosong"<< endl;
-  file2 << nama  << ",Village Of Purification,1,Penebangan Kayu,Penambangan Batu,Pengumpulan Scrap,Kosong"<< endl;
-  file2 << nama  << ",Masonwood,0,Kosong,Kosong,Kosong,Kosong"<< endl;
-  file2 << nama  << ",Rovenilla,0,Kosong,Kosong,Kosong,Kosong"<< endl;
-  file2 << nama  << ",Moncini Basin,0,Kosong,Kosong,Kosong,Kosong"<< endl;
+  file2 << nama  << ",Ariolla Monument,1,5,Lahan Kosong,Lahan Kosong,Lahan Kosong,Lahan Kosong,Lahan Kosong"<< endl;
+  file2 << nama  << ",Village Of Purification,1,4,Penebangan Kayu,Penambangan Batu,Pengumpulan Scrap,Lahan Kosong"<< endl;
+  file2 << nama  << ",Masonwood,0,0"<< endl;
+  file2 << nama  << ",Rovenilla,0,10,Lahan Kosong,Lahan Kosong,Lahan Kosong,Lahan Kosong,Lahan Kosong,Lahan Kosong,Lahan Kosong,Lahan Kosong,Lahan Kosong,Lahan Kosong"<< endl;
+  file2 << nama  << ",Moncini Basin,0,3,Lahan Kosong,Lahan Kosong,Lahan Kosong"<< endl;
   file2.close();
 
-  ofstream file3("databases/player.txt", ios::app);
+  ofstream file3("../databases/player.txt", ios::app);
   if (!file3.is_open())
   {
     cout << "File gaada";
   }
   file3 << nama << endl;
-  file2.close();
+  file3.close();
 
   return nama;
 }
@@ -141,7 +138,7 @@ void setProduksi(Lahan &l){
         l.pBatu = 0;
         l.pScrap = 6;
     }
-    else if(l.nama == "Kosong"){
+    else if(l.nama == "Lahan Kosong"){
         l.pKayu = 0;
         l.pBatu = 0;
         l.pScrap = 0;
@@ -150,7 +147,7 @@ void setProduksi(Lahan &l){
 
 void membaca(string username){
   players.clear();
-  ifstream file("databases/playerresources.txt");
+  ifstream file("../databases/playerresources.txt");
   string line;
   getline(file, line);
   while (getline(file, line)) {
@@ -161,7 +158,7 @@ void membaca(string username){
     }
   file.close();
 
-  ifstream file2("databases/building.txt");
+  ifstream file2("../databases/building.txt");
   int i = 0;
   getline(file2, line);
   while (getline(file2, line)) {
@@ -169,38 +166,30 @@ void membaca(string username){
         string name;
         string areaName;
         string unlockStatus;
-        string l1,l2,l3,l4;
+        string kapasitasLahan;
+        string namaLahan;
 
         getline(baca2, name, ',');
         getline(baca2, areaName, ',');
         getline(baca2, unlockStatus, ',');
-        getline(baca2, l1, ',');
-        getline(baca2, l2, ',');
-        getline(baca2, l3, ',');
-        getline(baca2, l4);
+        getline(baca2, kapasitasLahan, ',');
 
         if (name == username && i < 5){
 
             daerah[i].nama = areaName;
-
             daerah[i].unlock = (unlockStatus == "1");
+            daerah[i].kapasitas = stoi(kapasitasLahan);
 
-            daerah[i].bangunan[0].nama = l1;
-            daerah[i].bangunan[1].nama = l2;
-            daerah[i].bangunan[2].nama = l3;
-            daerah[i].bangunan[3].nama = l4;
-
-            if (areaName == "Village Of Purification"){
-              daerah[i].bangunan[0].nama = "Penebangan Kayu";
-              daerah[i].bangunan[1].nama = "Penambangan Batu";
-              daerah[i].bangunan[2].nama = "Pengumpulan Scrap";
-              }
-
-            setProduksi(daerah[i].bangunan[0]);
-            setProduksi(daerah[i].bangunan[1]);
-            setProduksi(daerah[i].bangunan[2]);
-            setProduksi(daerah[i].bangunan[3]);
-
+            for(int j=0; j<daerah[i].kapasitas; j++){
+                if(j<daerah[i].kapasitas-1){
+                  getline(baca2, namaLahan, ',');
+                }
+                else{
+                  getline(baca2, namaLahan);
+                }
+                daerah[i].bangunan[j].nama = namaLahan;
+                setProduksi(daerah[i].bangunan[j]);
+            }
             i++;
           }
         }
@@ -215,12 +204,10 @@ void PerhitunganSumberDaya(string username){
         int totalB = 0;
         int totalS = 0;
         
-        for (int i=0; i<5; i++){
-          for(int j = 0; j<4; j++){
-            totalK += daerah[i].bangunan[j].pKayu;
-            totalB += daerah[i].bangunan[j].pBatu;
-            totalS += daerah[i].bangunan[j].pScrap;
-          }
+        for (int i=0; i<4; i++){
+            totalK += daerah[1].bangunan[i].pKayu;
+            totalB += daerah[1].bangunan[i].pBatu;
+            totalS += daerah[1].bangunan[i].pScrap;
         }
         p.kayu += totalK;
         p.batu += totalB;
@@ -228,7 +215,6 @@ void PerhitunganSumberDaya(string username){
         p.turn++;
         p.token--;
         
-
         cout << "Token tersisa: " << p.token  << endl;
         cin.ignore();
         waitEnter();
@@ -245,7 +231,7 @@ void PerhitunganSumberDaya(string username){
 
 void updatePlayer(){
 
-  ofstream tulis1("databases/playerresources.txt");
+  ofstream tulis1("../databases/playerresources.txt");
   if (!tulis1.is_open())
   {
     cout << "File tidak ada" << endl;
@@ -264,7 +250,7 @@ void updateBuilding(string username){
     vector<string>semuaData;
     string line;
     int i = 0;
-    ifstream file2("databases/building.txt");
+    ifstream file2("../databases/building.txt");
     while (getline(file2, line)){
         stringstream baca2(line);
         string name;
@@ -283,15 +269,16 @@ void updateBuilding(string username){
         baris += username + ",";
         baris += daerah[i].nama + ",";
         baris += (daerah[i].unlock ? "1" : "0") + string(",");
+        baris += to_string(daerah[i].kapasitas) + ",";
 
-        for (int j=0; j<4; j++){
+        for (int j=0; j<daerah[i].kapasitas; j++){
             baris += daerah[i].bangunan[j].nama;
-            if (j < 3)
+            if (j < daerah[i].kapasitas-1)
                 baris += ",";
         }
         semuaData.push_back(baris);
     }
-    ofstream tulis("databases/building.txt");
+    ofstream tulis("../databases/building.txt");
     for (auto &data : semuaData){
         tulis << data << endl;
     }
@@ -314,7 +301,7 @@ void statistikArea(int i){
     daerah[i].totalK = 0;
     daerah[i].totalB = 0;
     daerah[i].totalS = 0;
-    for(int j = 0; j<4; j++){
+    for(int j = 0; j<daerah[i].kapasitas; j++){
         daerah[i].totalK += daerah[i].bangunan[j].pKayu;
         daerah[i].totalB += daerah[i].bangunan[j].pBatu;
         daerah[i].totalS += daerah[i].bangunan[j].pScrap;
@@ -443,14 +430,15 @@ void lahanKosong(string username,int i){
     cout<<"Selamat datang di" << daerah[i].nama <<"\n" << endl;
     header(username);
     garis(39);
-    cout << "|          "<< daerah[i].nama <<"          |" << endl;
+    cout << "|           "<< daerah[i].nama <<"          |" << endl;
     garis (39);
-    for(int j=0; j<4; j++){
-      cout<< j+1 <<". Lahan "<< daerah[i].bangunan[j].nama <<endl;
+    for(int j=0; j<daerah[i].kapasitas; j++){
+      cout<< j+1 <<". " << daerah[i].bangunan[j].nama <<endl;
     }
     cout<< "0. Kembali "<<endl;
     garis (39);
-    statistikArea(i);
+    if (i==1)
+        {statistikArea(i);}
     cout<< "Pilih lahan: ";cin>>pLahan;
 
     if (cin.fail())
@@ -499,7 +487,7 @@ void lahanKosong(string username,int i){
 
 bool ariollaSelesai(){
     for(int i = 0; i < 4; i++){
-        if(daerah[0].bangunan[i].nama == "Kosong"){
+        if(daerah[0].bangunan[i].nama == "Lahan Kosong"){
             return false;
         }
     }
@@ -520,7 +508,7 @@ void area(string username){
     system("cls");
     header(username);
     garis(39);
-    cout << "|           Act 1 - Ariolla Port          |" << endl;
+    cout << "|              Ariolla Port             |" << endl;
     garis (39);
     for(int i = 0; i<5; i++){
       cout<< i+1 <<". "; if (daerah[i].unlock){cout<< daerah[i].nama;}
@@ -651,7 +639,7 @@ void sapa(string username){
 
 string menusepsepan(){
   vector <string> nama;
-  ifstream file("databases/player.txt");
+  ifstream file("../databases/player.txt");
   string line;
   int logs;
   
@@ -747,4 +735,8 @@ void mainCity(string username){
   membaca(username);
   sapa(username);
   area(username);
+}
+
+int main(){
+  mainCity(menusepsepan());
 }

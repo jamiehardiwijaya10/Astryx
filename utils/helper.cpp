@@ -3,6 +3,17 @@
 
 using namespace std;
 
+#define DEFAULT_COLOR 7
+
+#define RED_COLOR 12
+#define GREEN_COLOR 10
+#define YELLOW_COLOR 14
+#define BLUE_COLOR 9
+#define CYAN_COLOR 11
+#define PURPLE_COLOR 13
+#define WHITE_COLOR 15
+#define GRAY_COLOR 8
+
 void typing(string text, int delay = 30) {
     for (char c : text) {
         cout << c << flush;
@@ -50,4 +61,10 @@ void waitEnter() {
 
 void setColor(int color) {
     SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), color);
+}
+
+void printColor(string text, int color) {
+    setColor(color);
+    cout << text;
+    setColor(DEFAULT_COLOR);
 }

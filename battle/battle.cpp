@@ -587,7 +587,7 @@ int battle1() {
 
     Character Elias = {"Elias Viremont", 50, 50, 10, 5, true, false, 0};
 
-    Elias.skills.push_back({"Ballscracker", "damage", 20, 2, 2});
+    Elias.skills.push_back({"Iron Verdict", "damage", 20, 2, 2});
 
     vector<Character> playerTeam = {Elias};
 
@@ -623,8 +623,8 @@ int boss() {
     Character Elias = {"Elias Viremont", 50, 50, 10, 5, true, false, 0};
     Character Knight = {"Knight", 60, 60, 10, 5, false, true, 60};
 
-    Elias.skills.push_back({"Ballscracker", "damage", 20, 0, 2});
-    Knight.skills.push_back({"Essence of HARMony", "heal", 25, 0, 3});
+    Elias.skills.push_back({"Iron Verdict", "damage", 20, 0, 2});
+    Knight.skills.push_back({"Essence of Harmony", "heal", 25, 0, 3});
 
     vector<Character> playerTeam = {Elias, Knight};
 

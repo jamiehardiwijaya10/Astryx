@@ -105,11 +105,11 @@ string newGame(){
   {
     cout << "File gaada";
   }
-  file2 << nama  << ",Ariolla Monument,1,5,Lahan Kosong,Lahan Kosong,Lahan Kosong,Lahan Kosong,Lahan Kosong"<< endl;
-  file2 << nama  << ",Village Of Purification,1,4,Penebangan Kayu,Penambangan Batu,Pengumpulan Scrap,Lahan Kosong"<< endl;
+  file2 << nama  << ",Ariolla Monument,1,5,Empty Land,Empty Land,Empty Land,Empty Land,Empty Land"<< endl;
+  file2 << nama  << ",Village Of Purification,1,4,Lumberyard,Stone Quarry,Scrap Reclamation Center,Empty Land"<< endl;
   file2 << nama  << ",Masonwood,0,0"<< endl;
-  file2 << nama  << ",Rovenilla,1,10,Lahan Kosong,Lahan Kosong,Lahan Kosong,Lahan Kosong,Lahan Kosong,Lahan Kosong,Lahan Kosong,Lahan Kosong,Lahan Kosong,Lahan Kosong"<< endl;
-  file2 << nama  << ",Moncini Basin,1,3,Lahan Kosong,Lahan Kosong,Lahan Kosong"<< endl;
+  file2 << nama  << ",Rovenilla,1,10,Empty Land,Empty Land,Empty Land,Empty Land,Empty Land,Empty Land,Empty Land,Empty Land,Empty Land,Empty Land"<< endl;
+  file2 << nama  << ",Moncini Basin,1,3,Empty Land,Empty Land,Empty Land"<< endl;
   file2.close();
 
   ofstream file3("../databases/player.txt", ios::app);
@@ -124,16 +124,16 @@ string newGame(){
 }
 
 void setProduksi(Lahan &l){
-    if (l.nama == "Penebangan Kayu"){
+    if (l.nama == "Lumberyard"){
         l.pKayu = 10;
     }
-    else if (l.nama == "Penambangan Batu"){
+    else if (l.nama == "Stone Quarry"){
         l.pBatu = 8;
     }
-    else if (l.nama == "Pengumpulan Scrap"){
+    else if (l.nama == "Scrap Reclamation Center"){
         l.pScrap = 6;
     }
-    else if(l.nama == "Lahan Kosong"){
+    else if(l.nama == "Empty Land"){
         l.pKayu = l.pBatu = l.pScrap = 0;
     }
 }
@@ -285,7 +285,7 @@ void header(string username){
     {
       cout << "[Token = " << p.token << "]                [" << "Turn ke-" << p.turn << "]"<< endl;
       garis(39);
-      cout << "| Kayu: "<< p.kayu << "| Batu: "<< p.batu << "| Scrap: "<< p.scrap <<" |"<<endl;
+      cout << "| Wood: "<< p.kayu << "| Stone: "<< p.batu << "| Scrap: "<< p.scrap <<" |"<<endl;
     }
   }
 }
@@ -301,28 +301,28 @@ void statistikArea(int i){
         }
     
     cout<<"Statistik Area:"<<endl;
-    cout<<"Kayu = "<< daerah[i].totalK <<"/Turn" <<endl;
-    cout<<"Batu = "<< daerah[i].totalB <<"/Turn" <<endl;
-    cout<<"Scrap= "<< daerah[i].totalS <<"/Turn" <<endl;
+    cout<<"Wood  = "<< daerah[i].totalK <<"/Turn" <<endl;
+    cout<<"Stone = "<< daerah[i].totalB <<"/Turn" <<endl;
+    cout<<"Scrap = "<< daerah[i].totalS <<"/Turn" <<endl;
     garis (39);
 }
 
 void ariollaMonument(string username, int area,int nomorlahan){
   int pilih;
-  string bangunan[]={"Patung Ariolla",
-    "Dermaga Kapal",
+  string bangunan[]={"The Ariolla Statue",
+    "The Ship Docks",
     "Ariolla Market",
-    "Klinik Ariolla",
-    "Halte Ariolla"};
+    "Ariolla Clinic",
+    "Ariolla Transit Station"};
 
   for(int i=0; i<daerah[area].kapasitas; i++){
     if(daerah[area].bangunan[i].rusak){
       cout<<i+1<<". "<< bangunan[i];
-      if(i == 0){cout<<" (50 kayu)"<<endl;}
-      else if(i == 1){cout<<" (30 kayu, 20 Batu)"<<endl;}
+      if(i == 0){cout<<" (50 Wood)"<<endl;}
+      else if(i == 1){cout<<" (30 Wood, 20 Stone)"<<endl;}
       else if(i == 2){cout<<" (Scrap 25)"<<endl;}
-      else if(i == 3){cout<<" (Scrap 30, Batu 10)"<<endl;}
-      else if(i == 4){cout<<" (20 kayu, 15 Batu, 10 Scrap)"<<endl;}
+      else if(i == 3){cout<<" (Scrap 30, Stone 10)"<<endl;}
+      else if(i == 4){cout<<" (20 Wood, 15 Stone, 10 Scrap)"<<endl;}
     }
   }
       cout << "0. Batal\n";
@@ -333,30 +333,84 @@ void ariollaMonument(string username, int area,int nomorlahan){
 
                if (pilih == 1 ){
                   if(daerah[area].bangunan[nomorlahan].rusak && p.kayu >= 50)
+                    if(
+                  daerah[area].bangunan[0].nama == bangunan[0] ||
+                  daerah[area].bangunan[1].nama == bangunan[0] ||
+                  daerah[area].bangunan[2].nama == bangunan[0] ||
+                  daerah[area].bangunan[3].nama == bangunan[0] ||
+                  daerah[area].bangunan[4].nama == bangunan[0]          
+                ){cout<< "Maaf, tidak ada pilihan"<< endl;
+                  system("pause");
+                  return;}
+                else{
                    p.kayu -= 50;
                    daerah[area].bangunan[nomorlahan].nama = bangunan[0];
-                   daerah[area].bangunan[nomorlahan].rusak = false;
-                   
+                   daerah[area].bangunan[0].rusak = false;
+                }
                }
                else if (pilih == 2 && p.kayu >= 30 && p.batu >= 20){
+                if(
+                  daerah[area].bangunan[0].nama == bangunan[1] ||
+                  daerah[area].bangunan[1].nama == bangunan[1] ||
+                  daerah[area].bangunan[2].nama == bangunan[1] ||
+                  daerah[area].bangunan[3].nama == bangunan[1] ||
+                  daerah[area].bangunan[4].nama == bangunan[1]          
+                ){cout<< "Maaf, tidak ada pilihan"<< endl;
+                  system("pause"); 
+                  return;}
+                else{
                    p.kayu -= 30; p.batu -= 20;
                    daerah[area].bangunan[nomorlahan].nama = bangunan[1];
-                   daerah[area].bangunan[nomorlahan].rusak = false;
+                   daerah[area].bangunan[1].rusak = false;
+                }
                }
                else if (pilih == 3 && p.scrap >= 25){
+                 if(
+                  daerah[area].bangunan[0].nama == bangunan[2] ||
+                  daerah[area].bangunan[1].nama == bangunan[2] ||
+                  daerah[area].bangunan[2].nama == bangunan[2] ||
+                  daerah[area].bangunan[3].nama == bangunan[2] ||
+                  daerah[area].bangunan[4].nama == bangunan[2]          
+                ){cout<< "Maaf, tidak ada pilihan"<< endl;
+                  system("pause");
+                  return;}
+                else{
                    p.scrap -= 25;
                    daerah[area].bangunan[nomorlahan].nama = bangunan[2];
-                   daerah[area].bangunan[nomorlahan].rusak = false;
+                   daerah[area].bangunan[2].rusak = false;
+                }
                }
                else if (pilih == 4 && p.scrap >= 30 && p.batu >= 10){
+                if(
+                  daerah[area].bangunan[0].nama == bangunan[3] ||
+                  daerah[area].bangunan[1].nama == bangunan[3] ||
+                  daerah[area].bangunan[2].nama == bangunan[3] ||
+                  daerah[area].bangunan[3].nama == bangunan[3] ||
+                  daerah[area].bangunan[4].nama == bangunan[3]          
+                ){cout<< "Maaf, tidak ada pilihan"<< endl;
+                  system("pause");
+                  return;}
+                else{
                    p.scrap -= 30; p.batu -= 10;
                    daerah[area].bangunan[nomorlahan].nama = bangunan[3];
-                   daerah[area].bangunan[nomorlahan].rusak = false;
+                   daerah[area].bangunan[3].rusak = false;
+                }
                }
                else if (pilih == 5 && p.kayu >= 20 && p.batu >= 15 && p.scrap >= 10){
+                if(
+                  daerah[area].bangunan[0].nama == bangunan[4] ||
+                  daerah[area].bangunan[1].nama == bangunan[4] ||
+                  daerah[area].bangunan[2].nama == bangunan[4] ||
+                  daerah[area].bangunan[3].nama == bangunan[4] ||
+                  daerah[area].bangunan[4].nama == bangunan[4]          
+                ){cout<< "Maaf, tidak ada pilihan"<< endl;
+                  system("pause");
+                  return;}
+                else{
                    p.kayu -= 20; p.batu -= 15; p.scrap -= 10;
                    daerah[area].bangunan[nomorlahan].nama = bangunan[4];
-                   daerah[area].bangunan[nomorlahan].rusak = false;
+                   daerah[area].bangunan[4].rusak = false;
+                }
                }
                else if (pilih == 0){
                    return;
@@ -373,9 +427,9 @@ void ariollaMonument(string username, int area,int nomorlahan){
 void villageOfPurification(string username, int area,int nomorlahan){
   int pilih;
 
-       cout << "1. Penebangan Kayu\n";
-       cout << "2. Penambangan Batu\n";
-       cout << "3. Pengumpulan Scrap\n";
+       cout << "1. Lumberyard\n";
+       cout << "2. Stone Quarry\n";
+       cout << "3. Scrap Reclamation Center\n";
        cout << "0. Batal\n";
        cout << "Pilih : "; cin >> pilih;
 
@@ -384,14 +438,14 @@ void villageOfPurification(string username, int area,int nomorlahan){
 
           if (pilih == 1){
 
-            if (daerah[area].bangunan[nomorlahan].nama == "Penebangan Kayu")
+            if (daerah[area].bangunan[nomorlahan].nama == "Lumberyard")
             {
               cout << "Tidak bisa membangun bangunan yang sama" << endl;
               system("pause");
             }
             else if( p.batu >= 30 && p.scrap >= 5)
             {
-              daerah[area].bangunan[nomorlahan].nama = "Penebangan Kayu";
+              daerah[area].bangunan[nomorlahan].nama = "Lumberyard";
               p.batu -= 30;
               p.scrap -= 5;
             }
@@ -403,14 +457,14 @@ void villageOfPurification(string username, int area,int nomorlahan){
           }
 
           else if (pilih == 2){
-            if (daerah[area].bangunan[nomorlahan].nama == "Penambangan Batu")
+            if (daerah[area].bangunan[nomorlahan].nama == "Stone Quarry")
             {
               cout << "Tidak bisa membangun bangunan yang sama" << endl;
               system("pause");
             }
             else if(p.kayu >=20 && p.scrap >= 5)
             {
-            daerah[area].bangunan[nomorlahan].nama = "Penambangan Batu";
+            daerah[area].bangunan[nomorlahan].nama = "Stone Quarry";
             p.kayu -= 20;
             p.scrap -= 5;
             }
@@ -422,14 +476,14 @@ void villageOfPurification(string username, int area,int nomorlahan){
           }
 
           else if (pilih == 3){
-            if (daerah[area].bangunan[nomorlahan].nama == "Pengumpulan Scrap")
+            if (daerah[area].bangunan[nomorlahan].nama == "Scrap Reclamation Center")
             {
               cout << "Tidak bisa membangun bangunan yang sama" << endl;
               system("pause");
             }
             else if(p.kayu >= 30 && p.batu >= 30)
             {
-            daerah[area].bangunan[nomorlahan].nama = "Pengumpulan Scrap";
+            daerah[area].bangunan[nomorlahan].nama = "Scrap Reclamation Center";
             p.kayu -= 30;
             p.batu -= 30;
             }
@@ -450,16 +504,16 @@ void villageOfPurification(string username, int area,int nomorlahan){
 
 void rovenilla(string username, int area,int nomorlahan){
   int pilih;
-  string bangunan[]={ "Pasar Raya Roven",
-        "Pusat Pemurnian Air Tirta",
-        "Gudang Logistik Baja",
-        "Akademi Sains dan Riset",
-        "Rumah Sakit Memorial RovenIlla",
-        "Panti Asuhan Harapan Baru",
-        "Menara Pemancar Sinyal",
-        "Tembok Pertahanan Aegis",
-        "Barak Pasukan Vanguard",
-        "Gedung Kediaman Gubernur"};
+  string bangunan[]={ "The Grand Roven Market",
+  "Central Water Purification Plant",
+  "Iron-Bound Warehouse",
+  "The Academy of Sciences",
+  "RovenIlla Memorial Hospital",
+  "The Orphanage of Hope",
+  "Signal Transmission Tower",
+  "The Aegis Wall",
+  "Vanguard Barracks",
+  "The Governor's Manor"};
 
   for(int i=0; i<daerah[area].kapasitas; i++){
     if(daerah[area].bangunan[i].rusak){
@@ -548,9 +602,9 @@ void rovenilla(string username, int area,int nomorlahan){
 
 void monciniBasin(string username, int area, int nomorlahan){
   int pilih;
-  string bangunan[]={ "Meriam Rel Pemurni",
-        "Menara Pelindung Resonansi",
-        "Pelontar Harpun Kinetik"};
+  string bangunan[]={ "The Purification Rail-Cannon",
+  "Aegis Resonance Pylon",
+  "Kinetic Harpoon Launcher"};
 
   for(int i=0; i<daerah[area].kapasitas; i++){
     if(daerah[area].bangunan[i].rusak){
@@ -666,7 +720,7 @@ void lahanKosong(string username,int i){
 
 bool ariollaSelesai(){
     for(int i = 0; i < daerah[0].kapasitas; i++){
-        if(daerah[0].bangunan[i].nama == "Lahan Kosong"){
+        if(daerah[0].bangunan[i].nama == "Empty Land"){
             return false;
         }
     }
@@ -685,11 +739,11 @@ void area(string username){
     garis (39);
     for(int i = 0; i<5; i++){
       cout<< i+1 <<". "; if (daerah[i].unlock){cout<< daerah[i].nama;}
-      else cout<<"(Terkunci)";
+      else cout<<"(Locked)";
       cout<<endl;
     }
     cout<< "6. Next Turn and Save"<<endl;
-    cout<< "7. Lanjut Story"<<endl;
+    cout<< "7. Next Story"<<endl;
     cout<< "0. Kembali"<<endl;
     garis (39);
     cout <<"Pilih Area: "; cin>>pArea;

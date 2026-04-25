@@ -27,9 +27,9 @@ struct Character {
     bool canDefend;
     bool canDodge;
 
+    int dodgechance;
     int defend = 0;
     int dodge = 0; 
-    int dodgechance;
 
     int buffAttack = 0;
 
@@ -37,22 +37,19 @@ struct Character {
     bool alive = true;
 };
 
-// Function buat action attack (damage calc etc)
-void attack(Character &attacker, Character &target) {
+// Update : Jadinya calc damage disatuin biar enak kedepannya
+int applyDamage(Character &attacker, Character &target, int rawDamage) {
     if (target.dodge) {
-        int roll = rand() % 100;
-        if (roll < target.dodgechance) {
+        if (rand() % 100 < target.dodgechance) {
             cout << target.name << " successfully dodged the attack!\n";
-            return;
+            
+            return 0;
         } else {
             cout << target.name << " tried to dodge but failed!\n";
         }
     }
 
-    // Buat damage calculationz
-    int totalAttack = attacker.atk + attacker.buffAttack;
-
-    int damage = totalAttack - target.def;
+    int damage = rawDamage - target.def;
 
     if (target.defend) {
         damage /= 2;
@@ -63,12 +60,26 @@ void attack(Character &attacker, Character &target) {
     }
 
     target.hp -= damage;
-    cout << attacker.name << " deals " << damage << " damage to " << target.name << endl;
 
     if (target.hp <= 0) {
         target.hp = 0;
         target.alive = false;
-        cout << target.name << " is defeated\n";
+    }
+
+    return damage;
+}
+
+// Function buat action attack (damage calc etc)
+void attack(Character &attacker, Character &target) {
+    int raw = attacker.atk + attacker.buffAttack;
+    int damage = applyDamage(attacker, target, raw);
+
+    if (damage > 0) {
+        cout << attacker.name << " deals " << damage << " damage to " << target.name << endl;
+    }
+
+    if (target.hp <= 0) {
+        cout << target.name << " is defeated!\n";
     }
 }
 
@@ -137,9 +148,9 @@ bool useSkill(Character &user, vector<Character> &playerTeam, vector<Character> 
             for (int i = 0; i < enemyTeam.size(); i++) {
                 if (enemyTeam[i].alive) {
                     cout << i + 1 << ". " << enemyTeam[i].name;
-                    setColor(10);
+                    setColor(RED_COLOR);
                     cout << " [HP : " << enemyTeam[i].hp << "]\n";
-                    setColor(7);
+                    setColor(DEFAULT_COLOR);
                 }
             }
             cout << "Choose target : ";
@@ -150,31 +161,10 @@ bool useSkill(Character &user, vector<Character> &playerTeam, vector<Character> 
             if (targetIndex >= 0 and targetIndex < enemyTeam.size() and enemyTeam[targetIndex].alive) {
                 Character &enemy = enemyTeam[targetIndex];
 
-                int damage = skill.power - enemy.def;
-                
-                if (enemy.dodge) {
-                    if (rand() % 100 < enemy.dodgechance) {
-                        cout << enemy.name << " dodged the skill!\n";
-                        return true;
-                    }
-                }
+                int damage = applyDamage(user, enemy, skill.power);
 
-                if (enemy.defend) {
-                    damage /= 2;
-                }
-
-                if (damage < 1) {
-                    damage = 1;
-                }
-
-                enemy.hp -= damage;
-
-                cout << user.name << " uses " << skill.name << " and deals " << damage << " damage to " << enemy.name << endl;
-
-                if (enemy.hp <= 0) {
-                    enemy.hp = 0;
-                    enemy.alive = false;
-                    cout << enemy.name << " is defeated!\n";
+                if (damage > 0) {
+                    cout << user.name << " uses " << skill.name << " and deals " << damage << " damage to " << enemy.name << endl;
                 }
             }
         }
@@ -183,14 +173,13 @@ bool useSkill(Character &user, vector<Character> &playerTeam, vector<Character> 
         else if (skill.type == "aoe") {
             for (auto &enemy : enemyTeam) {
                 if (enemy.alive) {
-                    enemy.hp -= skill.power;
+                    int damage = applyDamage(user, enemy, skill.power);
 
-                    cout << enemy.name << " takes " << skill.power << " damage\n";
+                    if (damage > 0) {
+                        cout << enemy.name << " takes " << damage << " damage\n";
+                    }
 
                     if (enemy.hp <= 0) {
-                        enemy.hp = 0;
-                        enemy.alive = false;
-
                         cout << enemy.name << " is defeated!\n";
                     }
                 }
@@ -490,21 +479,21 @@ void enemyTurn(vector<Character> &enemyTeam, vector<Character> &playerTeam) {
             if (aliveCount >= 2) {
                 for (auto &skill : e.skills) {
                     if (skill.type == "aoe" and skill.currentCD == 0) {
-                        printColor(e.name, RED_COLOR); cout << "uses " << skill.name << "!\n";
-
+                        printColor(e.name, RED_COLOR); cout << " uses " << skill.name << "!\n";
+                        
                         for (auto &p : playerTeam) {
                             if (!p.alive) {
                                 continue;
                             }
+                            
+                            int damage = applyDamage(e, p, skill.power);
 
-                            p.hp -= skill.power;
-
-                            printColor(p.name, GREEN_COLOR); cout << " takes "; setColor(RED_COLOR);
-                            cout << skill.power << " damage!\n"; setColor(DEFAULT_COLOR);
+                            if (damage > 0) {
+                                printColor(p.name, GREEN_COLOR); cout << " takes "; setColor(RED_COLOR);
+                                cout << skill.power << " damage!\n"; setColor(DEFAULT_COLOR);
+                            }
 
                             if (p.hp <= 0) {
-                                p.hp = 0;
-                                p.alive = false;
                                 cout << p.name << " is defeated!\n";
                             }
                         }
@@ -523,20 +512,15 @@ void enemyTurn(vector<Character> &enemyTeam, vector<Character> &playerTeam) {
                 if (skill.type == "damage" and skill.currentCD == 0) {
                     if (rand() % 100 < 70) {
                         printColor(e.name, RED_COLOR); cout << " uses " << skill.name << "!\n";
+                        
+                        int damage = applyDamage(e, playerTeam[target], skill.power);
 
-                        int damage = skill.power - playerTeam[target].def;
-                        if (damage < 1) {
-                            damage = 1;
+                        if (damage > 0) {
+                            printColor(playerTeam[target].name, GREEN_COLOR); cout << " takes "; setColor(RED_COLOR);
+                            cout << damage << " damage!\n"; setColor(DEFAULT_COLOR);
                         }
 
-                        playerTeam[target].hp -= damage;
-
-                        printColor(playerTeam[target].name, GREEN_COLOR); cout << " takes "; setColor(RED_COLOR);
-                        cout << damage << " damage!\n"; setColor(DEFAULT_COLOR);
-
                         if (playerTeam[target].hp <= 0) {
-                            playerTeam[target].hp = 0;
-                            playerTeam[target].alive = false;
                             cout << playerTeam[target].name << " is defeated!\n";
                         }
 
@@ -594,7 +578,7 @@ void actionselect() {
     return;
 }
 
-int main() {
+int battle1() {
     system("cls");
     // Nama - MaxHp - Hp - Atk - Def - CanDefend - CanDodge - DodgeChance
     // Nama - Type - Power - Duration - CD
@@ -610,6 +594,48 @@ int main() {
     Character sickman = {"Sickman", 20, 20, 10, 5, false, false, 0};
 
     vector<Character> enemyTeam = {sickman, sickman};
+
+    while (teamAlive(playerTeam) and teamAlive(enemyTeam)) {
+        playerTurn(playerTeam, enemyTeam);
+        enemyTurn(enemyTeam, playerTeam);
+
+        update(playerTeam);
+        update(enemyTeam);
+    }
+
+    if (teamAlive(playerTeam)) {
+        setColor(YELLOW_COLOR);
+        cout << "Victory!\n";
+    } else {
+        setColor(RED_COLOR);
+        cout << "Defeat...\n";
+    }
+    setColor(DEFAULT_COLOR);
+
+    return 0;
+}
+
+int boss() {
+    system("cls");
+
+    srand(time(0));
+
+    Character Elias = {"Elias Viremont", 50, 50, 10, 5, true, false, 0};
+    Character Knight = {"Knight", 60, 60, 10, 5, false, true, 60};
+
+    Elias.skills.push_back({"Ballscracker", "damage", 20, 0, 2});
+    Knight.skills.push_back({"Essence of HARMony", "heal", 25, 0, 3});
+
+    vector<Character> playerTeam = {Elias, Knight};
+
+    Character Vessel = {"Vessel of The Deep", 140, 140, 15, 5, true, false, 0};
+
+    Vessel.skills.push_back({"Tide of Rebirth", "heal", 25, 0, 3});
+    Vessel.skills.push_back({"Crushing Depths", "damage", 20, 0, 4});
+    Vessel.skills.push_back({"Drowning Cataclysm", "aoe", 30, 0, 6});
+
+
+    vector<Character> enemyTeam = {Vessel};
 
     while (teamAlive(playerTeam) and teamAlive(enemyTeam)) {
         playerTurn(playerTeam, enemyTeam);

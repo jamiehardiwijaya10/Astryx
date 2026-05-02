@@ -41,7 +41,7 @@ void animasiNomor(string jenis, int nilai, int color = 7) {
         current += step;
         if (current > nilai) current = nilai;
 
-        cout << "\r" << nilai;
+        cout << "\r" << jenis;
         setColor(color);
         cout << current;
         setColor(7);
@@ -99,7 +99,7 @@ void reward(Dungeon dungeon, BattleResult &hasil) {
             token += 3;
         }
         hasil.totalToken += token;
-        cout << "Kamu mendapatkan " << token << " token!\n";
+        cout << "Kamu mendapatkan " << token << " Token!\n";
     }  else if (dungeon.jenis == RESOURCE) {
         int kayu = (70 + rand() % 51) + (lantai * 3);
         int batu = (70 + rand() % 51) + (lantai * 3);
@@ -125,7 +125,7 @@ void reward(Dungeon dungeon, BattleResult &hasil) {
             exp *= 2;
         }
         hasil.totalLevelMat += exp;
-        cout << "Kamu mendapatkan " << exp << " Level Material!\n";
+        cout << "Kamu mendapatkan " << exp << " Lunar Syringe !\n";
     } else if (dungeon.jenis == SKILL) {
         int base = 5 + rand() % 6;
         int total = base + (lantai * 2);
@@ -134,7 +134,7 @@ void reward(Dungeon dungeon, BattleResult &hasil) {
             total *= 2;
         }
         hasil.totalSkillMat += total;
-        cout << "Mendapatkan Material Skill " << total << "\n";
+        cout << "Mendapatkan " << total << " Thunder Horn\n";
     }
 }
 

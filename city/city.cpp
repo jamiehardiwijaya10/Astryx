@@ -964,6 +964,6 @@ void mainCity(string username){
   area(username);
 }
 
-int main(){
-  mainCity(menusepsepan());
-}
+// int main(){
+//   mainCity(menusepsepan());
+// }

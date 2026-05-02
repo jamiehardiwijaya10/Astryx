@@ -656,3 +656,101 @@ int boss() {
 
     return 0;
 }
+
+vector<Character> generateEnemy(int floor) {
+    vector<Character> enemies;
+    bool isBoss = (floor % 5 == 0);
+    int jumlahMusuh;
+
+    if (isBoss) {
+        jumlahMusuh = 1;
+    } else if (floor <= 5) {
+        jumlahMusuh = 2;
+    } else if (floor <= 15) {
+        jumlahMusuh = 3;
+    } else {
+        jumlahMusuh = 4;
+    }
+
+    for (int i = 0; i < jumlahMusuh; i++) {
+        Character musuh;
+        int baseHP = 30 + (floor * 12);
+        int baseATK = 6 + (floor * 7);
+        int baseDEF = 3 + (floor);
+
+        musuh.name = "Enemy L" + to_string(floor) + "-" + to_string(i + 1);
+        musuh.maxhp = baseHP;
+        musuh.hp = musuh.maxhp;
+        musuh.atk = baseATK;
+        musuh.def = baseDEF;
+
+        musuh.canDefend = (floor >= 3);
+        musuh.canDodge = (floor >= 6);
+        musuh.dodgechance = 10 + (floor * 2);
+        musuh.alive = true;
+
+        if (floor >= 4) {
+            musuh.skills.push_back({"Claw Slash", "damage", 10 + floor * 2, 0, 2});
+        }
+        if (floor >= 10) {
+            musuh.skills.push_back({"Rage Burst", "aoe", 8 + floor, 0 ,3});
+        }
+        if (isBoss && i == 0) {
+            musuh.name = "BOSS FLOOR " + to_string(floor);
+
+            musuh.maxhp *= 2;
+            musuh.hp = musuh.maxhp;
+            musuh.atk += 10;
+            musuh.def += 5;
+            musuh.dodgechance += 15;
+        }
+        enemies.push_back(musuh);
+    }
+    return enemies;
+}
+
+int battleDungeon(int floor) {
+    system("cls");
+    cout << "\n=== BATTLE DUNGEON FLOOR " << floor << " ===\n";
+    Character Elias = {"Elias Viremont", 100, 100, 12, 5, true, false, 0};
+    Elias.skills.push_back({"Ballscracker", "damage", 20, 0, 2});
+    Elias.skills.push_back({"Hitamkan", "damage", 80, 0, 1});
+
+    vector<Character> playerTeam = {Elias};
+    vector<Character> enemyTeam = generateEnemy(floor);
+    bool isBoss = (floor % 5 == 0);
+
+    if (isBoss) {
+        setColor(RED_COLOR);
+        cout << "\n!!! BOSS MUNCUL !!!\n";
+        setColor(DEFAULT_COLOR);
+
+        Sleep(300);
+        cout << ".";
+        Sleep(300);
+        cout << ".";
+        Sleep(300);
+        cout << ".\n";
+        Sleep(500);
+    }
+
+    while (teamAlive(playerTeam) && teamAlive(enemyTeam)) {
+        playerTurn(playerTeam, enemyTeam);
+        enemyTurn(enemyTeam, playerTeam);
+
+        update(playerTeam);
+        update(enemyTeam);
+    }
+
+    if (teamAlive(playerTeam)) {
+        setColor(YELLOW_COLOR);
+        cout << "\nVictory!\n";
+        setColor(DEFAULT_COLOR);
+        return 1;
+    } else {
+        setColor(RED_COLOR);
+        cout << "\nDefeat...\n";
+        setColor(DEFAULT_COLOR);
+        return 0;
+    }
+}

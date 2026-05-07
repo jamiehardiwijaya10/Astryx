@@ -2,3 +2,6 @@ nama kayu batu scrap token turn
 Jamie 100 100 100 100 1
 Roven 100 100 100 100 1
 Romulus 60 44 103 97 4
+iqi1 1000 1000 1000 1000 1
+min 1000 1000 1000 1000 1
+thom 1000 1000 1000 1000 1

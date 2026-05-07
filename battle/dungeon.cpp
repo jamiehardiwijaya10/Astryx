@@ -3,6 +3,7 @@
 #include <cstdlib>
 #include <ctime>
 #include <windows.h>
+#include "battle.cpp"
 using namespace std;
 
 enum tipeDungeon {

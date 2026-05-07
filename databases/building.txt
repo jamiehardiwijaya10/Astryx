@@ -15,3 +15,18 @@ Romulus,Village Of Purification,1,Penebangan Kayu,Penambangan Batu,Pengumpulan S
 Romulus,Masonwood,0,Kosong,Kosong,Kosong,Kosong
 Romulus,Rovenilla,0,Kosong,Kosong,Kosong,Kosong
 Romulus,Moncini Basin,0,Kosong,Kosong,Kosong,Kosong
+iqi1,Ariolla Monument,1,5,Empty Land,Empty Land,Empty Land,Empty Land,Empty Land
+iqi1,Village Of Purification,1,4,Lumberyard,Stone Quarry,Scrap Reclamation Center,Empty Land
+iqi1,Masonwood,0,0
+iqi1,Rovenilla,1,10,Empty Land,Empty Land,Empty Land,Empty Land,Empty Land,Empty Land,Empty Land,Empty Land,Empty Land,Empty Land
+iqi1,Moncini Basin,1,3,Empty Land,Empty Land,Empty Land
+min,Ariolla Monument,1,5,Empty Land,Empty Land,Empty Land,Empty Land,Empty Land
+min,Village Of Purification,1,4,Lumberyard,Stone Quarry,Scrap Reclamation Center,Empty Land
+min,Masonwood,1,0
+min,Rovenilla,1,10,Empty Land,Empty Land,Empty Land,Empty Land,Empty Land,Empty Land,Empty Land,Empty Land,Empty Land,Empty Land
+min,Moncini Basin,1,3,Empty Land,Empty Land,Empty Land
+thom,Ariolla Monument,1,5,Empty Land,Empty Land,Empty Land,Empty Land,Empty Land
+thom,Village Of Purification,1,4,Lumberyard,Stone Quarry,Scrap Reclamation Center,Empty Land
+thom,Masonwood,1,0
+thom,Rovenilla,1,10,Empty Land,Empty Land,Empty Land,Empty Land,Empty Land,Empty Land,Empty Land,Empty Land,Empty Land,Empty Land
+thom,Moncini Basin,1,3,Empty Land,Empty Land,Empty Land

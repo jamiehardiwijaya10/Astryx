@@ -1,5 +1,6 @@
 #include <iostream>
 #include <windows.h>
+#include "../city/city.cpp"
 using namespace std;
 
 const int kapasitasTabung = 5;
@@ -146,6 +147,7 @@ int bsp() {
         cout << "Langkah: " << langkah << "/" <<kapasitasLangkah << endl;
 
         if (menang()) {
+            saveGame(1,3);
             return 0;
         }
 

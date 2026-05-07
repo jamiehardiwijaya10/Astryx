@@ -612,6 +612,7 @@ int battle1() {
     }
     setColor(DEFAULT_COLOR);
 
+    saveGame(1, 7);
     return 0;
 }
 

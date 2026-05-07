@@ -1,4 +1,5 @@
 #include <iostream>
+#include <fstream>
 #include <windows.h>
 
 using namespace std;
@@ -20,6 +21,34 @@ void typing(string text, int delay = 30) {
         Sleep(delay);
     }
     cout << endl;
+}
+
+
+struct SaveData {
+    int chapter;
+    int scene;
+};
+
+SaveData save;
+
+void saveGame(int chapter, int scene) {
+    ofstream file("databases/save.txt");
+    file << chapter << endl;
+    file << scene << endl;
+    file.close();
+}
+
+void loadGame() {
+    ifstream file("databases/save.txt");
+
+    if (file.is_open()) {
+        file >> save.chapter;
+        file >> save.scene;
+        file.close();
+    } else {
+        save.chapter = 1;
+        save.scene = 1;
+    }
 }
 
 void title(string text) {

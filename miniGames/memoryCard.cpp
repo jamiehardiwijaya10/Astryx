@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <ctime>
 #include <windows.h>
+#include "ballsSortPuzzle.cpp"
 using namespace std;
 
 struct kartu{
@@ -178,6 +179,8 @@ int mc() {
         if (cekMenang(first)) {
             cout << "Percobaan: " << percobaan << endl;
             cout << "Skor: " << skor << "/4\n";
+            
+            saveGame(1,5);
             
             kartu *current = first;
             while (current != NULL) {

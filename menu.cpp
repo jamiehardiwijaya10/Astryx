@@ -40,12 +40,15 @@ int mainMenu() {
         getline(cin, input);
 
         if (input == "1") {
+            saveGame(1, 1);
             prologue();
-            chap1();
+            chap1(1);
         }
-        else if(input == "2") {
-            cout << "Fitur tidak tersedia saat ini" << endl;
-            waitEnter();
+        else if (input == "2") {
+            loadGame();
+            if (save.chapter == 1) {
+                chap1(save.scene);
+            }
         }
         else if(input == "3") {
             cout << "Keluar dari game...\n";
@@ -57,4 +60,5 @@ int mainMenu() {
             waitEnter();
         }
     }
+    return 0;
 }

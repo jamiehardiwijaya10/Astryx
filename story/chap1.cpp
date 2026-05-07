@@ -1,8 +1,6 @@
 #include <iostream>
 #include <windows.h>
-#include "../miniGames/ballsSortPuzzle.cpp"
 #include "../miniGames/memoryCard.cpp"
-#include "../city/city.cpp"
 using namespace std;
 
 
@@ -41,10 +39,10 @@ int chap1a(){
     }
     system("cls");
 
-    typing("Setelah melalui perjalanan selama 14 jam dari Pelabuhan Elpis, Elias tiba di Morivelle.", 40);
-    typing("Tepatnya di Ariolla Port yang dulu menjadi pusat kedatangan turis ke Morivelle dan 1 dari 5 region besar di Morivelle", 40);
-    typing("\"Apakah ini... A-Ariolla Port?\"", 40);
-    typing("\"A-Apa yang terjadi disini?\"", 40);
+    typing("After traveling for 14 hours from Elpis Harbor, Elias arrives in Morivelle.", 40);
+    typing("Specifically at Ariolla Port, which was once the center of tourist arrivals to Morivelle and 1 of the 5 major regions in Morivelle", 40);
+    typing("\"Is this... A-Ariolla Port?\"", 40);
+    typing("\"W-What happened here?\"", 40);
     Sleep(800);
 
     if (waitOrSkip()) {
@@ -52,9 +50,9 @@ int chap1a(){
     }
     system("cls");
 
-    typing("Ariolla Port yang dulu ramai dengan turis kini berubah menjadi kota mati yang sunyi. Bangunan-bangunan yang dulu megah kini hancur dan dipenuhi dengan tanaman liar.", 40);
-    typing("Pelabuhan yang dulu penuh dengan kapal kini kosong dan dipenuhi dengan sampah-sampah yang berserakan.", 40);
-    typing("Elias berjalan menyusuri pelabuhan dengan perasaan campur aduk antara sedih, marah, dan bingung.", 40);
+    typing("Ariolla Port, which was once thriving with tourists, has become a desolate dead city. Buildings that were once magnificent are now destroyed and filled with wild plants.", 40);
+    typing("The harbor, which was once full of ships, is now empty and filled with scattered garbage.", 40);
+    typing("Elias walks through the harbor with mixed emotions of sadness, anger, and confusion.", 40);
     Sleep(800);
 
     if (waitOrSkip()) {
@@ -62,10 +60,10 @@ int chap1a(){
     }
     system("cls");
 
-    typing("\"Fenomena The Red Tide belum mampu memberikan dampak sebesar ini.\"", 40);
-    typing("\"Apakah ini puncak kerusakan dari The Red Tide?\"", 40);
-    typing("Mengesampingkan emosinya, Elias pergi untuk mencari tahu apa yang terjadi dengan kota asalnya", 40);
-    typing("Ia mulai mencari informasi dengan memeriksa bangunan-bangunan yang masih berdiri, mencari petunjuk tentang apa yang terjadi di Ariolla Monument.", 40);
+    typing("\"The Red Tide phenomenon hasn't been able to cause such massive destruction.\"", 40);
+    typing("\"Is this the peak of destruction from The Red Tide?\"", 40);
+    typing("Putting aside her emotions, Elias goes to find out what happened to her hometown", 40);
+    typing("She begins searching for information by examining the buildings that still stand, looking for clues about what happened at Ariolla Monument.", 40);
     Sleep(800);
 
     if (waitOrSkip()) {
@@ -73,10 +71,10 @@ int chap1a(){
     }
     system("cls");
 
-    typing("Elias menemukan sebuah kotak yang terkunci.", 40);
-    typing("Elias mencoba membuka kotak tersebut\n", 40);
+    typing("Elias finds a locked box.", 40);
+    typing("Elias tries to open the box\n", 40);
 
-    typing("Notice : Anda akan memasuki mini game untuk membuka kotak tersebut. Jika anda menang, anda dapat melanjutkan cerita. Berusahalah menangkan mini game ini!", 40);
+    typing("Notice: You will enter a mini-game to open the box. If you win, you can continue the story. Try your best to win this mini-game!", 40);
     Sleep(800);
 
     if (waitOrSkip()) {
@@ -84,13 +82,14 @@ int chap1a(){
     }
     system("cls");    
 
+    saveGame(1,2);
     return 0;
 }
 
 int chap1b(){
     system("cls");
-    typing("Kotak tersebut terbuka!", 40);
-    typing("Kotak ini kosong. Elias merasa kecewa.", 40);
+    typing("The box opens!", 40);
+    typing("The box is empty. Elias feels disappointed.", 40);
     Sleep(800);
 
     if (waitOrSkip()) {
@@ -98,13 +97,13 @@ int chap1b(){
     }
     system("cls");
 
-    typing("Elias berusaha melanjutkan investigasinya lebih dalam ke monumen utama Ariolla.", 40);
-    typing("Monumen ini berdiri megah di area Ariolla Monument, dengan patung besar yang menggambarkan seorang wanita yang memegang sebuah bola kristal.", 40);
-    typing("Patung ini terlihat sangat tua dan sudah mulai rusak, dengan banyak bagian yang hilang atau hancur.", 40);
-    typing("Monumen ini berdiri dan bernama Ariolla atas seorang pahlawan wanita yang pernah menyelamatkan Morivelle dari serangan bajak laut pada abad ke-17.", 40);
-    typing("Elias memeriksa patung tersebut dengan seksama, mencoba mencari petunjuk tentang apa yang terjadi di Ariolla.\n", 40);
+    typing("Elias tries to continue his investigation deeper into the main Ariolla monument.", 40);
+    typing("This monument stands majestically in the Ariolla Monument area, with a large statue depicting a woman holding a crystal ball.", 40);
+    typing("The statue looks very old and is already beginning to deteriorate, with many parts missing or broken.", 40);
+    typing("This monument was named Ariolla after a female hero who once saved Morivelle from pirate attacks in the 17th century.", 40);
+    typing("Elias examines the statue carefully, trying to find clues about what happened at Ariolla.\n", 40);
 
-    typing("Notice : Anda akan memasuki mini game untuk memeriksa petunjuk di patung tersebut. Jika anda menang, anda dapat melanjutkan cerita. Berusahalah menangkan mini game ini!", 40);
+    typing("Notice: You will enter a mini-game to examine clues on the statue. If you win, you can continue the story. Try your best to win this mini-game!", 40);
     Sleep(800);
 
     if (waitOrSkip()) {
@@ -112,15 +111,16 @@ int chap1b(){
     }
     system("cls");    
 
+    saveGame(1,4);
     return 0;
 }
 
 int chap1c(){
     system("cls");
-    typing("Patung berhasil dianalisis!\n", 40);
-    typing("Dari hasil analisis, Elias menemukan bahwa kerusakan yang terjadi di Ariolla Port seperti berasal dari satu arah.", 40);
-    typing("Kerusakan ini terlihat seperti berasal dari arah barat laut, yang berarti kemungkinan besar kerusakan ini berasal dari arah pusat Morivelle City.", 40);
-    typing("Elias memutuskan untuk pergi ke arah barat laut.", 40);
+    typing("The statue is successfully analyzed!\n", 40);
+    typing("From the analysis results, Elias discovers that the damage that occurred at Ariolla Port seems to come from one direction.", 40);
+    typing("This damage appears to come from the northwest direction, which means in all likelihood the damage comes from the direction of Morivelle City center.", 40);
+    typing("Elias decides to go northwest.", 40);
     Sleep(800);
 
     if (waitOrSkip()) {
@@ -135,9 +135,9 @@ int chap1c(){
     }
     system("cls");
 
-    typing("Elias tiba di Rovenila, sebuah daerah yang dulunya merupakan pusat pemerintahan region Ariolla Port", 40);
-    typing("Daerah ini dulunya dipenuhi dengan gedung-gedung pemerintahan yang megah, namun kini berubah menjadi reruntuhan yang sunyi dan dipenuhi dengan tanaman liar.", 40);
-    typing("Elias mulai menyusuri daerah ini, mencari petunjuk tentang apa yang terjadi di Ariolla.", 40);
+    typing("Elias arrives at Rovenila, an area that was once the center of government for the Ariolla Port region", 40);
+    typing("This area was once filled with magnificent government buildings, but now has turned into desolate ruins filled with wild plants.", 40);
+    typing("Elias begins exploring this area, looking for clues about what happened at Ariolla.", 40);
     Sleep(800);
 
     if (waitOrSkip()) {
@@ -145,9 +145,9 @@ int chap1c(){
     }
     system("cls");
 
-    typing("Disaat Elias menyusuri jalanan Rovenila, ada sesosok makhluk yang muncul dari balik reruntuhan. Makhluk ini terlihat seperti manusia, namun dengan kulit yang berwarna merah dan mata yang menyala-nyala.", 40);
-    typing("Makhluk ini datang menghampiri Elias dengan langkah yang lambat namun pasti, layaknya manusia normal yang sedang berjalan, namun aura yang dipancarkan makhluk ini sangat menakutkan dan mengintimidasi.", 40);
-    typing("Karena penasaran dan keingintahuan yang besar, Elias memutuskan untuk mendekati makhluk ini, berharap bisa mendapatkan petunjuk tentang apa yang terjadi di Ariolla.", 40);
+    typing("As Elias walks through the streets of Rovenila, a creature appears from behind the ruins. This creature looks like a human, but with red skin and glowing eyes.", 40);
+    typing("The creature approaches Elias with slow but steady steps, like a normal human walking, but the aura emanating from this creature is very frightening and intimidating.", 40);
+    typing("Driven by curiosity and great intrigue, Elias decides to approach the creature, hoping to get clues about what happened at Ariolla.", 40);
     Sleep(800);
 
     if (waitOrSkip()) {
@@ -155,12 +155,12 @@ int chap1c(){
     }
     system("cls");
 
-    typing("Elias mendekati makhluk tersebut dengan hati-hati, mencoba untuk tidak menimbulkan kecurigaan atau ancaman bagi makhluk tersebut.", 40);
-    typing("Namun, saat Elias semakin dekat, makhluk tersebut mendekati Elias juga dengan langkah terbata-bata, seolah-olah makhluk tersebut juga penasaran dengan Elias.", 40);
-    typing("Saat mereka berdua berada dalam jarak yang cukup dekat, makhluk tersebut tiba-tiba menyerang Elias", 40);
-    typing("Berbekal handgun serta refleks cepat, Elias berhasil menghindari serangan tersebut dan membalas dengan menembak makhluk tersebut beberapa kali.", 40);
-    typing("Namun, suara peluru membuat seisi Rovenila bergema, menarik perhatian makhluk serupa yang tersembunyi di balik reruntuhan.\n", 40);
-    typing("Notice : Anda akan memasuki battle untuk melawan makhluk tersebut. Jika anda menang, anda dapat melanjutkan cerita. Berusahalah menangkan battle ini!", 40);
+    typing("Elias approaches the creature carefully, trying not to arouse suspicion or threat to the creature.", 40);
+    typing("However, as Elias gets closer, the creature also approaches Elias with stumbling steps, as if the creature is also curious about Elias.", 40);
+    typing("When the two are close enough, the creature suddenly attacks Elias", 40);
+    typing("Armed with a handgun and quick reflexes, Elias successfully dodges the attack and retaliates by shooting the creature several times.", 40);
+    typing("However, the sound of gunfire echoes throughout Rovenila, drawing the attention of similar creatures hidden behind the ruins.\n", 40);
+    typing("Notice: You will enter a battle to fight the creature. If you win, you can continue the story. Try your best to win this battle!", 40);
     Sleep(800);
 
     if (waitOrSkip()) {
@@ -168,16 +168,17 @@ int chap1c(){
     }
     system("cls");
 
+    saveGame(1,6);
     return 0;
 
 }
 
 int chap1d(){
     system("cls");
-    typing("Elias berhasil mengalahkan makhluk tersebut!\n", 40);
-    typing("Setelah mengalahkan makhluk tersebut, Elias melihat sekilas tubuh makhluk tersebut untuk mencari petunjuk tentang apa yang terjadi di Ariolla.", 40);
-    typing("Namun, karena semakin banyak makhluk serupa yang muncul, Elias memutuskan untuk segera pergi dari Rovenila dan kembali ke Ariolla Monument.", 40);
-    typing("Ia berencana untuk kembali terlebih dahulu ke Demirgus dan melakukan persiapan untuk investigasi besar di Ariolla.", 40);
+    typing("Elias successfully defeats the creature!\n", 40);
+    typing("After defeating the creature, Elias glances at the creature's body to look for clues about what happened at Ariolla.", 40);
+    typing("However, as more similar creatures appear, Elias decides to quickly leave Rovenila and return to Ariolla Monument.", 40);
+    typing("She plans to return first to Demirgus and make preparations for a major investigation at Ariolla.", 40);
     Sleep(800);
 
     if (waitOrSkip()) {
@@ -185,9 +186,9 @@ int chap1d(){
     }
     system("cls");
 
-    typing("Tanpa kejelasan, Ariolla Monument menjadi penuh dengan makhluk-makhluk serupa. Ada pula makhluk yang begitu besar.", 40);
-    typing("Makhluk besar ini memiliki kulit berwarna merah gelap, seperti manusia yang dicabut kulitnya. Mulutnya lebar dengan gigi yang tajam dan lidah yang panjang", 40);
-    typing("Melihat tidak adanya jalan keluar, Elias memutuskan untuk pergi ke arah selatan, mencoba ke sisi lain pantai untuk mencari jalan keluar dari Ariolla.", 40);
+    typing("Without clarity, Ariolla Monument becomes filled with similar creatures. There is also a very large creature.", 40);
+    typing("This large creature has dark red skin, like a human with its skin ripped off. Its mouth is wide with sharp teeth and a long tongue", 40);
+    typing("Seeing no way out, Elias decides to go south, trying to reach the other side of the beach to find a way out of Ariolla.", 40);
     Sleep(800);
 
     if (waitOrSkip()) {
@@ -195,9 +196,9 @@ int chap1d(){
     }
     system("cls");
 
-    typing("Elias berhasil masuk ke hutan di sisi selatan Rovenila. Setelah beberapa periode berlari, ia bisa mengambil nafas dan mencoba mencari jalan keluar dari hutan tersebut.", 40);
-    typing("Elias menemukan gubuk kecil yang tampak seperti tempat tinggal. Gubuk itu seperti pos jaga dan keadaannya masih terawat dengan baik, berbeda dengan kondisi sekitar yang sudah hancur.", 40);
-    typing("Elias memutuskan untuk mendekati gubuk tersebut, berharap bisa menemukan petunjuk tentang apa yang terjadi di Ariolla.", 40);
+    typing("Elias successfully enters the forest on the south side of Rovenila. After running for a while, he can catch his breath and tries to find a way out of the forest.", 40);
+    typing("Elias finds a small hut that looks like a dwelling. The hut looks like a guard post and its condition is still well maintained, unlike the surrounding area which is already destroyed.", 40);
+    typing("Elias decides to approach the hut, hoping to find clues about what happened at Ariolla.", 40);
     Sleep(800);
 
     if (waitOrSkip()) {
@@ -205,8 +206,8 @@ int chap1d(){
     }
     system("cls");
 
-    typing("Saat Elias mendekati gubuk tersebut, ia melihat dua orang pria dan wanita yang sedang berbicara di dalamnya. Mereka terlihat seperti manusia normal, namun aura yang dipancarkan sangat berbeda dengan makhluk-makhluk serupa yang ada di Rovenila.", 40);
-    typing("Elias memutuskan untuk mendekati mereka dengan hati-hati, mencoba untuk tidak menimbulkan kecurigaan atau ancaman bagi mereka.", 40);
+    typing("As Elias approaches the hut, he sees a man and a woman talking inside. They look like normal humans, but the aura they emanate is very different from the similar creatures in Rovenila.", 40);
+    typing("Elias decides to approach them carefully, trying not to arouse suspicion or threat to them.", 40);
     Sleep(800);
 
     if (waitOrSkip()) {
@@ -214,27 +215,27 @@ int chap1d(){
     }
     system("cls");
 
-    typing("Elias mendekati mereka dan mencoba untuk memulai percakapan. Namun, pria tersebut tiba-tiba menodong Elias dengan pisau yang ia bawa.\n", 40);
-    typing("\"Siapa kau!?\" tanya pria tersebut dengan suara yang kasar dan penuh curiga.\n", 40);
-    typing("\"Aku...disini untuk pulang ke Morivelle...\" jawab Elias dengan suara yang gemetar.\n", 40);
-    typing("\"Aku berasal dari Morivelle...\" lanjut Elias, mencoba untuk meyakinkan pria tersebut.\n", 40);
-    typing("\"Aku datang dari Demirgus...\" tambah Elias, berharap bisa meyakinkan pria tersebut bahwa ia bukan ancaman bagi mereka.\n", 40);
+    typing("Elias approaches them and tries to start a conversation. However, the man suddenly points a knife at Elias.\n", 40);
+    typing("\"Who are you!?\" the man asks with a harsh and suspicious voice.\n", 40);
+    typing("\"I... I'm here to go home to Morivelle...\" Elias answers with a trembling voice.\n", 40);
+    typing("\"I come from Morivelle...\" Elias continues, trying to convince the man.\n", 40);
+    typing("\"I came from Demirgus...\" Elias adds, hoping to convince the man that she is not a threat to them.", 40);
 
     if (waitOrSkip()) {
         return 0;
     }
     system("cls");
 
-    typing("Pria tersebut terlihat ragu, namun wanita di sebelahnya menghampiri Elias.", 40);
-    typing("Ia memeriksa tangan Elias dengan paksa, mencoba mencari petunjuk tentang siapa Elias sebenarnya.", 40);
-    typing("Setelah beberapa saat, wanita tersebut terlihat puas dengan apa yang ia temukan di tangan Elias.\n", 40);
-    typing("\"Setidaknya kau bukan bagian dari mereka...\" kata wanita tersebut dengan suara yang lebih lembut.\n", 40);
-    typing("\"Tapi identitasmu...Kau harus ikut kami...\" lanjut wanita tersebut, mencoba untuk meyakinkan Elias untuk ikut dengan mereka.\n", 40);
-    typing("\"Apa yang kamu lakukan Ririsa?\" tanya pria tersebut dengan suara yang kebingungan, terlihat tidak setuju dengan keputusan wanita tersebut.\n", 40);
-    typing("\"Kau bilang kau datang dari Demirgus, bukan?\" kata wanita tersebut, mencoba untuk meyakinkan pria tersebut bahwa Elias bukan ancaman bagi mereka.\n", 40);
-    typing("\"Kau juga bilang kau disini untuk pulang ke Morivelle, bukan?\" perjelas wanita tersebut.\n", 40);
-    typing("\"Simpel, kesimpulannya dia adalah warga asli Morivelle yang pergi ke Demirgus untuk bekerja, tapi sekarang dia kembali lagi ke Morivelle...\" lanjut wanita tersebut, mencoba untuk meyakinkan pria tersebut bahwa Elias bukan ancaman bagi mereka.\n", 40);
-    typing("\"Sebenarnya untuk berkuliah.\" kata Elias.\n", 40);
+    typing("The man looks hesitant, but the woman next to him approaches Elias.", 40);
+    typing("She forcibly examines Elias's hand, trying to find clues about who Elias really is.", 40);
+    typing("After a while, the woman seems satisfied with what she finds on Elias's hand.\n", 40);
+    typing("\"At least you're not part of them...\" the woman says with a softer voice.\n", 40);
+    typing("\"But your identity... You should come with us...\" the woman continues, trying to convince Elias to go with them.\n", 40);
+    typing("\"What are you doing Ririsa?\" the man asks with a confused voice, seeming to disagree with the woman's decision.\n", 40);
+    typing("\"You said you came from Demirgus, didn't you?\" the woman says, trying to convince the man that Elias is not a threat to them.\n", 40);
+    typing("\"You also said you're here to go home to Morivelle, didn't you?\" the woman clarifies.\n", 40);
+    typing("\"Simple, the conclusion is she's a native Morivelle citizen who went to Demirgus to work, but now she's coming back to Morivelle...\" the woman continues, trying to convince the man that Elias is not a threat to them.\n", 40);
+    typing("\"Actually, to study.\" Elias says.\n", 40);
     Sleep(800);
 
     if (waitOrSkip()) {
@@ -242,12 +243,12 @@ int chap1d(){
     }
     system("cls");
 
-    typing("\"Lihat...\" kata wanita tersebut, mencoba untuk meyakinkan pria tersebut bahwa Elias bukan ancaman bagi mereka.\n", 40);
-    typing("Sang pria menurunkan pisaunya perlahan.", 40);
-    typing("\"Baiklah.\" kata pria tersebut dengan suara yang masih ragu, namun terlihat lebih tenang daripada sebelumnya.\n", 40);
-    typing("\"Maaf hehe..Suamiku ini agak paranoid soal keamanan, apalagi dengan kondisi sekarang.\" kata wanita tersebut, mencoba menenangkan Elias.\n", 40);
-    typing("\"Namaku Ririsa, ini suamiku, Darius.\" kata wanita tersebut, memperkenalkan dirinya dan suaminya kepada Elias.\n", 40);
-    typing("\"Kau bisa ikut dengan kami. Untuk keamanan desa kami dan juga mungkin menjawab kebinguganmu.\" tegas Ririsa, mencoba untuk meyakinkan Elias untuk ikut dengan mereka.\n", 40);
+    typing("\"You see...\" the woman says, trying to convince the man that Elias is not a threat to them.\n", 40);
+    typing("The man slowly lowers his knife.", 40);
+    typing("\"Okay.\" the man says with a still hesitant voice, but he seems more calm than before.\n", 40);
+    typing("\"Sorry hehe... My husband is a bit paranoid about security, especially with the current situation.\" the woman says, trying to calm Elias.\n", 40);
+    typing("\"My name is Ririsa, this is my husband, Darius.\" the woman says, introducing herself and her husband to Elias.\n", 40);
+    typing("\"You can come with us. For the safety of our village and also to possibly answer your confusion.\" Ririsa says firmly, trying to convince Elias to go with them.\n", 40);
     Sleep(800);
 
     if (waitOrSkip()) {
@@ -255,20 +256,20 @@ int chap1d(){
     }
     system("cls");
 
-    typing("Ririsa dan Elias pergi ke desa di dalam hutan dengan meninggalkan Darius di pos jaga.", 40);
-    typing("Sambil berjalan menuju desa, Elias bertanya kepada Ririsa.\n");
-    typing("\"Bagaimana kamu...\" tanya Elias.\n", 40);
-    typing("\"Dari kondisimu dan penjelasanmu sudah cukup menggambarkan keadaanmu sekarang. Kau bingung dengan yang terjadi disini.\" Jawab Ririsa sebelum Elias mampu menyelesaikan pertanyaannya.\n", 40);
-    typing("\"Kalian berasal dari desa? Seingatku tidak ada desa di area sini.\"\n", 40);
-    typing("\"Sudah berapa lama kamu pergi dari Morivelle?\"\n", 40);
-    typing("\"Hampir 5 tahun yang lalu\" Jawab Elias.\n", 40);
-    typing("\"Hmm..Pantas saja. Kami memang belum ada 5 tahun yang lalu.\n", 40);
-    typing("\"Jadi kalian...?\"\n");
-    typing("\"Yap. Kau menebaknya. Kami bukan dari Morivelle. Kami pendatang dari jauh.\" Jawab Ririsa dengan ceria dan tersenyum.\n", 40);
-    typing("\"Kau begitu ceria dan tidak sungkan untuk memberikan informasi seperti ini.\" Ucap Elias untuk memastikan.\n", 40);
-    typing("\"Kenapa memangnya? Aku senang bicara dengan seseorang sebayaku. Jarang sekali aku punya temen wanita sebaya.\" Perjelas Ririsa dengan lebih ceria.\n", 40);
-    typing("\"Oh...\" Jawab singkat Elias dengan ragu untuk melanjutkan topik\n", 40);
-    typing("Tak lama kemudian, mereka sampai di desa.");
+    typing("Ririsa and Elias go to the village in the forest, leaving Darius at the guard post.", 40);
+    typing("While walking towards the village, Elias asks Ririsa.\n");
+    typing("\"How are you...\" Elias asks.\n", 40);
+    typing("\"From your situation and your explanation, it's clear what your condition is now. You're confused about what's happening here.\" Ririsa answers before Elias can finish his question.\n", 40);
+    typing("\"You come from a village? I don't remember a village in this area.\"\n", 40);
+    typing("\"How long ago did you leave Morivelle?\"\n", 40);
+    typing("\"Almost 5 years ago\" Elias answers.\n", 40);
+    typing("\"Hmm... No wonder. We didn't exist 5 years ago.\n", 40);
+    typing("\"So you...?\"\n");
+    typing("\"Yup. You guessed it. We're not from Morivelle. We're immigrants from far away.\" Ririsa answers cheerfully with a smile.\n", 40);
+    typing("\"You're so cheerful and not reluctant to give information like this.\" Elias says to clarify.\n", 40);
+    typing("\"Why would that be? I like talking to someone my age. It's rare that I have a female friend my age.\" Ririsa clarifies more cheerfully.\n", 40);
+    typing("\"Oh...\" Elias answers shortly, hesitant to continue the topic\n", 40);
+    typing("Soon after, they arrive at the village.");
     Sleep(800);
 
     if (waitOrSkip()) {
@@ -283,22 +284,22 @@ int chap1d(){
     }
     system("cls");
 
-    typing("\"Selamat datang di desa The Night Raiders atau orang luar menyebutnya sebagai Village of Purification\"\n");
-    typing("\"The Night Raiders? Village of Purification?\" Elias bertanya.\n", 40);
-    typing("\"Ah..The Night Raiders adalah sebutan untuk kaum kami.\" Ririsa menjelaskan dengan ceria.\n", 40);
-    typing("\"Kami kaum yang hidup nomaden. Kami hidup dari pulau ke pulau. Sekarang kami tinggal disini. Namun karena beberapa situasi dan kondisi saat ini, sepertinya kami akan terus tinggal disini.\" Tambah Ririsa dengan sedikit termenung.\n", 40);
-    typing("Ragu untuk bertanya, Elias pun hanya terdiam dan tidak berani melanjutkan pembicaraan\n", 40);
-    typing("\"Well...Itu tidak terlalu penting. Untuk desa ini sendiri dinamai Village of Purification karena area ini sangat tercemar dulunya\" Lanjut Ririsa dengan ceria lagi.\n", 40);
-    typing("\"Para The Night Raiders mempunyai kemampuan khusus dalam purifikasi atau pembersihan. Kami bisa membersihkan air, tanah, dan udara yang tercemar dengan kemampuan kami.\" Jelas Ririsa dengan bangga.\n", 40);
-    typing("\"Bukan hanya itu, kami juga bisa membersihkan makhluk hidup yang terkontaminasi dengan kemampuan kami.\" Tambah Ririsa dengan sedikit ragu.\n", 40);
-    typing("\"Makhluk hidup yang terkontaminasi?\" tanya Elias dengan penasaran.\n", 40);
-    typing("\"Ya, makhluk hidup yang terkontaminasi dengan bercak hitam yang sedang kami cari tau. Kami bisa membersihkan mereka dengan kemampuan kami.\" Jelas Ririsa dengan sedikit ragu.\n", 40);
-    typing("\"Bercak hitam?\" tanya Elias dengan penasaran.\n", 40);
-    typing("\"Ya, bercak hitam itu seperti noda yang muncul di kulit makhluk hidup. Kami belum tahu apa penyebabnya, tapi kami menduga itu adalah semacam infeksi atau penyakit yang disebabkan oleh suatu fenomena.\" Jelas Ririsa dengan sedikit ragu.\n", 40);
-    typing("\"Fenomena? Maksudmu The Red Tide?\" tanya Elias dengan penasaran.", 40);
-    typing("\"The Red Tide? Apa itu?\" tanya Ririsa.\n", 40);
-    typing("\"Emm...Hanya teoriku saja, aku bisa jelaskan nanti di waktu yang tepat.\" Jawab Elias dengan ragu untuk melanjutkan topik\n", 40);
-    typing("\"Oke deh, kita bisa bicarakan itu nanti. Intinya itulah kenapa nama desa ini Village of Purification.\" Lanjut Ririsa dengan ceria lagi.\n", 40);
+    typing("\"Welcome to the village of The Night Raiders or as outsiders call it, the Village of Purification\"\n");
+    typing("\"The Night Raiders? Village of Purification?\" Elias asks.\n", 40);
+    typing("\"Ah... The Night Raiders is the name for our people.\" Ririsa explains cheerfully.\n", 40);
+    typing("\"We are a nomadic people. We lived island to island. Now we live here. But because of some situations and current conditions, it seems we will continue to live here.\" Ririsa adds, looking a bit thoughtful.\n", 40);
+    typing("Hesitant to ask, Elias just falls silent and doesn't dare continue the conversation\n", 40);
+    typing("\"Well... That's not too important. As for this village itself, it's named Village of Purification because this area was very contaminated in the past.\" Ririsa continues more cheerfully.\n", 40);
+    typing("\"The Night Raiders have a special ability in purification or cleansing. We can clean contaminated water, soil, and air with our abilities.\" Ririsa explains proudly.\n", 40);
+    typing("\"Not only that, we can also clean living creatures that are contaminated with our abilities.\" Ririsa adds, seeming a bit uncertain.\n", 40);
+    typing("\"Living creatures that are contaminated?\" Elias asks curiously.\n", 40);
+    typing("\"Yes, living creatures that are contaminated with black spots that we're trying to figure out. We can clean them with our abilities.\" Ririsa explains, seeming a bit uncertain.\n", 40);
+    typing("\"Black spots?\" Elias asks curiously.\n", 40);
+    typing("\"Yes, black spots are like stains that appear on the skin of living creatures. We don't know what causes it yet, but we suspect it's some kind of infection or disease caused by some phenomenon.\" Ririsa explains, seeming a bit uncertain.\n", 40);
+    typing("\"Phenomenon? Do you mean The Red Tide?\" Elias asks curiously.", 40);
+    typing("\"The Red Tide? What is that?\" Ririsa asks.\n", 40);
+    typing("\"Emm... It's just my theory, I can explain it later at the right time.\" Elias answers, hesitant to continue the topic\n", 40);
+    typing("\"Okay then, we can talk about that later. Anyway, that's why this village is named Village of Purification.\" Ririsa continues more cheerfully.\n", 40);
     Sleep(800);
 
     if (waitOrSkip()) {
@@ -306,16 +307,16 @@ int chap1d(){
     }
     system("cls");
 
-    typing("Ririsa kemudian membawa Elias ke rumah ketua suku The Night Raiders.\n", 40);
-    typing("\"Gary, aku membawa teman baru. Dia bilang dia dari Morivelle.\" Kata Ririsa dengan ceria.\n", 40);
-    typing("Seorang pria paruh baya dengan rambut panjang yang diikat ke belakang muncul dari dalam rumah dan menyambut Elias dengan ramah.\n", 40);
-    typing("\"Dari Morivelle? Ada survivor?\" Tanya Gary.\n");
-    typing("\"Bukan. Dia berasal dari luar kota. Dia kesini untuk pulang.\" Jawab Ririsa.\n");
-    typing("\"Jadi, warga asli Morivelle yang pergi keluar kota dan pulang tanpa tahu kabar keadaan kotanya. Kamu pasti hidup sendiri dan jauh dari Morivelle sangat lama.\" Kata Gary dengan nada yang penuh perhatian.\n", 40);
-    typing("\"Emm...Bisa dibilang seperti itu.\" Terang Elias.\n", 40);
-    typing("\"Ririsa, bisakah tunggu diluar dan beri aku waktu untuk berbicara dengan nona Morivelle ini\"\n", 40);
-    typing("\"Tentu Gary. Aku tunggu diluar ya\" Kata Ririsa kepada Elias sambil keluar dengan tersenyum ria.\n", 40);
-    typing("Gary kemudian mengajak Elias masuk ke dalam rumahnya untuk berbicara lebih lanjut", 40);
+    typing("Ririsa then takes Elias to the home of the leader of The Night Raiders.\n", 40);
+    typing("\"Gary, I brought a new friend. She says she's from Morivelle.\" Ririsa says cheerfully.\n", 40);
+    typing("A middle-aged man with long hair tied back appears from inside the house and greets Elias warmly.\n", 40);
+    typing("\"From Morivelle? Is there a survivor?\" Gary asks.\n");
+    typing("\"No. She comes from outside the city. She's here to go home.\" Ririsa answers.\n");
+    typing("\"So, a native Morivelle citizen who went outside the city and came home without knowing the state of the city. You must have lived alone and far from Morivelle for a very long time.\" Gary says with a tone full of concern.\n", 40);
+    typing("\"Emm... You could say that.\" Elias clarifies.\n", 40);
+    typing("\"Ririsa, can you wait outside and give me time to talk with this Morivelle lady\"\n", 40);
+    typing("\"Of course Gary. I'll wait outside\" Ririsa says to Elias while stepping out with a bright smile.\n", 40);
+    typing("Gary then invites Elias into his house to talk further", 40);
     Sleep(800);
 
     if (waitOrSkip()) {
@@ -323,14 +324,14 @@ int chap1d(){
     }
     system("cls");
 
-    typing("\"Bolehkah aku tau lebih lengkap tentang dirimu?\" Gary memulai pembicaraan\n ", 40);
-    typing("\"Emm...Namaku Elias Viremont. Aku lahir di Morivelle dan aku tumbuh disini sampai usiaku 18.\n", 40);
-    typing("\"Saat itu aku mendapat beasiswa untuk berkuliah di Demirgus University.\n", 40);
-    typing("\"Aku meninggalkan Morivelle untuk pendidikan tepatnya 5 tahun lalu dan saat itu semuanya normal.\"\n", 40);
-    typing("\"Dan 5 tahun selanjutnya atau lebih tepatnya sekarang kau kesini untuk pulang namun semuanya tiba-tiba rusak.\" Tambah Gary memotong perkataan Elias.\n", 40);
-    typing("\"Aku mengerti, tapi apakah kau tau apa yang terjadi disini?\" Tambah Gary.\n", 40);
-    typing("\"Tidak. Kau sendiri tau apa yang terjadi disini?\" Tanya balik Elias.\n", 40);
-    typing("\"Tidak.\" Jawab Gary dengan yakin.\n", 40);
+    typing("\"May I know more about you?\" Gary starts the conversation\n ", 40);
+    typing("\"Emm... My name is Elias Viremont. I was born in Morivelle and I grew up here until I was 18.\n", 40);
+    typing("\"At that time I got a scholarship to study at Demirgus University.\n", 40);
+    typing("\"I left Morivelle for education exactly 5 years ago and everything was normal back then.\"\n", 40);
+    typing("\"And 5 years later, or more precisely now you're here to go home but everything suddenly fell apart.\" Gary adds, cutting off Elias's words.\n", 40);
+    typing("\"I understand, but do you know what happened here?\" Gary adds.\n", 40);
+    typing("\"No. Do you know what happened here?\" Elias asks in return.\n", 40);
+    typing("\"No.\" Gary answers with certainty.\n", 40);
     Sleep(800);
 
     if (waitOrSkip()) {
@@ -338,9 +339,9 @@ int chap1d(){
     }
     system("cls");
 
-    typing("\"Kami datang tepatnya 2 tahun yang lalu saat semuanya sudah hancur disini\"\n", 40);
-    typing("\"Kami hidup nomaden. Saat kami datang ke area ini, semuanya seperti dirasuki oleh Yokai\"\n", 40);
-    typing("Note : Yokai adalah makhluk halus dalam mitologi Jepang yang bisa merasuki manusia atau benda mati dan membuatnya menjadi jahat.\n", 40);
+    typing("\"We came exactly 2 years ago when everything here was already destroyed\"\n", 40);
+    typing("\"We are nomadic. When we came to this area, everything seemed to be possessed by Yokai\"\n", 40);
+    typing("Note: Yokai are spiritual creatures in Japanese mythology that can possess humans or inanimate objects and make them evil.\n", 40);
     Sleep(800);
 
     if (waitOrSkip()) {
@@ -348,13 +349,13 @@ int chap1d(){
     }
     system("cls");
 
-    typing("\"Kami berhasil mempurifikasi area ini dengan kemampuan khusus kami\"\n", 40);
-    typing("\"Kami pun membangun settlement kami disini, yang kemudian menjadi tempat kami tinggal\"\n", 40);
-    typing("\"Area disini tidak terlalu tercemar seperti yang lainnya.\"\n", 40);
-    typing("\"Yang masih kami bingungkan adalah mengapa kota ini bisa rusak dan tercemar.\"\n", 40);
-    typing("\"Kami melakukan pencarian jaga-jaga ada yang selamat atau tinggal juga disini\"\n", 40);
-    typing("\"Kami juga mempelajari situasi alam di sekitar sini\"\n", 40);
-    typing("\"Keduanya berakhir nihil dan tidak ada yang bisa dijelaskan sesuai dengan pengetahuan kami\"\n", 40);
+    typing("\"We managed to purify this area with our special abilities\"\n", 40);
+    typing("\"We also built our settlement here, which later became our place of residence\"\n", 40);
+    typing("\"The area here is not as contaminated as other places.\"\n", 40);
+    typing("\"What still confuses us is why this city became so destroyed and contaminated.\"\n", 40);
+    typing("\"We searched to see if anyone was rescued or also living here\"\n", 40);
+    typing("\"We also studied the natural situation around here\"\n", 40);
+    typing("\"Both ended in nothing and there's nothing that can be explained according to our knowledge\"\n", 40);
     Sleep(800);
 
     if (waitOrSkip()) {
@@ -362,11 +363,11 @@ int chap1d(){
     }
     system("cls");
 
-    typing("\"Di Demirgus, aku juga sedang bereksperimen dengan hal yang mungkin serupa\" Elias mulai memberitahu risetnya.\n", 40);
-    typing("\"Di Demirgus sesuatu yang merubah fenomena alam juga sedang terjadi, hanya saja tidak separah disini.\"\n", 40);
-    typing("\"Secara teori, ini disebut sebagai The Red Tide. Sebuah fenomena dimana alam merubah dirinya sendiri menjadi sesuatu yang lebih berbahaya dan merusak.\"\n", 40);
-    typing("\"The Red Tide bisa merubah segala sesuatu yang ada di alam, termasuk makhluk hidup, menjadi sesuatu yang lebih berbahaya dan merusak.\"\n", 40);
-    typing("\"Fenomena ini bisa terjadi secara tiba-tiba dan menyebar dengan cepat.\"\n", 40);
+    typing("\"In Demirgus, I'm also experimenting with something similar,\" Elias begins to share his research.\n", 40);
+    typing("\"In Demirgus something that changes natural phenomena is also happening, only not as severe as here.\"\n", 40);
+    typing("\"In theory, this is called The Red Tide. A phenomenon where nature changes itself into something more dangerous and destructive.\"\n", 40);
+    typing("\"The Red Tide can change everything in nature, including living creatures, into something more dangerous and destructive.\"\n", 40);
+    typing("\"This phenomenon can happen suddenly and spread quickly.\"\n", 40);
     Sleep(800);
 
     if (waitOrSkip()) {
@@ -374,19 +375,19 @@ int chap1d(){
     }
     system("cls");
 
-    typing("\"Jadi maksudmu alam berkehendak dengan sendirinya? Terdengar aneh\" Ucap Gary.\n", 40);
-    typing("\"Ini masih teoriku saja, karena terdengar aneh itulah aku menyelidiki lebih dalam tentang The Red Tide ini\" Sambung Elias\n", 40);
-    typing("\"Jadi kau kesini sebenarnya untuk mengeinvestigasi ini?\" Tanya Gary.\n", 40);
-    typing("\"Tidak juga. Aku diminta berlibur oleh professorku sehingga aku memustuskan untuk pulang\" Jawab Elias\n", 40);
-    typing("\"Hmm. Sekarang yang menjadi pertanyaanku adalah apa yang akan kamu lakukan selanjutnya?\" Sambung Gari dengan pertanyaan\n", 40);
-    typing("\"Aku awalnya ingin kembali ke Demirgus dan meminta bantuan untuk melakukan investigasi ke Morivelle\" Jawab Elias\n", 40);
-    typing("\"Namun, karena pelabuhan sudah mulai tertutup oleh makhluk-makhluk aneh itu. Aku tidak bisa kembali.\" Tambah Elias\n", 40);
-    typing("\"Karena kita sama-sama di situasi yang membingungkan. Aku akan membantumu dalam penelitianmu.\" Ajak Gary.\n", 40);
-    typing("\"Jika kamu benar-benar ingin kembali dan menginvestigasi ini semua sampai yang sebenarnya terkuak, aku dengan senang hati akan membantu.\" Sambung Gary.\n", 40);
-    typing("\"Bagaimana caramu untuk membantuku?\" Tanya Elias.\n", 40);
-    typing("\"Kami bisa membantumu membersihkan area pelabuhan dan membangunnya kembali agar kau bisa kembali\" Jawab Gary.\n", 40);
-    typing("\"Maksudmu area Ariolla Monument?\" Sambung Elias dengan pertanyaan.\n", 40);
-    typing("\"Ya apalah itu namanya. Kita perlu bersihkan area itu dan membangunnya kembali agar kau juga saat kembali kemari bisa datang dengan selamat\" Jawab Gary dengan optimis.\n", 40);
+    typing("\"So do you mean nature has a will of its own? That sounds strange,\" Gary says.\n", 40);
+    typing("\"This is still just my theory, and because it sounds strange, that's why I'm investigating this Red Tide more deeply,\" Elias continues\n", 40);
+    typing("\"So you're actually here to investigate this?\" Gary asks.\n", 40);
+    typing("\"Not exactly. My professor asked me to take a vacation so I decided to go home,\" Elias answers\n", 40);
+    typing("\"Hmm. Now the question for me is what are you going to do next?\" Gary adds with a question\n", 40);
+    typing("\"I originally wanted to go back to Demirgus and ask for help to conduct an investigation to Morivelle,\" Elias answers\n", 40);
+    typing("\"However, because the harbor has started to be blocked by those strange creatures, I can't go back.\" Elias adds\n", 40);
+    typing("\"Since we're both in a confusing situation, I will help you with your research.\" Gary invites.\n", 40);
+    typing("\"If you really want to go back and investigate this all until the truth is revealed, I will be happy to help.\" Gary continues.\n", 40);
+    typing("\"How are you going to help me?\" Elias asks.\n", 40);
+    typing("\"We can help you clean the harbor area and rebuild it so you can go back,\" Gary answers.\n", 40);
+    typing("\"Do you mean the Ariolla Monument area?\" Elias continues with a question.\n", 40);
+    typing("\"Yes, whatever that place is called. We need to clean that area and rebuild it so that when you come back here later, you can arrive safely.\" Gary answers optimistically.\n", 40);
     Sleep(800);
 
     if (waitOrSkip()) {
@@ -394,14 +395,14 @@ int chap1d(){
     }
     system("cls");
 
-    typing("\"Jadi..kita sepakat?\" Tanya Gary sambil memberi tangan untuk dijabat.\n", 40);
-    typing("\"Baiklah, aku berjanji pada kalian yang terjadi disini akan kupecahkan\" Elias menjawab sambil menjabat tangan Gary.\n", 40);
-    typing("Gary tersenyum", 40);
-    typing("\"Baiklah, kita punya kesepakatan. Aku akan informasikan Ririsa dan Darius untuk menemanimu. Mungkin kau bisa informasikan Ririsa langsung\" Tegas Gary.\n", 40);
-    typing("Elias tersenyum, kemudian ia meninggalkan rumah Gary.\n", 40);
-    typing("Diluar Ririsa sudah menunggu dengan sangat ceria\n", 40);
-    typing("\"Bagaimana pembicaraanmu dengan Gary?\" Tanya Ririsa dengan ceria.\n", 40);
-    typing("Elias pun menceritakan pembicaraannya dengan Gary kepada Ririsa.\n", 40);
+    typing("\"So... do we have a deal?\" Gary asks while offering his hand to shake.\n", 40);
+    typing("\"Alright, I promise you that what happened here I will solve,\" Elias answers while shaking Gary's hand.\n", 40);
+    typing("Gary smiles", 40);
+    typing("\"Okay, we have a deal. I will inform Ririsa and Darius to accompany you. Maybe you can tell Ririsa directly,\" Gary says firmly.\n", 40);
+    typing("Elias smiles, then she leaves Gary's house.\n", 40);
+    typing("Outside, Ririsa is already waiting cheerfully\n", 40);
+    typing("\"How was your conversation with Gary?\" Ririsa asks cheerfully.\n", 40);
+    typing("Elias then tells Ririsa about her conversation with Gary.\n", 40);
     Sleep(800);
 
     if (waitOrSkip()) {
@@ -409,10 +410,10 @@ int chap1d(){
     }
     system("cls");
 
-    typing("\"Wah..jadi kita akan membersihkan Ariolla Monument?\" Tanya Ririsa dengan ceria.\n", 40);
-    typing("\"Iya, kita akan membersihkan Ariolla Monument agar aku bisa kembali ke Demirgus\" Jawab Elias.\n", 40);
-    typing("\"Keren! Kapan kita mulai?\" Tanya Ririsa dengan ceria.\n", 40);
-    typing("Tutorial : Anda akan memulai city building untuk membersihkan dan membangun kembali Ariolla Monument. Jika anda berhasil membangun kembali Ariolla Monument, anda bisa melanjutkan cerita. Berusahalah untuk membangun kembali Ariolla Monument!", 40);
+    typing("\"Wow... So we're going to clean up Ariolla Monument?\" Ririsa asks cheerfully.\n", 40);
+    typing("\"Yes, we will clean up Ariolla Monument so I can go back to Demirgus,\" Elias answers.\n", 40);
+    typing("\"Cool! When do we start?\" Ririsa asks cheerfully.\n", 40);
+    typing("Tutorial: You will begin city building to clean and rebuild Ariolla Monument. If you successfully rebuild Ariolla Monument, you can continue the story. Try your best to rebuild Ariolla Monument!", 40);
     Sleep(800);
 
     if (waitOrSkip()) {
@@ -420,12 +421,13 @@ int chap1d(){
     }
     system("cls");
 
+    saveGame(1,8);
     return 0;
 }
 
 int chap1e(){
     system("cls");
-    typing("ACT 2 - Rovenila Secret", 100);
+    typing("ACT 2 - Rovenila's Secret", 100);
     Sleep(800);
 
     if (waitOrSkip()) {
@@ -433,7 +435,7 @@ int chap1e(){
     }
     system("cls");
 
-    typing("To Be Continued....", 40);
+    typing("", 40);
 
     if (waitOrSkip()) {
         return 0;
@@ -443,15 +445,29 @@ int chap1e(){
     return 0;
 }
 
-int chap1() {
-    // chap1a();
-    // bsp();
-    // chap1b();
-    // mc();
-    // chap1c();
-    // battle1();
-    // chap1d();
-    mainCity(menusepsepan());
-    // chap1e();
+int chap1(int scene) {
+
+    if (scene <= 1) chap1a();
+    if (scene <= 2) {
+        saveGame(1, 2);
+        bsp();
+}
+    if (scene <= 3) chap1b();
+    if (scene <= 4) {
+        saveGame(1, 4);
+        mc();
+    }
+    if (scene <= 5) chap1c();
+    if (scene <= 6) {
+        saveGame(1, 6);
+        battle1();
+    }
+    if (scene <= 7) chap1d();
+    if (scene <= 8) {
+        saveGame(1, 8);
+        mainCity(menusepsepan());
+    }
+    if (scene <= 9) chap1e();
+
     return 0;
 }

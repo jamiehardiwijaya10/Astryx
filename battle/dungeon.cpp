@@ -28,7 +28,7 @@ struct BattleResult {
     int totalSkillMat = 0;
 };
 
-int battleDungeon(int floor);
+void addResourceToPlayer(string username, BattleResult &r);
 int unlockedFloor = 1;
 void setColor(int color);
 void garis(int panjang, char karakter);
@@ -90,6 +90,11 @@ void hadiah(BattleResult hasil, bool menang) {
     Sleep(1000);
 }
 
+void applyRewardToPlayer(PlayerData &player, BattleResult &r) {
+    player.syringe += r.totalLevelMat;
+    player.powder += r.totalSkillMat;
+}
+
 void reward(Dungeon dungeon, BattleResult &hasil) {
     int lantai = dungeon.floor;
     bool isBoss = (lantai % 5 == 0);
@@ -139,7 +144,8 @@ void reward(Dungeon dungeon, BattleResult &hasil) {
     }
 }
 
-void mulaiDungeon(Dungeon dungeon) {
+void mulaiDungeon(Dungeon dungeon, string username) {
+    PlayerData player = loadPlayer(username);
     if (dungeon.floor > unlockedFloor) {
         cout << "Checkpoint belum terbuka!\n";
         return;
@@ -152,7 +158,7 @@ void mulaiDungeon(Dungeon dungeon) {
         cout << "           FLOOR " << dungeon.floor << endl;
         cout << "==============================\n";
 
-        int hasil = battleDungeon(dungeon.floor);
+        int hasil = battleDungeon(dungeon.floor, username);
 
         if (hasil == 0) {
             cout << "Kamu kalah di lantai " << dungeon.floor << endl;
@@ -189,10 +195,14 @@ void mulaiDungeon(Dungeon dungeon) {
     }
 
     cout << "\nDungeon selesai 30 lantai!\n";
+    player.syringe += result.totalLevelMat;
+    player.powder += result.totalSkillMat;
+    savePlayer(player);
+    addResourceToPlayer(username, result);
     hadiah(result, true);
 }
 
-void menuDungeon() {
+void menuDungeon(string username) {
     cout << "\n===== PILIH DUNGEON =====\n";
     cout << "1. Dungeon Token\n";
     cout << "2. Dungeon Resource\n";
@@ -241,11 +251,57 @@ void menuDungeon() {
     }
 
     d.floor = checkpoints[pilihStart - 1];
-    mulaiDungeon(d);
+    mulaiDungeon(d, username);
 }
 
-int dungeon() {
+void addResourceToPlayer(string username, BattleResult &r) {
+    vector<string> all;
+    ifstream file("databases/playerresources.txt");
+    if (!file.is_open()) {
+        cout << "Error opening resource file!\n";
+        return;
+    }
+    string line;
+
+    getline(file, line); // header
+    all.push_back("nama kayu batu scrap token turn");
+
+    while (getline(file, line)) {
+        stringstream ss(line);
+        string name;
+        int kayu, batu, scrap, token, turn;
+
+        ss >> name >> kayu >> batu >> scrap >> token >> turn;
+
+        if (name == username) {
+            kayu += r.totalKayu;
+            batu += r.totalBatu;
+            scrap += r.totalBesi;
+            token += r.totalToken;
+
+            string updated = name + " " +
+                             to_string(kayu) + " " +
+                             to_string(batu) + " " +
+                             to_string(scrap) + " " +
+                             to_string(token) + " " +
+                             to_string(turn);
+
+            all.push_back(updated);
+        } else {
+            all.push_back(line);
+        }
+    }
+    file.close();
+
+    ofstream out("databases/playerresources.txt");
+    for (auto &l : all) {
+        out << l << endl;
+    }
+    out.close();
+}
+
+int dungeon(string username) {
     srand(time(0));
-    menuDungeon();
+    menuDungeon(username);
     return 0;
 }

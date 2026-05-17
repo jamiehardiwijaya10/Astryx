@@ -445,7 +445,7 @@ int chap1e(){
     return 0;
 }
 
-int chap1(int scene) {
+int chap1(int scene, string username) {
 
     if (scene <= 1) chap1a();
     if (scene <= 2) {
@@ -460,12 +460,12 @@ int chap1(int scene) {
     if (scene <= 5) chap1c();
     if (scene <= 6) {
         saveGame(1, 6);
-        battle1();
+        battle1(username);
     }
     if (scene <= 7) chap1d();
     if (scene <= 8) {
         saveGame(1, 8);
-        mainCity(menusepsepan());
+        mainCity(username);
     }
     if (scene <= 9) chap1e();
 

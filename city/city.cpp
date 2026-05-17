@@ -50,91 +50,17 @@ struct Area
   Lahan bangunan[10];
 };Area daerah[5];
 
-
 bool notifStory = false;
 //PEKTOR as Bucketk
 vector <SumberDaya> players;
+void vanguardBarracks(PlayerData &p);
+void academyMenu(PlayerData &p);
 
 void garis(int ukuran){
   int pilihan = 0;
   pilihan += ukuran;
   cout << string(int(pilihan),'=') << endl;
   pilihan = 0;
-}
-
-string newGame(){
-  string nama;
-  string cek;
-  vector <string> check;
-
-  //Validasi akun baru
-  ifstream filecek("databases/player.txt");
-  getline(filecek,cek);
-  while (getline(filecek,cek))
-  {
-    check.push_back(cek);
-  }
-  bool ada = true;
-
-  while (ada)
-  {
-    system("cls");
-    cout << "Masukkan Username: ";
-    getline(cin, nama);
-    cout << endl;
-
-    bool ditemukan = false;
-    for (auto &anggota : check)
-    {
-      if (nama == anggota)
-      {
-        ditemukan = true;
-        break;
-      }
-    }
-
-    if (ditemukan)
-    {
-      cout << "Nama sudah digunakan!\n";
-      system("pause");
-    }
-    else
-    {
-      ada = false;
-    }
-  }
-  
-  //Tamvbah ke resources
-  ofstream file("databases/playerresources.txt", ios::app); //appendlibel
-  if (!file.is_open())
-  {
-    cout << "File tidak ada" << endl;
-  }
-  file << nama << " " << "1000 1000 1000 1000 1" << endl;
-  file.close();
-
-  //Tamcbah ke buildings
-  ofstream file2("databases/building.txt", ios::app);
-  if (!file2.is_open())
-  {
-    cout << "File gaada";
-  }
-  file2 << nama  << ",Ariolla Monument,1,5,Empty Land,Empty Land,Empty Land,Empty Land,Empty Land"<< endl;
-  file2 << nama  << ",Village Of Purification,1,4,Lumberyard,Stone Quarry,Scrap Reclamation Center,Empty Land"<< endl;
-  file2 << nama  << ",Masonwood,1,0"<< endl;
-  file2 << nama  << ",Rovenilla,1,10,Empty Land,Empty Land,Empty Land,Empty Land,Empty Land,Empty Land,Empty Land,Empty Land,Empty Land,Empty Land"<< endl;
-  file2 << nama  << ",Moncini Basin,1,3,Empty Land,Empty Land,Empty Land"<< endl;
-  file2.close();
-
-  ofstream file3("databases/player.txt", ios::app);
-  if (!file3.is_open())
-  {
-    cout << "File gaada";
-  }
-  file3 << nama << endl;
-  file3.close();
-
-  return nama;
 }
 
 void setProduksi(Lahan &l){
@@ -517,6 +443,179 @@ void rovenilla(string username, int area,int nomorlahan){
           }
         }
       }
+      else if (daerah[area].bangunan[nomorlahan].nama == "Vanguard Barracks")
+      {
+          PlayerData p = loadPlayer(username);
+          vanguardBarracks(p);
+          savePlayer(p);
+          savePlayerCharacters(p);
+      }
+      else if (daerah[area].bangunan[nomorlahan].nama == "Academy of Sciences") 
+      {
+          PlayerData p = loadPlayer(username);
+          academyMenu(p);
+          savePlayer(p);
+          savePlayerCharacters(p);
+      }
+      else{return;}
+}
+
+void vanguardBarracks(PlayerData &p) {
+    if (p.ownedCharacters.empty()) {
+        cout << "Kamu belum punya karakter!\n";
+        system("pause");
+        return;
+    }
+
+    while (true) {
+        system("cls");
+        cout << "=== VANGUARD BARRACKS ===\n";
+        cout << "Syringe: " << p.syringe << "\n\n";
+
+        for (int i = 0; i < p.ownedCharacters.size(); i++) {
+            auto &c = p.ownedCharacters[i];
+            cout << i + 1 << ". " << c.name
+                 << " (Lv " << c.level
+                 << ", EXP " << c.exp << ")\n";
+        }
+
+        cout << "0. Kembali\n";
+        cout << "Pilih karakter: ";
+
+        int pilih;
+        cin >> pilih;
+
+        if (pilih == 0) return;
+
+        if (pilih < 1 || pilih > p.ownedCharacters.size()) {
+            cout << "Pilihan tidak valid!\n";
+            system("pause");
+            continue;
+        }
+
+        CharacterData &c = p.ownedCharacters[pilih - 1];
+
+        cout << "\nUpgrade " << c.name << "?\n";
+        cout << "Butuh 1 Syringe\n";
+        cout << "1. Ya\n0. Tidak\nPilih: ";
+
+        int confirm;
+        cin >> confirm;
+
+        if (confirm == 1) {
+            if (p.syringe <= 0) {
+                cout << "Syringe tidak cukup!\n";
+            } else {
+                p.syringe--;
+
+                if (c.level >= 10) {
+                  cout << "Level maksimal!\n";
+                  return;
+                }
+                else {
+                  c.level++;
+                  cout << c.name << " naik ke level " << c.level << "!\n";
+                }
+            }
+            system("pause");
+        }
+    }
+}
+
+void academyMenu(PlayerData &p) {
+    if (p.ownedCharacters.empty()) {
+        cout << "Kamu belum punya karakter!\n";
+        system("pause");
+        return;
+    }
+
+    while (true) {
+        system("cls");
+        cout << "=== ACADEMY OF SCIENCES ===\n";
+        cout << "Powder: " << p.powder << "\n\n";
+
+        for (int i = 0; i < p.ownedCharacters.size(); i++) {
+            cout << i + 1 << ". " << p.ownedCharacters[i].name << endl;
+        }
+
+        cout << "0. Kembali\n";
+        cout << "Pilih karakter: ";
+
+        int pilih;
+        cin >> pilih;
+
+        if (pilih == 0) return;
+
+        if (pilih < 1 || pilih > p.ownedCharacters.size()) {
+            cout << "Pilihan tidak valid!\n";
+            system("pause");
+            continue;
+        }
+
+        CharacterData &c = p.ownedCharacters[pilih - 1];
+
+        if (c.skillsName.empty()) {
+            cout << "Karakter tidak punya skill!\n";
+            system("pause");
+            continue;
+        }
+
+        while (true) {
+            system("cls");
+            cout << "=== " << c.name << " ===\n";
+            cout << "Powder: " << p.powder << "\n\n";
+
+            for (int i = 0; i < c.skillsName.size(); i++) {
+                cout << i + 1 << ". "
+                     << c.skillsName[i]
+                     << " (Lv " << c.skillLevels[i] << ")\n";
+            }
+
+            cout << "0. Kembali\n";
+            cout << "Pilih skill: ";
+
+            int s;
+            cin >> s;
+
+            if (s == 0) break;
+
+            if (s < 1 || s > c.skillsName.size()) {
+                cout << "Pilihan tidak valid!\n";
+                system("pause");
+                continue;
+            }
+
+            int idx = s - 1;
+
+            cout << "\nUpgrade " << c.skillsName[idx] << "?\n";
+            cout << "Butuh 1 Powder\n";
+            cout << "1. Ya\n0. Tidak\nPilih: ";
+
+            int confirm;
+            cin >> confirm;
+
+            if (confirm == 1) {
+                if (p.powder <= 0) {
+                    cout << "Powder tidak cukup!\n";
+                } else {
+                    p.powder--;
+
+                    // 🔥 upgrade skill
+                    c.skillLevels[idx]++;
+                    if (c.skillLevels[idx] >= 10) {
+                        cout << "Level maksimal!\n";
+                        return;
+                    }
+                    else {
+                    cout << c.skillsName[idx]
+                         << " naik ke level "
+                         << c.skillLevels[idx] << "!\n";
+                    }
+                }
+                system("pause");
+            }
+        }
+    }
 }
 
 void monciniBasin(string username, int area, int nomorlahan){
@@ -880,7 +979,7 @@ void area(string username){
     {
       if (daerah[2].unlock)
               {
-                dungeon();
+                dungeon(username);
               }
             else cout<<"Maaf, Area ini masih terkunci";
             cin.ignore();
@@ -961,93 +1060,6 @@ void sapa(string username){
   cout << "Ketik enter untuk melanjutkan...."; getline(cin, baca1);
 }
 
-string menusepsepan(){
-  vector <string> nama;
-  ifstream file("databases/player.txt");
-  string line;
-  int logs;
-  
-  getline(file, line);
-  while (getline(file, line)) {
-    if (!line.empty())
-    nama.push_back(line);
-  }
-  file.close();
-  
-  //konsidi
-  if (nama.empty() == true)
-  {
-    return newGame();
-  }
-  
-  else if (nama.empty() == false)
-  {
-    while (true)
-    { 
-      system("cls");
-      garis(30);
-      cout << "          MORIVELLE           \n";
-      garis(30);
-      cout << "1. New Game\n2. Load" << endl;
-      garis(30);
-      cout << "Pilih: "; cin >> logs;
-      if (cin.fail())
-       {
-        cin.clear();
-        cin.ignore();
-        cout << "Masukkan angka\n";
-        continue;
-       }
-      if (logs == 1)
-      {
-        string bucket;
-        getline(cin,bucket); //bug yang belum di ajarin
-        return newGame();
-      }
-
-      else if (logs == 2)
-      {
-        while (true)
-        {
-          garis(30);
-          for (int i = 0; i < (int)nama.size(); i++)
-          {
-            cout << i+1 << ". " << nama[i] << endl;
-          }
-          cout << "0. Kembali\n";
-          int pilihanUser;
-          cout << "\nPilih index: "; cin >> pilihanUser;
-          if (cin.fail())
-       {
-        cin.clear();
-        cin.ignore();
-        system("cls");
-        garis(30);
-        cout << "Masukkan angka\n";
-        continue;
-       }
-
-          if (pilihanUser < 1 || pilihanUser > (int)nama.size())
-          {
-            if (pilihanUser == 0)
-            {
-              break;
-            }
-            
-            garis(30);
-            cout << "Harap masukkan angka yang valid\n";
-            continue;
-          }
-          
-          return nama[pilihanUser-1];
-        }
-        
-        }
-    }
-  }
-  return 0;
-}
-
 
 void mainCity(string username){
   string baca1;
@@ -1063,4 +1075,13 @@ void mainCity(string username){
 
 // void main(){
 //   mainCity(menusepsepan());
+// }
+// int main(string username){
+//   PlayerData* p = getPlayerData(username);
+//   if (p != nullptr) {
+//     cout << "LEVEL: " << p-> << endl;
+//     cout << "SYRINGE: " << p->syringe << endl;
+//     cout << "POWDER: " << p->powder << endl;
+//     system("pause");
+// }
 // }

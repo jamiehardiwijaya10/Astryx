@@ -153,7 +153,7 @@ void mulaiDungeon(Dungeon dungeon, string username) {
 
     BattleResult result;
 
-    while (dungeon.floor <= dungeon.maxFloors) {
+    while (dungeon.floor <= 5) {
         cout << "\n==============================\n";
         cout << "           FLOOR " << dungeon.floor << endl;
         cout << "==============================\n";

@@ -1,0 +1,5 @@
+name level HP ATK DEF skillCount skill1 skill2 unlocked
+Elias 1 50 10 5 1 IronVerdict 1
+Darius 1 45 5 15 1 ShieldThrust 0
+Ririsa 1 55 8 8 1 ButterflyBlessings 0
+Kizuki 1 60 20 5 2 BambooSlash DivineDivergence 0

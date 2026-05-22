@@ -13,7 +13,7 @@ string newGame(){
   vector <string> check;
 
   //Validasi akun baru
-  ifstream filecek("databases/player.txt");
+  ifstream filecek("../databases/player.txt");
   getline(filecek,cek);
   while (getline(filecek,cek))
   {
@@ -50,7 +50,7 @@ string newGame(){
   }
   
   //Tamvbah ke resources
-  ofstream file("databases/playerresources.txt", ios::app); //appendlibel
+  ofstream file("../databases/playerresources.txt", ios::app); //appendlibel
   if (!file.is_open())
   {
     cout << "File tidak ada" << endl;
@@ -59,7 +59,7 @@ string newGame(){
   file.close();
 
   //Tamcbah ke buildings
-  ofstream file2("databases/building.txt", ios::app);
+  ofstream file2("../databases/building.txt", ios::app);
   if (!file2.is_open())
   {
     cout << "File gaada";
@@ -71,7 +71,7 @@ string newGame(){
   file2 << nama  << ",Moncini Basin,1,3,Empty Land,Empty Land,Empty Land"<< endl;
   file2.close();
 
-  ofstream file3("databases/player.txt", ios::app);
+  ofstream file3("../databases/player.txt", ios::app);
   if (!file3.is_open())
   {
     cout << "File gaada";
@@ -107,7 +107,7 @@ string newGame(){
 
 string menusepsepan(){
   vector<string> nama;
-  ifstream file("databases/player.txt");
+  ifstream file("../databases/player.txt");
   string line;
   int logs;
 

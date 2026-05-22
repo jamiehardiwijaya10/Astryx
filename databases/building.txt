@@ -1,20 +1,4 @@
 name area unlockStatus lahan1 lahan2 lahan3 lahan4
-Jamie,Arriola Monument,1,Kosong,Kosong,Kosong,Kosong
-Jamie,Village Of Purification,1,Penebangan Kayu,Penambangan Batu,Pengumpulan Scrap,Kosong
-Jamie,Masonwood,0,Kosong,Kosong,Kosong,Kosong
-Jamie,Rovenilla,0,Kosong,Kosong,Kosong,Kosong
-Jamie,Moncini Basin,0,Kosong,Kosong,Kosong,Kosong
-
-Roven,Arriola Monument,1,Kosong,Kosong,Kosong,Kosong
-Roven,Village Of Purification,1,Penebangan Kayu,Penambangan Batu,Pengumpulan Scrap,Kosong
-Roven,Masonwood,0,Kosong,Kosong,Kosong,Kosong
-Roven,Rovenilla,0,Kosong,Kosong,Kosong,Kosong
-Roven,Moncini Basin,0,Kosong,Kosong,Kosong,Kosong
-Romulus,Ariolla Monument,1,Patung Ariolla,Dermaga Kapal,Kosong,Kosong
-Romulus,Village Of Purification,1,Penebangan Kayu,Penambangan Batu,Pengumpulan Scrap,Penebangan Kayu
-Romulus,Masonwood,0,Kosong,Kosong,Kosong,Kosong
-Romulus,Rovenilla,0,Kosong,Kosong,Kosong,Kosong
-Romulus,Moncini Basin,0,Kosong,Kosong,Kosong,Kosong
 iqi1,Ariolla Monument,1,5,Empty Land,Empty Land,Empty Land,Empty Land,Empty Land
 iqi1,Village Of Purification,1,4,Lumberyard,Stone Quarry,Scrap Reclamation Center,Empty Land
 iqi1,Masonwood,0,0
@@ -35,7 +19,7 @@ Romus,Village Of Purification,1,4,Lumberyard,Stone Quarry,Scrap Reclamation Cent
 Romus,Masonwood,1,0,
 Romus,Rovenilla,1,10,Vanguard Barracks,Empty Land,Empty Land,Empty Land,Empty Land,Empty Land,Empty Land,Empty Land,Empty Land,Empty Land
 Romus,Moncini Basin,1,3,Empty Land,Empty Land,Empty Land
-Selapur,Ariolla Monument,1,5,Empty Land,Empty Land,Empty Land,Empty Land,Empty Land
+Selapur,Ariolla Monument,1,5,Empty Land,The Ship Docks,Ariolla Market,Ariolla Clinic,Ariolla Transit Station
 Selapur,Village Of Purification,1,4,Lumberyard,Stone Quarry,Scrap Reclamation Center,Empty Land
 Selapur,Masonwood,1,0,
 Selapur,Rovenilla,1,10,Vanguard Barracks,Academy of Sciences,Empty Land,Empty Land,Empty Land,Empty Land,Empty Land,Empty Land,Empty Land,Empty Land

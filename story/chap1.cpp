@@ -450,17 +450,17 @@ int chap1(int scene, string username) {
     if (scene <= 1) chap1a();
     if (scene <= 2) {
         saveGame(1, 2);
-        bsp();
+        //bsp();
 }
     if (scene <= 3) chap1b();
     if (scene <= 4) {
         saveGame(1, 4);
-        mc();
+        //mc();
     }
     if (scene <= 5) chap1c();
     if (scene <= 6) {
         saveGame(1, 6);
-        battle1(username);
+        //battle1(username);
     }
     if (scene <= 7) chap1d();
     if (scene <= 8) {

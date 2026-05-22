@@ -80,7 +80,7 @@ void setProduksi(Lahan &l){
 
 void membaca(string username){
   players.clear();
-  ifstream file("databases/playerresources.txt");
+  ifstream file("../databases/playerresources.txt");
   string line;
   getline(file, line);
   while (getline(file, line)) {
@@ -91,7 +91,7 @@ void membaca(string username){
     }
   file.close();
 
-  ifstream file2("databases/building.txt");
+  ifstream file2("../databases/building.txt");
   int i = 0;
   getline(file2, line);
   while (getline(file2, line)) {
@@ -164,7 +164,7 @@ void PerhitunganSumberDaya(string username){
 
 void updatePlayer(){
 
-  ofstream tulis1("databases/playerresources.txt");
+  ofstream tulis1("../databases/playerresources.txt");
   if (!tulis1.is_open())
   {
     cout << "File tidak ada" << endl;
@@ -183,7 +183,7 @@ void updateBuilding(string username){
     vector<string>semuaData;
     string line;
     int i = 0;
-    ifstream file2("databases/building.txt");
+    ifstream file2("../databases/building.txt");
     while (getline(file2, line)){
         stringstream baca2(line);
         string name;
@@ -211,7 +211,7 @@ void updateBuilding(string username){
         }
         semuaData.push_back(baris);
     }
-    ofstream tulis("databases/building.txt");
+    ofstream tulis("../databases/building.txt");
     for (auto &data : semuaData){
         tulis << data << endl;
     }
@@ -225,7 +225,7 @@ void header(string username){
     {
       cout << "[Token = " << p.token << "]                [" << "Turn ke-" << p.turn << "]"<< endl;
       garis(39);
-      cout << "| Wood: "<< p.kayu << "| Stone: "<< p.batu << "| Scrap: "<< p.scrap <<" |"<<endl;
+      cout << "| Wood: "<< p.kayu << " | Stone: "<< p.batu << " | Scrap: "<< p.scrap <<" |"<<endl;
     }
   }
 }
@@ -915,12 +915,40 @@ void lahanKosong(string username,int i){
 }
 
 bool ariollaSelesai(){
+  bool TAS = false,TSD = false,AM = false,AC = false,ATS = false;
     for(int i = 0; i < daerah[0].kapasitas; i++){
-        if(daerah[0].bangunan[i].nama == "Empty Land"){
-            return false;
+        if(daerah[0].bangunan[i].nama == "The Ariolla Statue"){
+            TAS = true;
         }
     }
-    return true;
+    for(int i = 0; i < daerah[0].kapasitas; i++){
+        if(daerah[0].bangunan[i].nama == "The Ship Docks"){
+            TSD = true;
+        }
+    }
+    for(int i = 0; i < daerah[0].kapasitas; i++){
+        if(daerah[0].bangunan[i].nama == "Ariolla Market"){
+            AM = true;
+        }
+    }
+    for(int i = 0; i < daerah[0].kapasitas; i++){
+        if(daerah[0].bangunan[i].nama == "Ariolla Clinic"){
+            AC = true;
+        }
+    }
+    for(int i = 0; i < daerah[0].kapasitas; i++){
+        if(daerah[0].bangunan[i].nama == "Ariolla Transit Station"){
+            ATS = true;
+        }
+    }
+    if (TAS == true && TSD == true && AM == true && AC == true && ATS == true)
+    {
+      return true;
+    }
+    else{
+      return false;
+    }
+    ;
 }
 
 void area(string username){
@@ -1072,6 +1100,7 @@ void mainCity(string username){
   sapa(username);
   area(username);
 }
+
 
 // void main(){
 //   mainCity(menusepsepan());

@@ -32,14 +32,14 @@ struct SaveData {
 SaveData save;
 
 void saveGame(int chapter, int scene) {
-    ofstream file("../databases/save.txt");
+    ofstream file("databases/save.txt");
     file << chapter << endl;
     file << scene << endl;
     file.close();
 }
 
 void loadGame() {
-    ifstream file("../databases/save.txt");
+    ifstream file("databases/save.txt");
 
     if (file.is_open()) {
         file >> save.chapter;
@@ -64,11 +64,11 @@ void title2(string text) {
 
 bool waitOrSkip() {
     string input;
-    cout << "\n(Enter = lanjut | ketik 's' = skip): ";
+    cout << "\n(Enter = continue | Type 's' = skip): ";
     getline(cin, input);
 
     if (input == "s" || input == "S") {
-        cout << "[Scene dilewati]\n";
+        cout << "[Scene skipped]\n";
         return true;
     }
 
@@ -84,7 +84,7 @@ void garis(int ukuran,char hurup){
 
 void waitEnter() {
     string input;
-    cout << "\n(Tekan Enter untuk lanjut)";
+    cout << "\n(Press enter to continue... )";
     getline(cin, input);
 }
 

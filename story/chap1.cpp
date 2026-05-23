@@ -467,7 +467,18 @@ int chap1(int scene, string username) {
         saveGame(1, 8);
         mainCity(username);
     }
-    if (scene <= 9) chap1e();
+    membaca(username);
+    if (!ariollaSelesai()){
+        return 0;
+    }
 
+    if (scene <= 9) chap1e();
+    if (scene <= 10) {
+        saveGame(1,10);
+        daerah[2].unlock = true;
+        daerah[3].unlock = true;
+        updateBuilding(username);
+        mainCity(username);
+    }
     return 0;
 }

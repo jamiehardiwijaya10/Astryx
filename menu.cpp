@@ -13,7 +13,7 @@ string newGame(){
   vector <string> check;
 
   //Validasi akun baru
-  ifstream filecek("../databases/player.txt");
+  ifstream filecek("databases/player.txt");
   getline(filecek,cek);
   while (getline(filecek,cek))
   {
@@ -24,7 +24,7 @@ string newGame(){
   while (ada)
   {
     system("cls");
-    cout << "Masukkan Username: ";
+    cout << "Enter Username: ";
     getline(cin, nama);
     cout << endl;
 
@@ -40,7 +40,7 @@ string newGame(){
 
     if (ditemukan)
     {
-      cout << "Nama sudah digunakan!\n";
+      cout << "Username has been used!\n";
       system("pause");
     }
     else
@@ -50,31 +50,31 @@ string newGame(){
   }
   
   //Tamvbah ke resources
-  ofstream file("../databases/playerresources.txt", ios::app); //appendlibel
+  ofstream file("databases/playerresources.txt", ios::app); //appendlibel
   if (!file.is_open())
   {
-    cout << "File tidak ada" << endl;
+    cout << "File not found" << endl;
   }
-  file << nama << " " << "1000 1000 1000 1000 1" << endl;
+  file << nama << " " << "100 100 100 10 1" << endl;
   file.close();
 
   //Tamcbah ke buildings
-  ofstream file2("../databases/building.txt", ios::app);
+  ofstream file2("databases/building.txt", ios::app);
   if (!file2.is_open())
   {
-    cout << "File gaada";
+    cout << "File not found";
   }
   file2 << nama  << ",Ariolla Monument,1,5,Empty Land,Empty Land,Empty Land,Empty Land,Empty Land"<< endl;
   file2 << nama  << ",Village Of Purification,1,4,Lumberyard,Stone Quarry,Scrap Reclamation Center,Empty Land"<< endl;
-  file2 << nama  << ",Masonwood,1,0"<< endl;
-  file2 << nama  << ",Rovenilla,1,10,Empty Land,Empty Land,Empty Land,Empty Land,Empty Land,Empty Land,Empty Land,Empty Land,Empty Land,Empty Land"<< endl;
-  file2 << nama  << ",Moncini Basin,1,3,Empty Land,Empty Land,Empty Land"<< endl;
+  file2 << nama  << ",Masonwood,0,0"<< endl;
+  file2 << nama  << ",Rovenilla,0,10,Empty Land,Empty Land,Empty Land,Empty Land,Empty Land,Empty Land,Empty Land,Empty Land,Empty Land,Empty Land"<< endl;
+  file2 << nama  << ",Moncini Basin,0,3,Empty Land,Empty Land,Empty Land"<< endl;
   file2.close();
 
-  ofstream file3("../databases/player.txt", ios::app);
+  ofstream file3("databases/player.txt", ios::app);
   if (!file3.is_open())
   {
-    cout << "File gaada";
+    cout << "File not found";
   }
   file3 << nama << endl;
   file3.close();
@@ -107,7 +107,7 @@ string newGame(){
 
 string menusepsepan(){
   vector<string> nama;
-  ifstream file("../databases/player.txt");
+  ifstream file("databases/player.txt");
   string line;
   int logs;
 
@@ -126,7 +126,7 @@ string menusepsepan(){
     garis(30);
     cout << "1. New Game\n2. Load\n0. Exit\n";
     garis(30);
-    cout << "Pilih: "; cin >> logs;
+    cout << "Choose: "; cin >> logs;
 
     if (cin.fail()) {
       cin.clear();
@@ -153,14 +153,16 @@ string menusepsepan(){
       {
         system("cls");
         garis(30);
+        cout << "|          Load Game         |" <<endl;
+        garis(30);
 
         for (int i = 0; i < nama.size(); i++)
         {
           cout << i+1 << ". " << nama[i] << endl;
         }
 
-        cout << "0. Kembali\n";
-        cout << "\nPilih index: ";
+        cout << "0. Back\n";
+        cout << "\nChoose index: ";
 
         int pilihanUser;
         cin >> pilihanUser;

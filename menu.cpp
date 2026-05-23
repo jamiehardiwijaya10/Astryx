@@ -153,7 +153,7 @@ string menusepsepan(){
       {
         system("cls");
         garis(30);
-        cout << "|          Load Game         |"
+        cout << "|          Load Game         |" <<endl;
         garis(30);
 
         for (int i = 0; i < nama.size(); i++)

@@ -182,7 +182,7 @@ void addCharacterExp(CharacterData &c, int amount) {
         c.exp -= getRequiredExp(c.level);
         c.level++;
 
-        cout << "\n" << c.name << " LEVEL UP! Sekarang level " << c.level << endl;
+        cout << "\n" << c.name << " has been upgrade to level " << c.level << endl;
     }
 }
 
@@ -257,17 +257,17 @@ PlayerData loadPlayer(string username) {
         }
     }
     if (!found) {
-        cout << "Player tidak ditemukan!\n";
+        cout << "Player not found!\n";
     }
     if (!found || p.ownedCharacters.empty()) {
-        cout << "\n[!] Kamu belum memiliki karakter!\n";
-        cout << "Silakan pilih minimal 1 karakter.\n";
+        cout << "\n[!] You don't have character yet!\n";
+        cout << "Please select at least 1 character.\n";
         
         system("pause");
         system("cls");
         
         while (p.ownedCharacters.empty()) {
-            cout << "\n[!] Kamu wajib memiliki minimal 1 karakter!\n";
+            cout << "\n[!] You must have at least 1 character!\n";
             assignStarterCharacter(p);
         }
         savePlayer(p);
@@ -298,7 +298,7 @@ int chooseCharacter(PlayerData &p) {
         cout << i + 1 << ". " << p.ownedCharacters[i].name << endl;
     }
 
-    cout << "0. Batal\n";
+    cout << "0. Cancel\n";
     cout << "Pilih: ";
 
     int pilih;
@@ -315,7 +315,7 @@ void setParty(PlayerData &p) {
         system("cls");
         showParty(p);
 
-        cout << "\n1. Set Slot\n2. Remove Slot\n0. Kembali\nPilih: ";
+        cout << "\n1. Set Slot\n2. Remove Slot\n0. Back\nChoose: ";
 
         int pilih;
         cin >> pilih;
@@ -324,7 +324,7 @@ void setParty(PlayerData &p) {
 
         if (pilih == 1) {
             int slot;
-            cout << "Pilih slot (1-3): ";
+            cout << "Choose slot (1-3): ";
             cin >> slot;
 
             if (slot < 1 || slot > 3) continue;
@@ -334,20 +334,20 @@ void setParty(PlayerData &p) {
 
             p.partyNames[slot - 1] = p.ownedCharacters[idx].name;
 
-            cout << "Party diupdate!\n";
+            cout << "Party updated!\n";
             system("pause");
         }
 
         else if (pilih == 2) {
             int slot;
-            cout << "Slot mana (1-3): ";
+            cout << "Choose slot (1-3): ";
             cin >> slot;
 
             if (slot < 1 || slot > 3) continue;
 
             p.partyNames[slot - 1] = "";
 
-            cout << "Slot dikosongkan!\n";
+            cout << "Slot is empty now!\n";
             system("pause");
         }
     }
@@ -386,9 +386,9 @@ void prepareBattle(string username) {
         cout << "=== PREPARE PARTY ===\n";
         showParty(p);
 
-        cout << "\n1. Atur Party\n";
-        cout << "0. Selesai\n";
-        cout << "Pilih: ";
+        cout << "\n1. Party Selection\n";
+        cout << "0. Start battle\n";
+        cout << "Choose: ";
 
         int pilih;
         cin >> pilih;
@@ -436,11 +436,11 @@ void assignStarterCharacter(PlayerData &p) {
     // vector<CharacterData> db = loadPlayerCharacters(p.name);
     vector<CharacterData> db = loadCharacterDB();
     if (db.empty()) {
-        cout << "Database karakter kosong!\n";
+        cout << "Database character is empty!\n";
         return;
     }
 
-    cout << "=== PILIH KARAKTER ===\n";
+    cout << "=== CHOOSE CHARACTER ===\n";
 
     for (int i = 0; i < db.size(); i++) {
         cout << i + 1 << ". " << db[i].name;
@@ -453,7 +453,7 @@ void assignStarterCharacter(PlayerData &p) {
         }
     }
 
-    cout << "Pilihan: ";
+    cout << "Choose: ";
     int pilih;
     cin >> pilih;
 
@@ -461,11 +461,11 @@ void assignStarterCharacter(PlayerData &p) {
 
     if (pilih >= 0 && pilih < db.size()) {
         if (!db[pilih].unlocked) {
-            cout << "Karakter masih terkunci!\n";
+            cout << "Character locked!\n";
         } else {
             for (auto &c : p.ownedCharacters) {
                 if (c.name == db[pilih].name) {
-                    cout << "Sudah dimiliki!\n";
+                    cout << "Character already owned!\n";
                     return;
                 }
             }
@@ -491,10 +491,10 @@ void assignStarterCharacter(PlayerData &p) {
                     }
                 }
             }
-            cout << "Karakter berhasil dipilih!\n";}
+            cout << "Character successfully selected!\n";}
         } 
     else {
-        cout << "Pilihan tidak valid!\n";
+        cout << "Invalid choice!\n";
     }
 
     system("pause");
@@ -504,7 +504,7 @@ void assignStarterCharacter(PlayerData &p) {
 void unlockCharacter(string charName) {
     vector<CharacterData> db = loadCharacterDB();
     if (db.empty()) {
-        cout << "Database karakter kosong!\n";
+        cout << "Database character is empty!\n";
         return;
     }
 

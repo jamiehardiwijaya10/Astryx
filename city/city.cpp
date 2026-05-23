@@ -629,12 +629,6 @@ void academyMenu(PlayerData &p) {
     }
 }
 
-void monciniBasin(string username, int area, int nomorlahan){
-  int pilih;
-  cout<<"selamat kamu bisa\n"<<endl;
-  return;
-}
-
 void bangunLahan(string username, int area, int nomorlahan){
     if (daerah[area].nama == "Ariolla Monument"){
     int pilih;

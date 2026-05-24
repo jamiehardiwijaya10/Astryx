@@ -80,18 +80,19 @@ void setProduksi(Lahan &l){
 
 void membaca(string username){
   players.clear();
-  ifstream file("databases/playerresources.txt");
+  ifstream file("../databases/playerresources.txt");
   string line;
   getline(file, line);
-  while (getline(file, line)) {
+  while (getline(file, line)) 
+  {
       stringstream baca1(line);
       SumberDaya p;
       baca1 >> p.nama >> p.kayu >> p.batu >> p.scrap >> p.token >> p.turn;
       players.push_back(p);
-    }
+  }
   file.close();
 
-  ifstream file2("databases/building.txt");
+  ifstream file2("../databases/building.txt");
   int i = 0;
   getline(file2, line);
   while (getline(file2, line)) {
@@ -129,6 +130,7 @@ void membaca(string username){
 
   file2.close();
 }
+
 void PerhitunganSumberDaya(string username){
   for (auto &p : players){
     if(username == p.nama ){
@@ -164,36 +166,42 @@ void PerhitunganSumberDaya(string username){
 
 void updatePlayer(){
 
-  ofstream tulis1("databases/playerresources.txt");
+  ofstream tulis1("../databases/playerresources.txt");
+
   if (!tulis1.is_open())
   {
     cout << "File not found" << endl;
   }
-  tulis1<<"nama kayu batu scrap token turn"<<endl;
-  for (auto &p : players){
 
+  tulis1<<"nama kayu batu scrap token turn"<<endl;
+
+  for (auto &p : players)
+  {
     tulis1 << p.nama << " " << p.kayu << " " << p.batu << " " << p.scrap << " " << p.token << " " << p.turn <<endl;
-    
   }
+
   tulis1.close();
-  
+
   }
 
 void updateBuilding(string username){
     vector<string>semuaData;
     string line;
     int i = 0;
-    ifstream file2("databases/building.txt");
-    while (getline(file2, line)){
+    ifstream file2("../databases/building.txt");
+
+    while (getline(file2, line))
+    {
         stringstream baca2(line);
         string name;
 
         getline(baca2, name, ',');
 
-        if (name != username && i < 5){
+        if (name != username && i < 5)
+        {
           semuaData.push_back(line);
-          }
         }
+    }
     file2.close();
     
     for (int i=0; i<5; i++){
@@ -204,14 +212,15 @@ void updateBuilding(string username){
         baris += (daerah[i].unlock ? "1" : "0") + string(",");
         baris += to_string(daerah[i].kapasitas) + ",";
 
-        for (int j=0; j<daerah[i].kapasitas; j++){
+        for (int j=0; j<daerah[i].kapasitas; j++)
+        {
             baris += daerah[i].bangunan[j].nama;
             if (j < daerah[i].kapasitas-1)
                 baris += ",";
         }
         semuaData.push_back(baris);
     }
-    ofstream tulis("databases/building.txt");
+    ofstream tulis("../databases/building.txt");
     for (auto &data : semuaData){
         tulis << data << endl;
     }
@@ -249,19 +258,30 @@ void statistikArea(int i){
 
 void ariollaMonument(string username, int area,int nomorlahan){
   int pilih;
-  system("cls");
-      header(username);
-      garis(39);
-      if(daerah[area].bangunan[nomorlahan].nama == "Ariolla Market")
-      {
-        cout << "|       "<< daerah[area].bangunan[nomorlahan].nama <<"      |" << endl;
-        garis (39);
-        cout<<"1. 50 Wood (2 token)"<<endl;
-        cout<<"2. 40 Stone (2 token)"<<endl;
-        cout<<"3. 30 Scrap (3 token)"<<endl;
-        cout<<"0. Back"<<endl;
-        garis (39);
-        cout<<"What you want to buy: ";cin>>pilih;
+  garis(39);
+  if(daerah[area].bangunan[nomorlahan].nama == "Ariolla Market")
+  {
+    while (true)
+    {
+          system("cls");
+          header(username);
+          cout << "|       "<< daerah[area].bangunan[nomorlahan].nama <<"      |" << endl;
+          garis (39);
+          cout<<"1. 50 Wood (2 token)"<<endl;
+          cout<<"2. 40 Stone (2 token)"<<endl;
+          cout<<"3. 30 Scrap (3 token)"<<endl;
+          cout<<"0. Back"<<endl;
+          garis (39);
+          cout<<"What you want to buy: ";cin>>pilih;
+          if (cin.fail())
+          {
+            cin.clear();
+            cin.ignore();
+            continue;
+          }
+          break;
+        }
+        
   
         for (auto &p : players){
           if (p.nama == username){
@@ -284,19 +304,36 @@ void ariollaMonument(string username, int area,int nomorlahan){
                 system("pause");
                 return;
               }
+              else
+              {
+                cout << "Invalid, Return to Ariolla Monument Lobby";
+                system("pause");
+                return;
+              }
           }
         }
       }
       else if(daerah[area].bangunan[nomorlahan].nama == "Ariolla Clinic")
       {
-        cout << "|       "<< daerah[area].bangunan[nomorlahan].nama <<"      |" << endl;
-        garis (39);
-        cout<<"1. Medkit (5 token)"<<endl;
-        cout<<"2. First aid (2 token)"<<endl;
-        cout<<"3. Betadine (3 token)"<<endl;
-        cout<<"0. Back"<<endl;
-        garis (39);
-        cout<<"What you want to buy: ";cin>>pilih;
+        while (true)
+        {
+          cout << "|       "<< daerah[area].bangunan[nomorlahan].nama <<"      |" << endl;
+          garis (39);
+          cout<<"1. Medkit (5 token)"<<endl;
+          cout<<"2. First aid (2 token)"<<endl;
+          cout<<"3. Betadine (3 token)"<<endl;
+          cout<<"0. Back"<<endl;
+          garis (39);
+          cout<<"What you want to buy: ";cin>>pilih;
+          if (cin.fail())
+          {
+            cin.clear();
+            cin.ignore();
+            continue;
+          }
+          break;
+        }
+        
   
         for (auto &p : players){
           if (p.nama == username){
@@ -316,6 +353,12 @@ void ariollaMonument(string username, int area,int nomorlahan){
                 p.scrap += 30;
               }
               else if(pilih==0){
+                system("pause");
+                return;
+              }
+              else
+              {
+                cout << "Invalid, Return to Ariolla Monument Lobby";
                 system("pause");
                 return;
               }
@@ -341,7 +384,7 @@ void villageOfPurification(string username, int area,int nomorlahan){
 
             if (daerah[area].bangunan[nomorlahan].nama == "Lumberyard")
             {
-              cout << "Tidak bisa membangun bangunan yang sama" << endl;
+              cout << "Can't build the same buildings" << endl;
               system("pause");
             }
             else if( p.batu >= 30 && p.scrap >= 5)
@@ -352,7 +395,7 @@ void villageOfPurification(string username, int area,int nomorlahan){
             }
             else
             {
-              cout << "Maaf, Sumberdaya yang anda miliki tidak cukup" << endl;
+              cout << "Not enough resourcess" << endl;
               system("pause");
             }
           }
@@ -360,7 +403,7 @@ void villageOfPurification(string username, int area,int nomorlahan){
           else if (pilih == 2){
             if (daerah[area].bangunan[nomorlahan].nama == "Stone Quarry")
             {
-              cout << "Tidak bisa membangun bangunan yang sama" << endl;
+              cout << "Can't build the same buildings" << endl;
               system("pause");
             }
             else if(p.kayu >=20 && p.scrap >= 5)
@@ -371,7 +414,7 @@ void villageOfPurification(string username, int area,int nomorlahan){
             }
             else
             {
-              cout << "Maaf, Sumberdaya yang anda miliki tidak cukup" << endl;
+              cout << "Not enough resources" << endl;
               system("pause");
             }
           }
@@ -379,7 +422,7 @@ void villageOfPurification(string username, int area,int nomorlahan){
           else if (pilih == 3){
             if (daerah[area].bangunan[nomorlahan].nama == "Scrap Reclamation Center")
             {
-              cout << "Tidak bisa membangun bangunan yang sama" << endl;
+              cout << "Can't build the same buildings" << endl;
               system("pause");
             }
             else if(p.kayu >= 30 && p.batu >= 30)
@@ -390,7 +433,7 @@ void villageOfPurification(string username, int area,int nomorlahan){
             }
             else
             {
-              cout << "Maaf, Sumberdaya yang anda miliki tidak cukup" << endl;
+              cout << "Not enough resourcess" << endl;
               system("pause");
             }
 
@@ -664,6 +707,21 @@ void bangunLahan(string username, int area, int nomorlahan){
       }
       garis (39);
       cout <<"Choose buildings: ";cin>>pBuilding;
+      if (cin.fail())
+      {
+        cin.clear();
+        cin.ignore();
+      }
+      if (pBuilding == 0)
+      {
+        return;
+      }
+      
+      if (pBuilding > 5 || pBuilding < 0)
+      {
+        return;
+      }
+      
       
       cout<<"\nUse "<<AM[pBuilding-1].bKayu<<" Wood, "
         <<AM[pBuilding-1].bBatu<<" Stone and "
@@ -695,12 +753,19 @@ void bangunLahan(string username, int area, int nomorlahan){
                }}}}
 
     else if (pilih == 2){
-      daerah[area].bangunan[nomorlahan].nama = "Empty Land";
-      system("cls");
-      cout<<"Building has been destroyed"<<endl;
-      system("pause");
-      return;
+      if (daerah[area].bangunan[nomorlahan].nama == "Empty Land")
+      {
+        return;
+      }else{
+
+        
+        daerah[area].bangunan[nomorlahan].nama = "Empty Land";
+        system("cls");
+        cout<<"Building has been destroyed"<<endl;
+        system("pause");
+        return;
       }
+    }
     
     else if (pilih == 3){
       ariollaMonument(username,area,nomorlahan);}  
@@ -746,16 +811,35 @@ void bangunLahan(string username, int area, int nomorlahan){
     cout <<"Choose: ";cin>>pilih;
 
     if(pilih==1 && daerah[area].bangunan[nomorlahan].nama == "Empty Land"){
-      system("cls");
-      header(username);
-      garis(39);
-      cout << "|              Buildings              |" << endl;
-      garis (39);
-      for(int i=0; i<10;i++){
-        cout<<i+1<< ". "<<RN[i].nama<<endl;
+      while (true)
+      {
+        system("cls");
+        header(username);
+        garis(39);
+        cout << "|              Buildings              |" << endl;
+        garis (39);
+        for(int i=0; i<10;i++){
+          cout<<i+1<< ". "<<RN[i].nama<<endl;
+        }
+        cout << "0. Back" << endl;
+        garis (39);
+        cout <<"Pilih bangunan: ";cin>>pBuilding;
+        if (cin.fail())
+        {
+          cin.clear();
+          cin.ignore();
+        }
+        if (pBuilding > 10 || pBuilding < 0)
+        {
+          return;
+        }
+        if (pBuilding == 0)
+        {
+          return;
       }
-      garis (39);
-      cout <<"Pilih bangunan: ";cin>>pBuilding;
+      break;
+      }
+        
       
       cout<<"\nUse "<<RN[pBuilding-1].bKayu<<" Wood, "
         <<RN[pBuilding-1].bBatu<<" Stone and "
@@ -766,33 +850,56 @@ void bangunLahan(string username, int area, int nomorlahan){
       garis (39);
       cout <<"Choose: ";cin>>pBuild;
 
-      for (auto &p : players){
-        if (p.nama == username){
-            if (pBuild == 1 && p.kayu >= RN[pBuilding-1].bKayu && 
-                p.batu >= RN[pBuilding-1].bBatu && 
-                p.scrap >= RN[pBuilding-1].bScrap){
-                
-                p.kayu  -= RN[pBuilding-1].bKayu; 
-                p.batu  -= RN[pBuilding-1].bBatu; 
-                p.scrap -= RN[pBuilding-1].bScrap; 
-                daerah[area].bangunan[nomorlahan].nama = RN[pBuilding-1].nama;
-              }
-              else if (pBuild == 0){
-              return;}
+      for (auto &p : players)
+      {
+        if (p.nama == username)
+        {
 
-              else{
-                   cout << "Resource not enough!\n";
+            if (pBuild == 1)
+            {
+              if(p.kayu >= RN[pBuilding-1].bKayu && 
+                  p.batu >= RN[pBuilding-1].bBatu && 
+                  p.scrap >= RN[pBuilding-1].bScrap){
+                
+                  p.kayu  -= RN[pBuilding-1].bKayu; 
+                  p.batu  -= RN[pBuilding-1].bBatu; 
+                  p.scrap -= RN[pBuilding-1].bScrap; 
+                  daerah[area].bangunan[nomorlahan].nama = RN[pBuilding-1].nama;
+              } 
+              else
+              {
+                  cout << "Resources not enough!\n";
+                  system("pause");
+                  return;
+              }
+            }
+
+            else if (pBuild == 0){
+            return;}
+
+            else
+            {
+                   cout << "Invalid\n";
                    system("pause");
                    return;
-               }}}}
+            }
+          }
+        }
+      }
 
     else if (pilih == 2){
-      daerah[area].bangunan[nomorlahan].nama = "Empty Land";
-      system("cls");
-      cout<<"Building has been destroyed"<<endl;
-      system("pause");
-      return;
+      if (daerah[area].bangunan[nomorlahan].nama == "Empty Land")
+      {
+        return;
+      }else{
+
+        daerah[area].bangunan[nomorlahan].nama = "Empty Land";
+        system("cls");
+        cout<<"Building has been destroyed"<<endl;
+        system("pause");
+        return;
       }
+    }
     
     else if (pilih == 3){
       rovenilla(username,area,nomorlahan);}  
@@ -862,11 +969,17 @@ void bangunLahan(string username, int area, int nomorlahan){
                }}}}
 
     else if (pilih == 2){
-      daerah[area].bangunan[nomorlahan].nama = "Empty Land";
-      system("cls");
-      cout<<"Building has been destroyed"<<endl;
-      system("pause");
-      return;
+      if (daerah[area].bangunan[nomorlahan].nama == "Empty Land")
+      {
+        return;
+      }else{
+
+        daerah[area].bangunan[nomorlahan].nama = "Empty Land";
+        system("cls");
+        cout<<"Building has been destroyed"<<endl;
+        system("pause");
+        return;
+      }
       }
 
     else if (pilih == 0){
@@ -959,6 +1072,8 @@ bool ariollaSelesai(){
 void area(string username){
   int pArea;
   bool ulang = true;
+
+  
   while (ulang)
   {
 

@@ -1,5 +1,3 @@
 name syringe powder party1 party2 party3
-Jamie 0 0 Elias
-Romus 0 0 Elias  
-Selapur 273 91 Elias  
-acikiwir 0 0 Elias  
+icikiwir 1000 1000 Elias  
+acikiwir 996 1000 Elias  

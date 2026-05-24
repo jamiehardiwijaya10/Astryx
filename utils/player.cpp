@@ -46,7 +46,7 @@ void savePlayer(PlayerData &p);
 
 vector<CharacterData> loadPlayerCharacters(string username) {
     vector<CharacterData> list;
-    ifstream file("databases/playerchara.txt");
+    ifstream file("../databases/playerchara.txt");
     if (!file.is_open()) return list;
 
     string name;
@@ -113,7 +113,7 @@ vector<CharacterData> loadPlayerCharacters(string username) {
 void savePlayerCharacters(PlayerData &p) {
     vector<string> all;
     vector<CharacterData> list;
-    ifstream file("databases/playerchara.txt");
+    ifstream file("../databases/playerchara.txt");
     if (!file.is_open()) {
         cout << "Failed to open player characters file! Making new one...\n";
     }
@@ -147,7 +147,7 @@ void savePlayerCharacters(PlayerData &p) {
     }
     file.close();
 
-    ofstream out("databases/playerchara.txt", ios::trunc);
+    ofstream out("../databases/playerchara.txt", ios::trunc);
 
     for (auto &l : all) {
         out << l << endl;
@@ -227,7 +227,7 @@ vector<Skill> getCharacterSkills(CharacterData &cd) {
 }
 
 PlayerData loadPlayer(string username) {
-    ifstream file("databases/playerdata.txt");
+    ifstream file("../databases/playerdata.txt");
     PlayerData p{};
     bool found = false;
     p.partyNames.resize(3, "");
@@ -406,7 +406,7 @@ void prepareBattle(string username) {
 
 vector<CharacterData> loadCharacterDB() {
     vector<CharacterData> list;
-    ifstream file("databases/characters.txt");
+    ifstream file("../databases/characters.txt");
     if (!file.is_open()) return list;
 
     string header;
@@ -514,7 +514,7 @@ void unlockCharacter(string charName) {
         }
     }
 
-    ofstream out("databases/characters.txt");
+    ofstream out("../databases/characters.txt");
     out << "name level HP ATK DEF skillCount skill1 skill2 unlocked\n";
 
     for (auto &c : db) {
@@ -536,7 +536,7 @@ void unlockCharacter(string charName) {
 
 void savePlayer(PlayerData &p) {
     vector<string> all;
-    ifstream file("databases/playerdata.txt");
+    ifstream file("../databases/playerdata.txt");
     string line;
 
     getline(file, line);
@@ -555,7 +555,7 @@ void savePlayer(PlayerData &p) {
     }
     file.close();
 
-    ofstream out("databases/playerdata.txt");
+    ofstream out("../databases/playerdata.txt");
 
     for (auto &l : all) {
         out << l << endl;

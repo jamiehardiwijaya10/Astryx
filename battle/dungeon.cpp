@@ -35,6 +35,8 @@ struct BattleResult {
     string skillMat;
 };
 
+void membaca(string username);
+
 void addResourceToPlayer(string username, BattleResult &r) {
     ifstream file("databases/playerresources.txt");
     if (!file.is_open()) {
@@ -47,26 +49,90 @@ void addResourceToPlayer(string username, BattleResult &r) {
     int kayu;
     int batu;
     int scrap;
+
+    int bamboo;
+    int clay;
+    int alloy;
+
+    int hardwood;
+    int limestone;
+    int copper;
+
+    int petrifiedWood;
+    int marble;
+    int circuitScrap;
+
+    int ironwood;
+    int obsidian;
+    int titanium;
+
     int token;
     int turn;
     string dummy;
     getline(file, dummy);
     bool found = false;
-    while (file >> nama >> kayu >> batu >> scrap >> token >> turn) {
+    while (file >> nama >> kayu >> batu >> scrap >> bamboo >> clay >> alloy >> hardwood >> limestone >> copper >> petrifiedWood >> marble >> circuitScrap >> ironwood >> obsidian >> titanium >> token >> turn) {
         if (nama == username) {
             found = true;
 
-            kayu += r.totalResource1;
-            batu += r.totalResource2;
-            scrap += r.totalResource3;
+            if (r.resource1 == "Wood")
+                kayu += r.totalResource1;
+            else if (r.resource1 == "Bamboo")
+                bamboo += r.totalResource1;
+            else if (r.resource1 == "Hardwood")
+                hardwood += r.totalResource1;
+            else if (r.resource1 == "Petrified Wood")
+                petrifiedWood += r.totalResource1;
+            else if (r.resource1 == "Ironwood")
+                ironwood += r.totalResource1;
+
+            if (r.resource2 == "Stone")
+                batu += r.totalResource2;
+            else if (r.resource2 == "Clay")
+                clay += r.totalResource2;
+            else if (r.resource2 == "Limestone")
+                limestone += r.totalResource2;
+            else if (r.resource2 == "Marble")
+                marble += r.totalResource2;
+            else if (r.resource2 == "Obsidian")
+                obsidian += r.totalResource2;
+
+            if (r.resource3 == "Scrap")
+                scrap += r.totalResource3;
+            else if (r.resource3 == "Alloy")
+                alloy += r.totalResource3;
+            else if (r.resource3 == "Copper Ore")
+                copper += r.totalResource3;
+            else if (r.resource3 == "Circuit Scrap")
+                circuitScrap += r.totalResource3;
+            else if (r.resource3 == "Titanium Alloy")
+                titanium += r.totalResource3;
 
             token += r.totalToken;
         }
         lines.push_back(
             nama + " " +
+
             to_string(kayu) + " " +
             to_string(batu) + " " +
             to_string(scrap) + " " +
+
+            to_string(bamboo) + " " +
+            to_string(clay) + " " +
+            to_string(alloy) + " " +
+
+            to_string(hardwood) + " " +
+            to_string(limestone) + " " +
+            to_string(copper) + " " +
+
+            to_string(petrifiedWood) + " " +
+            to_string(marble) + " " +
+            to_string(circuitScrap) + " " +
+
+            to_string(ironwood) + " " +
+            to_string(obsidian) + " " +
+            to_string(titanium) + " " +
+
             to_string(token) + " " +
             to_string(turn)
         );
@@ -78,7 +144,7 @@ void addResourceToPlayer(string username, BattleResult &r) {
         return;
     }
     ofstream out("databases/playerresources.txt");
-    out << "nama kayu batu scrap token turn\n";
+    out << "nama kayu batu scrap bamboo clay alloy hardwood limestone copper petrifiedWood marble circuitScrap ironwood obsidian titanium token turn\n";
 
     for (auto &l : lines) {
         out << l << endl;
@@ -344,7 +410,9 @@ void mulaiDungeon(Dungeon dungeon, string username) {
         result.resource3 = floorReward.resource3;
         result.levelMat = floorReward.levelMat;
         result.skillMat = floorReward.skillMat;
+
         addResourceToPlayer(username, floorReward);
+        membaca(username);
 
         if (dungeon.floor % 5 == 0) {
             if (dungeon.floor + 1 <= dungeon.maxFloors) {
@@ -384,14 +452,276 @@ void menuDungeon(string username, string area) {
     Dungeon d;
     d.area = area;
 
-    cout << "\n===== PILIH DUNGEON =====\n";
-    cout << "1. Dungeon Token\n";
-    cout << "2. Dungeon Resource\n";
-    cout << "3. Dungeon Level\n";
-    cout << "4. Dungeon Skill\n";
-    cout << "0. Kembali\n";
-    cout << "Pilihan: ";
+    system("cls");
+    setColor(CYAN_COLOR);
+    garis(60, '=');
+    cout << "                         DUNGEON\n";
+    garis(60, '=');
+    setColor(DEFAULT_COLOR);
+
+    cout << "\n";
+    cout << "AREA : ";
+    setColor(YELLOW_COLOR);
+    cout << area << "\n\n";
+    setColor(DEFAULT_COLOR);
+
+    cout << "Select a dungeon type to enter.\n";
+    cout << "Each dungeon grants different rewards.\n\n";
+
+    garis(60, '-');
+    cout << "\n";
+
+    setColor(YELLOW_COLOR);
+    cout << "[1] TOKEN DUNGEON\n";
+    setColor(DEFAULT_COLOR);
+    cout << " Reward     : Token\n";
+    cout << " Floors     : 1 - 30\n";
+    if (area == "Masonwood"){
+        cout << " Enemy      : "; 
+        setColor(YELLOW_COLOR);
+        cout << "Konyian Soldiers, Seaborn Luker\n";
+    } else if (area == "Tetsumori Forest") {
+        cout << " Enemy      : "; 
+        setColor(YELLOW_COLOR);
+        cout << "Forest Oni, Crimson Geisha, Night Parade Monk, Calestial Samurai\n";
+    } else if (area == "Collosseum") {
+        cout << " Enemy      : "; 
+        setColor(YELLOW_COLOR);
+        cout << "Arena Beastmaster, Arena Beastmaster, Gargantuan Idol, Soulbound Senator, Bloodfang Gladiator\n";
+    } else if (area == "Sacrificial Pit") {
+        cout << " Enemy      : "; 
+        setColor(YELLOW_COLOR);
+        cout << "Bone Prisoner, Bloodveil Necromancer, Abyssal Torturer, Frostborn Warden, Damned High Priest\n";
+    } else if (area == "Gryphon Aviary") {
+        cout << " Enemy      : "; 
+        setColor(YELLOW_COLOR);
+        cout << "Feathered Raider, High Sanctifier, Royal Executioner, Arcane Falcon Master, Grand Sentinel\n";
+    }
+    setColor(DEFAULT_COLOR);
+    if (area == "Masonwood"){
+        cout << " Boss       : "; 
+        setColor(YELLOW_COLOR);
+        cout << "VESSEL OF THE DEEP\n";
+    } else if (area == "Tetsumori Forest") {
+        cout << " Boss       : "; 
+        setColor(YELLOW_COLOR);
+        cout << "FALLEN AVATAR OF AMATERASU, SHOGUN OF HOLLOW LANTERNS\n";
+    } else if (area == "Collosseum") {
+        cout << " Boss       : "; 
+        setColor(YELLOW_COLOR);
+        cout << "EMPEROR OF ETERNAL MARBLE, THE GARGOYLE PRIMARCH\n";
+    } else if (area == "Sacrificial Pit") {
+        cout << " Boss       : "; 
+        setColor(YELLOW_COLOR);
+        cout << "THE LICH KING";
+    } else if (area == "Gryphon Aviary") {
+        cout << " Boss       : "; 
+        setColor(YELLOW_COLOR);
+        cout << "CROWNED GRYPHON EMPEROR, SAINTESS OF THE ETERNAL SANCTUM, KING OF THE CRIMSON THRONE, SOVEREIGN OF THE SCOURGE\n";
+    }
+    cout << "\n";
+    setColor(DEFAULT_COLOR);
+    
+    setColor(GREEN_COLOR);
+    cout << "[2] RESOURCE DUNGEON\n";
+    setColor(DEFAULT_COLOR);
+    if (area == "Masonwood") {
+        cout << " Reward     : Wood, Stone, Scrap\n";
+    } else if (area == "Tetsumori Forest") {
+        cout << " Reward     : Bamboo, Clay, Alloy\n";
+    } else if (area == "Collosseum") {
+        cout << " Reward     : Hardwood, Limestone, Copper Ore\n";
+    } else if (area == "Sacrificial Pit") {
+        cout << " Reward     : Petrified Wood, Marble, Circuit Scrap\n";
+    } else if (area == "Gryphon Aviary") {
+        cout << " Reward     : Ironwood, Obsidian, Titanium Alloy\n";
+    }
+    cout << " Floors     : 1 - 30\n";
+    if (area == "Masonwood"){
+        cout << " Enemy      : "; 
+        setColor(GREEN_COLOR);
+        cout << "Konyian Soldiers, Seaborn Luker\n";
+    } else if (area == "Tetsumori Forest") {
+        cout << " Enemy      : "; 
+        setColor(GREEN_COLOR);
+        cout << "Forest Oni, Crimson Geisha, Night Parade Monk, Calestial Samurai\n";
+    } else if (area == "Collosseum") {
+        cout << " Enemy      : "; 
+        setColor(GREEN_COLOR);
+        cout << "Arena Beastmaster, Arena Beastmaster, Gargantuan Idol, Soulbound Senator, Bloodfang Gladiator\n";
+    } else if (area == "Sacrificial Pit") {
+        cout << " Enemy      : "; 
+        setColor(GREEN_COLOR);
+        cout << "Bone Prisoner, Bloodveil Necromancer, Abyssal Torturer, Frostborn Warden, Damned High Priest\n";
+    } else if (area == "Gryphon Aviary") {
+        cout << " Enemy      : "; 
+        setColor(GREEN_COLOR);
+        cout << "Feathered Raider, High Sanctifier, Royal Executioner, Arcane Falcon Master, Grand Sentinel\n";
+    }
+    setColor(DEFAULT_COLOR);
+    if (area == "Masonwood"){
+        cout << " Boss       : "; 
+        setColor(GREEN_COLOR);
+        cout << "VESSEL OF THE DEEP\n";
+    } else if (area == "Tetsumori Forest") {
+        cout << " Boss       : "; 
+        setColor(GREEN_COLOR);
+        cout << "FALLEN AVATAR OF AMATERASU, SHOGUN OF HOLLOW LANTERNS\n";
+    } else if (area == "Collosseum") {
+        cout << " Boss       : "; 
+        setColor(GREEN_COLOR);
+        cout << "EMPEROR OF ETERNAL MARBLE, THE GARGOYLE PRIMARCH\n";
+    } else if (area == "Sacrificial Pit") {
+        cout << " Boss       : "; 
+        setColor(GREEN_COLOR);
+        cout << "THE LICH KING";
+    } else if (area == "Gryphon Aviary") {
+        cout << " Boss       : "; 
+        setColor(GREEN_COLOR);
+        cout << "CROWNED GRYPHON EMPEROR, SAINTESS OF THE ETERNAL SANCTUM, KING OF THE CRIMSON THRONE, SOVEREIGN OF THE SCOURGE";
+    }
+    cout << "\n\n";
+    setColor(DEFAULT_COLOR);
+
+    setColor(CYAN_COLOR);
+    cout << "[3] LEVEL DUNGEON\n";
+    setColor(DEFAULT_COLOR);
+    if (area == "Masonwood") {
+        cout << " Reward     : Lunar Syringe\n";
+    }
+    else if (area == "Tetsumori Forest") {
+        cout << " Reward     : Kobushi Flower\n";
+    }
+    else if (area == "Collosseum") {
+        cout << " Reward     : Warrior Scroll\n";
+    }
+    else if (area == "Sacrificial Pit") {
+        cout << " Reward     : Cursed Soul\n";
+    }
+    else if (area == "Gryphon Aviary") {
+        cout << " Reward     : Enchanted Fragment\n";
+    }
+    cout << " Floors     : 1 - 30\n";
+    if (area == "Masonwood"){
+        cout << " Enemy      : "; 
+        setColor(CYAN_COLOR);
+        cout << "Konyian Soldiers, Seaborn Luker\n";
+    } else if (area == "Tetsumori Forest") {
+        cout << " Enemy      : "; 
+        setColor(CYAN_COLOR);
+        cout << "Forest Oni, Crimson Geisha, Night Parade Monk, Calestial Samurai\n";
+    } else if (area == "Collosseum") {
+        cout << " Enemy      : "; 
+        setColor(CYAN_COLOR);
+        cout << "Arena Beastmaster, Arena Beastmaster, Gargantuan Idol, Soulbound Senator, Bloodfang Gladiator\n";
+    } else if (area == "Sacrificial Pit") {
+        cout << " Enemy      : "; 
+        setColor(CYAN_COLOR);
+        cout << "Bone Prisoner, Bloodveil Necromancer, Abyssal Torturer, Frostborn Warden, Damned High Priest\n";
+    } else if (area == "Gryphon Aviary") {
+        cout << " Enemy      : "; 
+        setColor(CYAN_COLOR);
+        cout << "Feathered Raider, High Sanctifier, Royal Executioner, Arcane Falcon Master, Grand Sentinel\n";
+    }
+    setColor(DEFAULT_COLOR);
+    if (area == "Masonwood"){
+        cout << " Boss       : "; 
+        setColor(CYAN_COLOR);
+        cout << "VESSEL OF THE DEEP\n";
+    } else if (area == "Tetsumori Forest") {
+        cout << " Boss       : "; 
+        setColor(CYAN_COLOR);
+        cout << "FALLEN AVATAR OF AMATERASU, SHOGUN OF HOLLOW LANTERNS\n";
+    } else if (area == "Collosseum") {
+        cout << " Boss       : "; 
+        setColor(CYAN_COLOR);
+        cout << "EMPEROR OF ETERNAL MARBLE, THE GARGOYLE PRIMARCH\n";
+    } else if (area == "Sacrificial Pit") {
+        cout << " Boss       : "; 
+        setColor(CYAN_COLOR);
+        cout << "THE LICH KING";
+    } else if (area == "Gryphon Aviary") {
+        cout << " Boss       : "; 
+        setColor(CYAN_COLOR);
+        cout << "CROWNED GRYPHON EMPEROR, SAINTESS OF THE ETERNAL SANCTUM, KING OF THE CRIMSON THRONE, SOVEREIGN OF THE SCOURGE";
+    }
+    cout << "\n\n";
+    setColor(DEFAULT_COLOR);
+
+    setColor(PURPLE_COLOR);
+    cout << "[4] SKILL DUNGEON\n";
+    setColor(DEFAULT_COLOR);
+    if (area == "Masonwood") {
+        cout << " Reward     : Powder\n";
+    }
+    else if (area == "Tetsumori Forest") {
+        cout << " Reward     : Blessed Water\n";
+    }
+    else if (area == "Collosseum") {
+        cout << " Reward     : Broken Hero Sword\n";
+    }
+    else if (area == "Sacrificial Pit") {
+        cout << " Reward     : Abyss Core\n";
+    }
+    else if (area == "Gryphon Aviary") {
+        cout << " Reward     : Gryphon Crystal\n";
+    }
+    cout << " Floors     : 1 - 30\n";
+    if (area == "Masonwood"){
+        cout << " Enemy      : "; 
+        setColor(PURPLE_COLOR);
+        cout << "Konyian Soldiers, Seaborn Luker\n";
+    } else if (area == "Tetsumori Forest") {
+        cout << " Enemy      : "; 
+        setColor(PURPLE_COLOR);
+        cout << "Forest Oni, Crimson Geisha, Night Parade Monk, Calestial Samurai\n";
+    } else if (area == "Collosseum") {
+        cout << " Enemy      : "; 
+        setColor(PURPLE_COLOR);
+        cout << "Arena Beastmaster, Arena Beastmaster, Gargantuan Idol, Soulbound Senator, Bloodfang Gladiator\n";
+    } else if (area == "Sacrificial Pit") {
+        cout << " Enemy      : "; 
+        setColor(PURPLE_COLOR);
+        cout << "Bone Prisoner, Bloodveil Necromancer, Abyssal Torturer, Frostborn Warden, Damned High Priest\n";
+    } else if (area == "Gryphon Aviary") {
+        cout << " Enemy      : "; 
+        setColor(PURPLE_COLOR);
+        cout << "Feathered Raider, High Sanctifier, Royal Executioner, Arcane Falcon Master, Grand Sentinel\n";
+    }
+    setColor(DEFAULT_COLOR);
+    if (area == "Masonwood"){
+        cout << " Boss       : "; 
+        setColor(PURPLE_COLOR);
+        cout << "VESSEL OF THE DEEP\n";
+    } else if (area == "Tetsumori Forest") {
+        cout << " Boss       : "; 
+        setColor(PURPLE_COLOR);
+        cout << "FALLEN AVATAR OF AMATERASU, SHOGUN OF HOLLOW LANTERNS\n";
+    } else if (area == "Collosseum") {
+        cout << " Boss       : "; 
+        setColor(PURPLE_COLOR);
+        cout << "EMPEROR OF ETERNAL MARBLE, THE GARGOYLE PRIMARCH\n";
+    } else if (area == "Sacrificial Pit") {
+        cout << " Boss       : "; 
+        setColor(PURPLE_COLOR);
+        cout << "THE LICH KING";
+    } else if (area == "Gryphon Aviary") {
+        cout << " Boss       : "; 
+        setColor(PURPLE_COLOR);
+        cout << "CROWNED GRYPHON EMPEROR, SAINTESS OF THE ETERNAL SANCTUM, KING OF THE CRIMSON THRONE, SOVEREIGN OF THE SCOURGE";
+    }
+    cout << "\n\n";
+    setColor(DEFAULT_COLOR);
+
+    setColor(RED_COLOR);
+    cout << "[0] EXIT\n";
+    setColor(DEFAULT_COLOR);
+    garis(60, '=');
+    cout << "\n";
+    cout << "Choose Dungeon : ";
     int pilihan; cin >> pilihan;
+    cin.clear(); cin.ignore();
+    system("cls");
 
     if (pilihan == 0) {
         return;
@@ -408,6 +738,7 @@ void menuDungeon(string username, string area) {
         cout << "Pilihan tidak valid!\n";
         return;
     }
+    
 
     string jenisDungeon = getJenisDungeon(d.jenis);
     unlockedFloor = loadCheckpoint(username, area, jenisDungeon);
@@ -429,6 +760,7 @@ void menuDungeon(string username, string area) {
     system("CLS");
 
     if (pilihStart == 0) {
+        menuDungeon(username, area);
         return;
     }
     if (pilihStart < 1 || pilihStart > checkpoints.size()) {

@@ -26,6 +26,7 @@ struct Character {
 
     vector<Skill> skills;
     bool alive = true;
+    bool phase2 = false;
 };
 
 Character createCharacter(CharacterData &cd)
@@ -939,6 +940,9 @@ vector<Character> generateEnemy(int floor, string area) {
                     musuh.skills.push_back({"Thronebreaker Cataclysm", "aoe", (musuh.atk + floor) * 2, 0, 4});
                 } else if(floor == 30){
                     musuh.name = "SOVEREIGN OF THE SCOURGE";
+                    musuh.skills.push_back({"Void Rend", "damage", (musuh.atk + floor) * 2, 0, 2});
+                    musuh.skills.push_back({"Scourge Dominion", "buff", musuh.atk + floor * 2, 0, 3});
+                    musuh.skills.push_back({"End of Salvation", "aoe", (musuh.atk + floor) * 2, 0, 4});
                 }
             }
 
@@ -955,6 +959,33 @@ vector<Character> generateEnemy(int floor, string area) {
         enemies.push_back(musuh);
     }
     return enemies;
+}
+
+void showBossHP(Character &boss) {
+    int totalBar = 30;
+    int current = boss.hp * totalBar / boss.maxhp;
+
+    cout << "\n";
+    setColor(RED_COLOR);
+    cout << boss.name << endl;
+    cout << "[";
+
+    for (int i = 0; i < totalBar; i++) {
+        if (i < current) {
+            setColor(RED_COLOR);
+            cout << "@";
+        } else {
+            setColor(GRAY_COLOR);
+            cout << "-";
+        }
+        if (boss.hp < boss.maxhp * 0.3) {
+            setColor(YELLOW_COLOR);
+        }
+    }
+
+    cout << "] ";
+    cout << boss.hp << "/" << boss.maxhp << endl;
+    setColor(DEFAULT_COLOR);
 }
 
 int battleDungeon(int floor, string username, string area) {
@@ -979,31 +1010,158 @@ int battleDungeon(int floor, string username, string area) {
     bool isBoss = (floor % 5 == 0);
 
     if (isBoss) {
-        if(area == "Masonwood"){
-            string title = "ARITHA\n";
-            string nama = " VESSEL OF THE DEEP HAS AWOKEN!";
-    
-            setColor(YELLOW_COLOR);
-            for (char c : title) {
-                cout << c << flush;
-                Sleep(100);
-            }
-            setColor(RED_COLOR);
-            for (char c : nama) {
-                cout << c << flush;
-                Sleep(100);
-            }
-            setColor(DEFAULT_COLOR);
-    
-            cout << endl;
-        }
+    Character &boss = enemyTeam[0];
+    string warning = "BOSS HAS AWOKEN!";
+    string title = "";
+    string nama = boss.name;
+
+    int titleColor = YELLOW_COLOR;
+    int nameColor = RED_COLOR;
+
+    if (boss.name == "VESSEL OF THE DEEP") {
+        title = "ARITHA";
+        titleColor = CYAN_COLOR;
+        nameColor = BLUE_COLOR;
     }
+    else if (boss.name == "FALLEN AVATAR OF AMATERASU") {
+        title = "HIYUKI";
+        titleColor = YELLOW_COLOR;
+        nameColor = WHITE_COLOR;
+    }
+    else if (boss.name == "SHOGUN OF HOLLOW LANTERNS") {
+        title = "NOURAGA";
+        titleColor = PURPLE_COLOR;
+        nameColor = RED_COLOR;
+    }
+    else if (boss.name == "EMPEROR OF ETERNAL MARBLE") {
+        title = "KAELTHAR";
+        titleColor = YELLOW_COLOR;
+        nameColor = WHITE_COLOR;
+    }
+    else if (boss.name == "THE GARGOYLE PRIMARCH") {
+        title = "VARKONN";
+        titleColor = WHITE_COLOR;
+        nameColor = GRAY_COLOR;
+    }
+    else if (boss.name == "THE LICH KING") {
+        title = "VAELKRIS";
+        titleColor = CYAN_COLOR;
+        nameColor = WHITE_COLOR;
+    }
+    else if (boss.name == "CROWNED GRYPHON EMPEROR") {
+        title = "AURELION";
+        titleColor = YELLOW_COLOR;
+        nameColor = CYAN_COLOR;
+    }
+    else if (boss.name == "SAINTESS OF THE ETERNAL SANCTUM") {
+        title = "SERAPHINE";
+        titleColor = WHITE_COLOR;
+        nameColor = YELLOW_COLOR;
+    }
+    else if (boss.name == "KING OF THE CRIMSON THRONE") {
+        title = "DRAVEN";
+        titleColor = RED_COLOR;
+        nameColor = GRAY_COLOR;
+    }
+    else if (boss.name == "SOVEREIGN OF THE SCOURGE") {
+        title = "AZRAKAR";
+        titleColor = PURPLE_COLOR;
+        nameColor = RED_COLOR;
+    }
+
+    for (int i = 0; i < 3; i++) {
+        system("cls");
+        setColor(RED_COLOR);
+        cout << "\n\n\n\n\n";
+        cout << "          WARNING";
+        Sleep(120);
+        system("cls");
+        Sleep(80);
+    }
+
+    vector<string> glitchText = {
+        "S0V3R31GN",
+        "D34TH",
+        "SC0URG3",
+        "C0RRUPT10N"
+    };
+
+    for (auto &g : glitchText) {
+        system("cls");
+        setColor(rand() % 15 + 1);
+        cout << "\n\n\n";
+        cout << "          " << g;
+        Sleep(120);
+    }
+
+    system("cls");
+    setColor(RED_COLOR);
+
+    for (char c : warning) {
+        cout << c << flush;
+        Sleep(60);
+    }
+
+    cout << "\n\n";
+    setColor(titleColor);
+
+    for (char c : title) {
+        cout << c << flush;
+        Sleep(80);
+    }
+
+    cout << "\n";
+    setColor(nameColor);
+
+    for (char c : nama) {
+        cout << c << flush;
+        Sleep(100);
+    }
+
+    cout << "\n\n";
+    setColor(DEFAULT_COLOR);
+    Sleep(1500);
+    system("cls");
+}
 
     while (teamAlive(playerTeam) && teamAlive(enemyTeam)) {
         playerTurn(playerTeam, enemyTeam);
 
+        if (enemyTeam[0].name == "SOVEREIGN OF THE SCOURGE"
+            && enemyTeam[0].hp <= enemyTeam[0].maxhp * 0.4
+            && !enemyTeam[0].phase2) {
+            enemyTeam[0].phase2 = true;
+
+            system("cls");
+            setColor(RED_COLOR);
+
+            cout << "\n\n";
+            cout << "THE SOVEREIGN AWAKENS...\n";
+            Sleep(1500);
+            cout << "THE SCOURGE CONSUMES THE SKY...\n";
+            Sleep(1500);
+            enemyTeam[0].name = "ASCENDED SCOURGE LORD";
+
+            enemyTeam[0].atk += 40;
+            enemyTeam[0].def += 15;
+            enemyTeam[0].hp += enemyTeam[0].maxhp / 2;
+
+            if (enemyTeam[0].hp > enemyTeam[0].maxhp) {
+                enemyTeam[0].hp = enemyTeam[0].maxhp;
+            }
+
+            enemyTeam[0].skills.push_back({"Eternal Hatred", "aoe", enemyTeam[0].atk * 4, 0, 2});
+            enemyTeam[0].skills.push_back({"Eclipse of the End", "aoe", enemyTeam[0].atk * 5, 0, 3});
+
+            setColor(DEFAULT_COLOR);
+            Sleep(2000);
+            system("cls");
+        }
         if (!teamAlive(enemyTeam)) {
             break;
+        }
+        if (isBoss && enemyTeam[0].alive) {
+            showBossHP(enemyTeam[0]);
         }
         enemyTurn(enemyTeam, playerTeam);
         update(playerTeam);
@@ -1021,6 +1179,76 @@ int battleDungeon(int floor, string username, string area) {
             }
         }
         savePlayer(player);
+        if (isBoss) {
+            Character &boss = enemyTeam[0];
+            cout << "\n";
+            setColor(GRAY_COLOR);
+
+            if (boss.name == "VESSEL OF THE DEEP") {
+                string line1 = "\"You...No....\"";
+                for (char c : line1) {
+                    cout << c << flush;
+                    Sleep(40);
+                }
+                cout << "\n";
+                Sleep(1000);
+            } else if (boss.name == "FALLEN AVATAR OF AMATERASU") {
+                string line1 = "\"I'm Sorry...\"";
+                for (char c : line1) {
+                    cout << c << flush;
+                    Sleep(40);
+                }
+            } else if (boss.name == "SHOGUN OF HOLLOW LANTERNS") {
+                string line1 = "\"Release Kireinara.....Release Hiyuki.....\"";
+                for (char c : line1) {
+                    cout << c << flush;
+                    Sleep(40);
+                }
+            } else if (boss.name == "EMPEROR OF ETERNAL MARBLE") {
+                string line1 = "\"I'm the true emperor!!\"";
+                for (char c : line1) {
+                    cout << c << flush;
+                    Sleep(40);
+                }
+            } else if (boss.name == "THE GARGOYLE PRIMARCH") {
+                string line1 = "\"You...are not worthy.\"";
+                for (char c : line1) {
+                    cout << c << flush;
+                    Sleep(40);
+                }
+            } else if (boss.name == "CROWNED GRYPHON EMPEROR") {
+                string line1 = "\"Nothingness and Emptiness. All with me...\"";
+                for (char c : line1) {
+                    cout << c << flush;
+                    Sleep(40);
+                }
+            } else if (boss.name == "SAINTESS OF THE ETERNAL SANCTUM") {
+                string line1 = "\"God...Save Morivelle...\"";
+                for (char c : line1) {
+                    cout << c << flush;
+                    Sleep(40);
+                }
+            } else if (boss.name == "KING OF THE CRIMSON THRONE") {
+                string line1 = "\"No kings rule forever after all.\"";
+                for (char c : line1) {
+                    cout << c << flush;
+                    Sleep(40);
+                }
+            } else if (boss.name == "SOVEREIGN OF THE SCOURGE") {
+                string line1 = "\"FOR THE SCOURGE!!!\"";
+                for (char c : line1) {
+                    cout << c << flush;
+                    Sleep(50);
+                }
+                cout << "\n";
+                Sleep(1200);
+            }
+            cout << "\n\n";
+
+            setColor(DEFAULT_COLOR);
+            Sleep(2000);
+            system("cls");
+        }
         cout << "\nVictory!\n";
         if (isBoss) {
             cout << "\nCHECKPOINT TERBUKA!\n";

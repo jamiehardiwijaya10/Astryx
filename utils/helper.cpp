@@ -32,14 +32,14 @@ struct SaveData {
 SaveData save;
 
 void saveGame(int chapter, int scene) {
-    ofstream file("../databases/save.txt");
+    ofstream file("databases/save.txt");
     file << chapter << endl;
     file << scene << endl;
     file.close();
 }
 
 void loadGame() {
-    ifstream file("../databases/save.txt");
+    ifstream file("databases/save.txt");
 
     if (file.is_open()) {
         file >> save.chapter;

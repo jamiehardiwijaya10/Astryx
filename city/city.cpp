@@ -9,9 +9,27 @@ using namespace std;
 struct SumberDaya
 {
   string nama;
+
   int kayu;
   int batu;
   int scrap;
+
+  int bamboo;
+  int clay;
+  int alloy;
+
+  int hardwood;
+  int limestone;
+  int copper;
+
+  int petrifiedWood;
+  int marble;
+  int circuitScrap;
+
+  int ironwood;
+  int obsidian;
+  int titanium;
+
   int token;
   int turn;
 };
@@ -80,19 +98,19 @@ void setProduksi(Lahan &l){
 
 void membaca(string username){
   players.clear();
-  ifstream file("../databases/playerresources.txt");
+  ifstream file("databases/playerresources.txt");
   string line;
   getline(file, line);
   while (getline(file, line)) 
   {
       stringstream baca1(line);
       SumberDaya p;
-      baca1 >> p.nama >> p.kayu >> p.batu >> p.scrap >> p.token >> p.turn;
+      baca1 >> p.nama >> p.kayu >> p.batu >> p.scrap >> p.bamboo >> p.clay >> p.alloy >> p.hardwood >> p.limestone >> p.copper >> p.petrifiedWood >> p.marble >> p.circuitScrap >> p.ironwood >> p.obsidian >> p.titanium >> p.token >> p.turn;
       players.push_back(p);
   }
   file.close();
 
-  ifstream file2("../databases/building.txt");
+  ifstream file2("databases/building.txt");
   int i = 0;
   getline(file2, line);
   while (getline(file2, line)) {
@@ -166,18 +184,18 @@ void PerhitunganSumberDaya(string username){
 
 void updatePlayer(){
 
-  ofstream tulis1("../databases/playerresources.txt");
+  ofstream tulis1("databases/playerresources.txt");
 
   if (!tulis1.is_open())
   {
     cout << "File not found" << endl;
   }
 
-  tulis1<<"nama kayu batu scrap token turn"<<endl;
+  tulis1 << "nama kayu batu scrap bamboo clay alloy hardwood limestone copper petrifiedWood marble circuitScrap ironwood obsidian titanium token turn" << endl;
 
   for (auto &p : players)
   {
-    tulis1 << p.nama << " " << p.kayu << " " << p.batu << " " << p.scrap << " " << p.token << " " << p.turn <<endl;
+    tulis1 << p.nama << " " << p.kayu << " " << p.batu << " " << p.scrap << " " << p.bamboo << " " << p.clay << " " << p.alloy << " " << p.hardwood << " " << p.limestone << " " << p.copper << " " << p.petrifiedWood << " " << p.marble << " " << p.circuitScrap << " " << p.ironwood << " " << p.obsidian << " " << p.titanium << " " << p.token << " " << p.turn << endl;
   }
 
   tulis1.close();
@@ -188,7 +206,7 @@ void updateBuilding(string username){
     vector<string>semuaData;
     string line;
     int i = 0;
-    ifstream file2("../databases/building.txt");
+    ifstream file2("databases/building.txt");
 
     while (getline(file2, line))
     {
@@ -220,7 +238,7 @@ void updateBuilding(string username){
         }
         semuaData.push_back(baris);
     }
-    ofstream tulis("../databases/building.txt");
+    ofstream tulis("databases/building.txt");
     for (auto &data : semuaData){
         tulis << data << endl;
     }
@@ -1128,7 +1146,7 @@ void area(string username){
     {
       if (daerah[2].unlock)
               {
-                dungeon(username);
+                dungeon(username, "Masonwood");
               }
             else cout<<"Sorry, this area is locked";
             cin.ignore();

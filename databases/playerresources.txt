@@ -1,3 +1,4 @@
-nama kayu batu scrap token turn
-acikiwir 10009 10007 10011 9998 1
-icikiwir 100 100 100 10 1
+nama kayu batu scrap bamboo clay alloy hardwood limestone copper petrifiedWood marble circuitScrap ironwood obsidian titanium token turn
+acikiwir 10009 10007 10011 9998 1 0 -744662111 32764 0 0 0 0 0 0 -744628404 32764 0
+icikiwir 100 100 100 0 0 0 0 0 0 0 0 0 0 0 0 50 1
+cummers 1359 1274 1278 0 0 0 723 746 702 0 0 0 221 198 175 30 1

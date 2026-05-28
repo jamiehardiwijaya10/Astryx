@@ -164,7 +164,8 @@ string menusepsepan(){
         }
 
         cout << "0. Back\n";
-        cout << "\nChoose index: ";
+        garis(30);
+        cout << "Choose account: ";
 
         int pilihanUser;
         cin >> pilihanUser;

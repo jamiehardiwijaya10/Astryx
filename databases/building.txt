@@ -15,7 +15,7 @@ ngawis,Masonwood,0,0
 ngawis,Rovenilla,0,10,Empty Land,Empty Land,Empty Land,Empty Land,Empty Land,Empty Land,Empty Land,Empty Land,Empty Land,Empty Land
 ngawis,Moncini Basin,0,3,Empty Land,Empty Land,Empty Land
 cummers,Ariolla Monument,1,5,The Ariolla Statue,The Ship Docks,Ariolla Market,Ariolla Clinic,Ariolla Transit Station
-cummers,Village Of Purification,1,4,Lumberyard,Stone Quarry,Scrap Reclamation Center,Empty Land
+cummers,Village Of Purification,1,4,Lumberyard,Stone Quarry,Scrap Reclamation Center,Scrap Reclamation Center
 cummers,Masonwood,1,0,
-cummers,Rovenilla,1,10,Empty Land,Empty Land,Empty Land,Empty Land,Empty Land,Empty Land,Empty Land,Empty Land,Empty Land,Empty Land
+cummers,Rovenilla,1,10,Academy of Sciences,Vanguard Barracks,Empty Land,Empty Land,Empty Land,Empty Land,Empty Land,Empty Land,Empty Land,Empty Land
 cummers,Moncini Basin,0,3,Empty Land,Empty Land,Empty Land

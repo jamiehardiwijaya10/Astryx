@@ -1,5 +1,8 @@
 #include <iostream>
 #include <fstream>
+#include <sstream>
+#include <vector>
+#include <string>
 #include <windows.h>
 
 using namespace std;
@@ -23,33 +26,44 @@ void typing(string text, int delay = 30) {
     cout << endl;
 }
 
+void saveGame(string username,int chapter, int scene) {
+    ifstream file1("databases/player.txt");
+    vector <string> semuaBaris;
+    string baris;
+    string header;
+    bool found = false;
+    
+    if (file1.is_open()){
+        if (getline(file1, header)) {}
 
-struct SaveData {
-    int chapter;
-    int scene;
-};
+        while(getline(file1,baris)){
+        stringstream baca(baris);
+        string user;
+        int ch, sc;
+        baca >> user >> ch >> sc;
 
-SaveData save;
+        if (user == username){
+            ch = chapter;
+            sc = scene;
+            found = true;
+            }
+            semuaBaris.push_back(user + " " + to_string(ch) + " " + to_string(sc));
+        }
+        file1.close();
+    }
+    ofstream file2("databases/player.txt");
+    if(file2.is_open()){
+        if (!header.empty()) {
+            file2 << header << endl;
+        }
 
-void saveGame(int chapter, int scene) {
-    ofstream file("databases/save.txt");
-    file << chapter << endl;
-    file << scene << endl;
-    file.close();
-}
-
-void loadGame() {
-    ifstream file("databases/save.txt");
-
-    if (file.is_open()) {
-        file >> save.chapter;
-        file >> save.scene;
-        file.close();
-    } else {
-        save.chapter = 1;
-        save.scene = 1;
+        for (string &b : semuaBaris){
+            file2 << b << endl;
+        }
+        file2.close();
     }
 }
+
 
 void title(string text) {
     cout << "=====================================\n";

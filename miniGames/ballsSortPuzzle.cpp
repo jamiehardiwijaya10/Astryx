@@ -131,7 +131,7 @@ void resetGame() {
     createGame();
 }
 
-int bsp() {
+int bsp(string username) {
     createGame();
     int from, to;
     const int kapasitasLangkah = 15;
@@ -147,7 +147,7 @@ int bsp() {
         cout << "Langkah: " << langkah << "/" <<kapasitasLangkah << endl;
 
         if (menang()) {
-            saveGame(1,3);
+            saveGame(username,1,3);
             return 0;
         }
 

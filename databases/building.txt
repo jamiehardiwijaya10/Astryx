@@ -1,21 +1,11 @@
 name area unlockStatus lahan1 lahan2 lahan3 lahan4
-acikiwir,Ariolla Monument,1,5,The Ariolla Statue,The Ship Docks,Ariolla Market,Ariolla Clinic,Ariolla Transit Station
-acikiwir,Village Of Purification,1,4,Lumberyard,Stone Quarry,Scrap Reclamation Center,Scrap Reclamation Center
-acikiwir,Masonwood,1,0,
-acikiwir,Rovenilla,1,10,Empty Land,Empty Land,Empty Land,Empty Land,Empty Land,Empty Land,Empty Land,Empty Land,Empty Land,Empty Land
-acikiwir,Moncini Basin,0,3,Empty Land,Empty Land,Empty Land
-icikiwir,Ariolla Monument,1,5,The Ariolla Statue,The Ship Docks,Ariolla Market,Ariolla Clinic,Ariolla Transit Station
-icikiwir,Village Of Purification,1,4,Lumberyard,Stone Quarry,Scrap Reclamation Center,Empty Land
-icikiwir,Masonwood,1,0,
-icikiwir,Rovenilla,1,10,Empty Land,Empty Land,Empty Land,Empty Land,Empty Land,Empty Land,Empty Land,Empty Land,Empty Land,Empty Land
-icikiwir,Moncini Basin,0,3,Empty Land,Empty Land,Empty Land
-ngawis,Ariolla Monument,1,5,Empty Land,Empty Land,Empty Land,Empty Land,Empty Land
-ngawis,Village Of Purification,1,4,Lumberyard,Stone Quarry,Scrap Reclamation Center,Empty Land
-ngawis,Masonwood,0,0
-ngawis,Rovenilla,0,10,Empty Land,Empty Land,Empty Land,Empty Land,Empty Land,Empty Land,Empty Land,Empty Land,Empty Land,Empty Land
-ngawis,Moncini Basin,0,3,Empty Land,Empty Land,Empty Land
-cummers,Ariolla Monument,1,5,The Ariolla Statue,The Ship Docks,Ariolla Market,Ariolla Clinic,Ariolla Transit Station
-cummers,Village Of Purification,1,4,Lumberyard,Stone Quarry,Scrap Reclamation Center,Empty Land
-cummers,Masonwood,1,0,
-cummers,Rovenilla,1,10,Empty Land,Empty Land,Empty Land,Empty Land,Empty Land,Empty Land,Empty Land,Empty Land,Empty Land,Empty Land
-cummers,Moncini Basin,0,3,Empty Land,Empty Land,Empty Land
+aku,Ariolla Monument,1,5,The Ariolla Statue,The Ship Docks,Ariolla Market,Ariolla Clinic,Ariolla Transit Station
+aku,Village Of Purification,1,4,Lumberyard,Stone Quarry,Scrap Reclamation Center,Empty Land
+aku,Masonwood,1,0,
+aku,Rovenilla,1,10,Signal Transmission Tower,Governor Manor,Empty Land,Empty Land,Empty Land,Empty Land,Empty Land,Empty Land,Empty Land,Empty Land
+aku,Moncini Basin,1,3,Purification Rail-Cannon,Aegis Resonance Pylon,Kinetic Harpoon Launcher
+admin1,Ariolla Monument,1,5,The Ariolla Statue,The Ship Docks,Ariolla Market,Ariolla Clinic,Ariolla Transit Station
+admin1,Village Of Purification,1,4,Lumberyard,Stone Quarry,Scrap Reclamation Center,Empty Land
+admin1,Masonwood,1,0,
+admin1,Rovenilla,1,10,Signal Transmission Tower,Empty Land,Empty Land,Empty Land,Empty Land,Empty Land,Empty Land,Empty Land,Empty Land,Empty Land
+admin1,Moncini Basin,0,3,Empty Land,Empty Land,Empty Land

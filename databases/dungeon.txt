@@ -1,2 +1,2 @@
 username area jenis checkpoint
-nagswis Masonwood TOKEN 30
+

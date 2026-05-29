@@ -695,7 +695,7 @@ int battle1(string username) {
     }
     setColor(DEFAULT_COLOR);
 
-    saveGame(1, 7);
+    saveGame(username,1, 7);
     return 0;
 }
 

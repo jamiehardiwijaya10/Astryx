@@ -69,6 +69,7 @@ struct Area
 };Area daerah[5];
 
 bool notifStory = false;
+char quit;
 //PEKTOR as Bucketk
 vector <SumberDaya> players;
 void vanguardBarracks(PlayerData &p);
@@ -678,6 +679,7 @@ void bangunLahan(string username, int area, int nomorlahan){
       for(int i=0; i<5;i++){
         cout<<i+1<< ". "<<AM[i].nama<<endl;
       }
+      cout << "0. Back"<<endl;
       garis (39);
       cout <<"Choose buildings: ";cin>>pBuilding;
       if (cin.fail())
@@ -798,7 +800,7 @@ void bangunLahan(string username, int area, int nomorlahan){
         }
         cout << "0. Back" << endl;
         garis (39);
-        cout <<"Pilih bangunan: ";cin>>pBuilding;
+        cout <<"choose building: ";cin>>pBuilding;
         if (cin.fail())
         {
           cin.clear();
@@ -914,8 +916,22 @@ void bangunLahan(string username, int area, int nomorlahan){
       for(int i=0; i<3;i++){
         cout<<i+1<< ". "<<MB[i].nama<<endl;
       }
+      cout << "0. Back"<<endl;
       garis (39);
       cout <<"Choose building: ";cin>>pBuilding;
+      if (cin.fail())
+        {
+          cin.clear();
+          cin.ignore();
+        }
+        if (pBuilding > 3 || pBuilding < 0)
+        {
+          return;
+        }
+        if (pBuilding == 0)
+        {
+          return;
+        }
       
       cout<<"\nUse "<<MB[pBuilding-1].bKayu<<" Wood, "
         <<MB[pBuilding-1].bBatu<<" Stone dan "
@@ -1014,7 +1030,7 @@ void lahanKosong(string username,int i){
   }
 }
 
-bool ariollaSelesai(){
+bool act1(){
   bool TAS = false,TSD = false,AM = false,AC = false,ATS = false;
     for(int i = 0; i < daerah[0].kapasitas; i++){
         if(daerah[0].bangunan[i].nama == "The Ariolla Statue"){
@@ -1107,13 +1123,11 @@ bool act4(){
     }
 }
 
-void area(string username){
+void area(string username, int chapter, int scene){
   int pArea;
   bool ulang = true;
-
   while (ulang)
   {
-
     system("cls");
     header(username);
     garis(39);
@@ -1207,7 +1221,43 @@ void area(string username){
     }
 
     else if (pArea == 7){
-      if (ariollaSelesai()){
+      if (act1() && chapter == 1 && scene == 8){
+        char pilih;
+        cout << "Do you want to continue the story? (y/n): ";
+        cin >> pilih;
+        if (pilih == 'y' || pilih == 'Y'){
+          cin.ignore();
+          waitEnter();
+          updateBuilding(username);
+          updatePlayer();
+          ulang = false;
+        }
+      }
+      else if (act2() && chapter == 1 && scene == 10){
+        char pilih;
+        cout << "Do you want to continue the story? (y/n): ";
+        cin >> pilih;
+        if (pilih == 'y' || pilih == 'Y'){
+          cin.ignore();
+          waitEnter();
+          updateBuilding(username);
+          updatePlayer();
+          ulang = false;
+        }
+      }
+      else if (act3() && chapter == 1 && scene == 12){
+        char pilih;
+        cout << "Do you want to continue the story? (y/n): ";
+        cin >> pilih;
+        if (pilih == 'y' || pilih == 'Y'){
+          cin.ignore();
+          waitEnter();
+          updateBuilding(username);
+          updatePlayer();
+          ulang = false;
+        }
+      }
+      else if (act4() && chapter == 1 && scene == 14){
         char pilih;
         cout << "Do you want to continue the story? (y/n): ";
         cin >> pilih;
@@ -1228,7 +1278,17 @@ void area(string username){
 
     else if (pArea == 0)
     {
-      ulang = false;
+      cout<< "Are you sure? (y/n): "; cin>> quit;
+      if (quit == 'y' || quit == 'Y'){
+        cin.ignore();
+        waitEnter();
+        updateBuilding(username);
+        updatePlayer();
+        ulang = false;
+      }
+      else{
+        continue;
+      }
     }
 
     else
@@ -1249,7 +1309,7 @@ void sapa(string username){
 }
 
 
-void mainCity(string username){
+void mainCity(string username,int chapter, int scene){
   string baca1;
   system("cls");
   garis(25);
@@ -1259,7 +1319,7 @@ void mainCity(string username){
 
   membaca(username);
   sapa(username);
-  area(username);
+  area(username,chapter,scene);
 }
 
 

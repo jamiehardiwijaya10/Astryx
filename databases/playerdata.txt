@@ -1,5 +1,3 @@
 name syringe powder party1 party2 party3
-acikiwir 996 1000 Elias  
-icikiwir 990 1000 Elias  
-ngawis 0 0 Elias  
-cummers 90 81 Elias  
+aku 0 0 Elias  
+admin1 0 0 Elias  

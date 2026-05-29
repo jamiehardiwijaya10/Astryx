@@ -1,4 +1,7 @@
 #include <iostream>
+#include <fstream>
+#include <sstream>
+#include <vector>
 #include <string>
 #include <windows.h>
 #include "story/prologue.cpp"
@@ -7,6 +10,12 @@ using namespace std;
 #define RESET   "\033[0m"
 #define CYAN    "\033[36m"
 
+struct SaveData {
+  string username;
+  int chapter;
+  int scene;
+};
+
 string newGame(){
   string nama;
   string cek;
@@ -14,19 +23,32 @@ string newGame(){
 
   //Validasi akun baru
   ifstream filecek("databases/player.txt");
-  getline(filecek,cek);
-  while (getline(filecek,cek))
-  {
-    check.push_back(cek);
+  if(filecek.is_open()){
+    getline(filecek,cek);
+    while (getline(filecek,cek)){
+      stringstream baca(cek);
+      string daftarUser;
+      baca >> daftarUser;
+      if(!daftarUser.empty()){
+        check.push_back(daftarUser);
+      }
+    }
+    filecek.close();
   }
-  bool ada = true;
 
+  bool ada = true;
   while (ada)
   {
     system("cls");
     cout << "Enter Username: ";
     getline(cin, nama);
     cout << endl;
+
+    if(nama.find(' ') != string::npos || nama.empty()){
+      cout << "username cannot be empty or contain spaces!\n";
+      system("pause");
+      continue;
+    }
 
     bool ditemukan = false;
     for (auto &anggota : check)
@@ -78,7 +100,7 @@ string newGame(){
   {
     cout << "File not found";
   }
-  file3 << nama << endl;
+  file3 << nama << " 1 1" << endl;
   file3.close();
 
   PlayerData p{};
@@ -107,19 +129,8 @@ string newGame(){
   return nama;
 }
 
-string menusepsepan(){
-  vector<string> nama;
-  ifstream file("databases/player.txt");
-  string line;
+void menusepsepan(){
   int logs;
-
-  getline(file, line);
-  while (getline(file, line)) {
-    if (!line.empty())
-      nama.push_back(line);
-  }
-  file.close();
-
   while (true)
   {
     system("cls");
@@ -142,11 +153,10 @@ string menusepsepan(){
       string username = newGame();
 
       // langsung mulai story
-      saveGame(1,1);
       prologue();
       chap1(1, username);
 
-      return username;
+      return;
     }
 
     else if (logs == 2)
@@ -158,9 +168,31 @@ string menusepsepan(){
         cout << "|          Load Game         |" <<endl;
         garis(30);
 
-        for (int i = 0; i < nama.size(); i++)
-        {
-          cout << i+1 << ". " << nama[i] << endl;
+        ifstream  file1("databases/player.txt");
+        vector<SaveData>daftarAkun;
+        string baris;
+
+        if (file1.is_open()) {
+          getline(file1,baris);
+          while(getline(file1,baris)){
+            stringstream baca(baris);
+            SaveData akun;
+            if (baca >> akun.username >> akun.chapter >> akun.scene){
+              daftarAkun.push_back(akun);
+            }
+          }
+          file1.close();
+        }
+
+        if(daftarAkun.empty()){
+          cout << "No data saved, please create new game"<<endl;
+        }
+        else{
+          for (int i = 0; i < daftarAkun.size(); i++){
+            cout << i+1 << ". " << daftarAkun[i].username 
+                        << " (Chapter " << daftarAkun[i].chapter 
+                        << " - Scene " << daftarAkun[i].scene << ")" <<endl;
+          }
         }
 
         cout << "0. Back\n";
@@ -178,17 +210,20 @@ string menusepsepan(){
 
         if (pilihanUser == 0) break;
 
-        if (pilihanUser >= 1 && pilihanUser <= nama.size())
+        if (pilihanUser >= 1 && pilihanUser <= daftarAkun.size())
         {
-          string username = nama[pilihanUser-1];
+          SaveData akunDipilih = daftarAkun[pilihanUser-1];
+          cin.ignore();
 
-          loadGame();
+          cout << "\nLoading Game as " << akunDipilih.username <<"..."<<endl;
+          Sleep(1000);
 
-          if (save.chapter == 1) {
-            chap1(save.scene, username);
+          chap1(akunDipilih.scene, akunDipilih.username);
+          return;
           }
-
-          return username;
+        else{
+          cout << "Invalid choice" <<endl;
+          system("pause");
         }
       }
     }

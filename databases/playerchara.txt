@@ -1,8 +1,4 @@
-acikiwir 1
-Elias 5 0 1 IronVerdict 1
-icikiwir 1
-Elias 10 0 1 IronVerdict 1
-ngawis 1
+aku 1
 Elias 1 0 1 IronVerdict 1
-cummers 1
-Elias 10 0 1 IronVerdict 10
+admin1 1
+Elias 1 0 1 IronVerdict 1

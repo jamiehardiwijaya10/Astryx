@@ -99,7 +99,7 @@ void tutupSemuaKartu(kartu *first) {
     }
 }
 
-int mc() { 
+int mc(string username) { 
     srand(time(0));
 
     while (true) {
@@ -180,7 +180,7 @@ int mc() {
             cout << "Percobaan: " << percobaan << endl;
             cout << "Skor: " << skor << "/4\n";
             
-            saveGame(1,5);
+            saveGame(username,1,5);
             
             kartu *current = first;
             while (current != NULL) {

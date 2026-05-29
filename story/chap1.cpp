@@ -4,7 +4,7 @@
 using namespace std;
 
 
-int chap1a(){
+int chap1a(string username){
     system("cls");
     typing("CHAPTER 1 - RETURN TO MORIVELLE", 100);
     Sleep(800);
@@ -82,11 +82,11 @@ int chap1a(){
     }
     system("cls");    
 
-    saveGame(1,2);
+    saveGame(username,1,2);
     return 0;
 }
 
-int chap1b(){
+int chap1b(string username){
     system("cls");
     typing("The box opens!", 40);
     typing("The box is empty. Elias feels disappointed.", 40);
@@ -111,11 +111,11 @@ int chap1b(){
     }
     system("cls");    
 
-    saveGame(1,4);
+    saveGame(username,1,4);
     return 0;
 }
 
-int chap1c(){
+int chap1c(string username){
     system("cls");
     typing("The statue is successfully analyzed!\n", 40);
     typing("From the analysis results, Elias discovers that the damage that occurred at Ariolla Port seems to come from one direction.", 40);
@@ -168,12 +168,12 @@ int chap1c(){
     }
     system("cls");
 
-    saveGame(1,6);
+    saveGame(username,1,6);
     return 0;
 
 }
 
-int chap1d(){
+int chap1d(string username){
     system("cls");
     typing("Elias successfully defeats the creature!\n", 40);
     typing("After defeating the creature, Elias glances at the creature's body to look for clues about what happened at Ariolla.", 40);
@@ -421,11 +421,11 @@ int chap1d(){
     }
     system("cls");
 
-    saveGame(1,8);
+    saveGame(username,1,8);
     return 0;
 }
 
-int chap1e(){
+int chap1e(string username){
     system("cls");
     typing("ACT 2 - Rovenila's Secret", 100);
     Sleep(800);
@@ -442,43 +442,148 @@ int chap1e(){
     }
     system("cls");
 
+    saveGame(username,1,10);
+    return 0;
+}
+
+int chap1f(string username){
+    system("cls");
+    typing("ACT 3 - Rovenila's Secret", 100);
+    Sleep(800);
+
+    if (waitOrSkip()) {
+        return 0;
+    }
+    system("cls");
+
+    typing("", 40);
+
+    if (waitOrSkip()) {
+        return 0;
+    }
+    system("cls");
+
+    saveGame(username,1,12);
+    return 0;
+}
+
+int chap1g(string username){
+    system("cls");
+    typing("ACT 4 - Rovenila's Secret", 100);
+    Sleep(800);
+
+    if (waitOrSkip()) {
+        return 0;
+    }
+    system("cls");
+
+    typing("", 40);
+
+    if (waitOrSkip()) {
+        return 0;
+    }
+    system("cls");
+
+    saveGame(username,1,14);
+    return 0;
+}
+
+int chap1h(string username){
+    system("cls");
+    typing("ACT 5 - Rovenila's Secret", 100);
+    Sleep(800);
+
+    if (waitOrSkip()) {
+        return 0;
+    }
+    system("cls");
+
+    typing("", 40);
+
+    if (waitOrSkip()) {
+        return 0;
+    }
+    system("cls");
+
+    saveGame(username,1,16);
     return 0;
 }
 
 int chap1(int scene, string username) {
 
-//     if (scene <= 1) chap1a();
-//     if (scene <= 2) {
-//         saveGame(1, 2);
-//         //bsp();
-// }
-//     if (scene <= 3) chap1b();
-//     if (scene <= 4) {
-//         saveGame(1, 4);
-//         //mc();
-//     }
-//     if (scene <= 5) chap1c();
-//     if (scene <= 6) {
-//         saveGame(1, 6);
-//         //battle1(username);
-//     }
-    if (scene <= 7) chap1d();
+    if (scene <= 1) chap1a(username);
+    if (scene <= 2) {
+        saveGame(username,1, 2);
+        bsp(username);
+    }
+    if (scene <= 3) chap1b(username);
+    if (scene <= 4) {
+        saveGame(username,1, 4);
+        mc(username);
+    }
+    if (scene <= 5) chap1c(username);
+    if (scene <= 6) {
+        saveGame(username,1, 6);
+        battle1(username);
+    }
+    if (scene <= 7) chap1d(username);
     if (scene <= 8) {
-        saveGame(1, 8);
-        mainCity(username);
+        saveGame(username,1, 8);
+        mainCity(username,1,8);
     }
     membaca(username);
-    if (!ariollaSelesai()){
+    if (!act1()){
         return 0;
     }
-
-    if (scene <= 9) chap1e();
+    if (quit == 'y' || quit == 'Y'){
+        return 0;
+    }
+    if (scene <= 9) chap1e(username);
     if (scene <= 10) {
-        saveGame(1,10);
+        saveGame(username,1,10);
         daerah[2].unlock = true;
         daerah[3].unlock = true;
         updateBuilding(username);
-        mainCity(username);
+        mainCity(username,1,10);
     }
+    membaca(username);
+    if (!act2()){
+        return 0;
+    }
+    if (quit == 'y' || quit == 'Y'){
+        return 0;
+    }
+    if (scene <= 11) chap1f(username);
+    if (scene <= 12){
+        saveGame(username,1,12);
+        mainCity(username,1,12);
+    }
+    membaca(username);
+    if (!act3()){
+        return 0;
+    }
+    if (quit == 'y' || quit == 'Y'){
+        return 0;
+    }
+    if (scene <= 13) chap1g(username);
+    if (scene <= 14){
+        saveGame(username,1,14);
+        daerah[4].unlock = true;
+        updateBuilding(username);
+        mainCity(username,1,14);
+    }
+    membaca(username);
+    if (!act4()){
+        return 0;
+    }
+    if (quit == 'y' || quit == 'Y'){
+        return 0;
+    }
+    if (scene <= 15) chap1h(username);
+    if (scene <= 16){
+        saveGame(username,1,16);
+        mainCity(username,1,16);
+    }
+    
     return 0;
 }

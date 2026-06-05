@@ -19,10 +19,29 @@ using namespace std;
 #define GRAY_COLOR 8
 
 void typing(string text, int delay = 30) {
-    for (char c : text) {
-        cout << c << flush;
-        Sleep(delay);
+
+    for (int i = 0; i < text.length(); i++) {
+
+        cout << text[i] << flush;
+
+        for (int t = 0; t < delay; t += 5) {
+
+            if (GetAsyncKeyState(VK_SPACE) & 0x8000) {
+                cout << text.substr(i + 1);
+                cout << endl;
+                return;
+            }
+
+            Sleep(5);
+        }
     }
+
+    cout << endl;
+}
+
+void dialog(string nama, string text, int delay = 40){
+    typing(nama + " :", delay);
+    typing(text, delay);
     cout << endl;
 }
 
@@ -76,10 +95,14 @@ void title2(string text) {
     
 }
 
+#include <algorithm>
+
 bool waitOrSkip() {
     string input;
     cout << "\n(Enter = continue | Type 's' = skip): ";
     getline(cin, input);
+
+    input.erase(remove_if(input.begin(), input.end(), ::isspace), input.end());
 
     if (input == "s" || input == "S") {
         cout << "[Scene skipped]\n";

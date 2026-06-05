@@ -310,6 +310,14 @@ int chooseCharacter(PlayerData &p) {
     return pilih - 1;
 }
 
+bool isCharacterInParty(PlayerData &p, string charName) {
+    for (auto &name : p.partyNames) {
+        if (name == charName)
+            return true;
+    }
+    return false;
+}
+
 void setParty(PlayerData &p) {
     while (true) {
         system("cls");
@@ -331,6 +339,12 @@ void setParty(PlayerData &p) {
 
             int idx = chooseCharacter(p);
             if (idx == -1) continue;
+
+            if (isCharacterInParty(p, p.ownedCharacters[idx].name)) {
+                cout << "Character is already in party!\n";
+                system("pause");
+                continue;
+            }
 
             p.partyNames[slot - 1] = p.ownedCharacters[idx].name;
 
@@ -534,6 +548,55 @@ void unlockCharacter(string charName) {
     out.close();
 }
 
+void giveCharacter(string username, string charName)
+{
+    PlayerData p = loadPlayer(username);
+
+    for (auto &c : p.ownedCharacters)
+    {
+        if (c.name == charName)
+            return;
+    }
+
+    vector<CharacterData> db = loadCharacterDB();
+
+    for (auto &c : db)
+    {
+        if (c.name == charName)
+        {
+            CharacterData newChar = c;
+
+            newChar.exp = 0;
+            newChar.level = 1;
+
+            newChar.skillLevels.clear();
+
+            for (int i = 0; i < newChar.skillsName.size(); i++)
+            {
+                newChar.skillLevels.push_back(1);
+            }
+
+            p.ownedCharacters.push_back(newChar);
+
+            if (p.partyNames.size() < 3)
+                p.partyNames.resize(3, "");
+
+            for (int i = 0; i < 3; i++)
+            {
+                if (p.partyNames[i].empty())
+                {
+                    p.partyNames[i] = charName;
+                    break;
+                }
+            }
+
+            savePlayerCharacters(p);
+            savePlayer(p);
+
+            return;
+        }
+    }
+}
 void savePlayer(PlayerData &p) {
     vector<string> all;
     ifstream file("databases/playerdata.txt");

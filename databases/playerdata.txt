@@ -1,3 +1,4 @@
 name syringe powder party1 party2 party3
 aku 0 0 Elias  
 admin1 0 0 Elias  
+Anubarak 0 0 Elias Ririsa Kizuki

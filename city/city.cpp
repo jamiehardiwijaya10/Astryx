@@ -1257,7 +1257,7 @@ void area(string username, int chapter, int scene){
           ulang = false;
         }
       }
-      else if (act4() && chapter == 1 && scene == 14){
+      else if (act4() && chapter == 1 && (scene == 16 || scene == 18)){
         char pilih;
         cout << "Do you want to continue the story? (y/n): ";
         cin >> pilih;

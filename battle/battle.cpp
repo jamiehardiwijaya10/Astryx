@@ -699,6 +699,262 @@ int battle1(string username) {
     return 0;
 }
 
+int battle2(string username) {
+    prepareBattle(username);
+
+    system("cls");
+    // Nama - MaxHp - Hp - Atk - Def - CanDefend - CanDodge - DodgeChance
+    // Nama - Type - Power - Duration - CD
+
+    srand(time(0));
+    
+    PlayerData player = loadPlayer(username);
+    vector<Character> playerTeam;
+    bool hasValid = false;
+    for (auto &n : player.partyNames) {
+        if (n != "") {
+            hasValid = true;
+            break;
+        }
+    }
+    
+    if (!hasValid) {
+        cout << "Party kosong! Pilih karakter dulu.\n";
+        return 0;
+    }
+    
+    playerTeam = buildPlayerTeam(player);
+
+    Character seaborn = {"Seaborn Lurker", 30, 30, 15, 10, true, false, 0};
+    Character hoodiedman = {"Hoodiedman", 15, 15, 8, 5, false, false, 0};
+    Character lurker = {"Lurker", 20, 20, 10, 8, false, false, 0};
+
+    seaborn.skills.push_back({"Brine Burst", "aoe", seaborn.atk, 0, 2});
+
+    vector<Character> enemyTeam = {seaborn, hoodiedman, lurker};
+
+    while (teamAlive(playerTeam) and teamAlive(enemyTeam)) {
+        playerTurn(playerTeam, enemyTeam);
+        enemyTurn(enemyTeam, playerTeam);
+
+        update(playerTeam);
+        update(enemyTeam);
+    }
+
+    if (teamAlive(playerTeam)) {
+        setColor(YELLOW_COLOR);
+        for (auto &name : player.partyNames) {
+            for (auto &cd : player.ownedCharacters) {
+                if (cd.name == name) {
+                    addCharacterExp(cd, 50);
+                    break;
+                }
+            }
+        }
+        savePlayer(player);
+        cout << "Victory!\n";
+        return 1;
+    } else {
+        setColor(RED_COLOR);
+        cout << "Defeat...\n";
+        return 0;
+    }
+    setColor(DEFAULT_COLOR);
+
+    return 0;
+}
+
+int battle3(string username) {
+    prepareBattle(username);
+
+    system("cls");
+    // Nama - MaxHp - Hp - Atk - Def - CanDefend - CanDodge - DodgeChance
+    // Nama - Type - Power - Duration - CD
+
+    srand(time(0));
+    
+    PlayerData player = loadPlayer(username);
+    vector<Character> playerTeam;
+    bool hasValid = false;
+    for (auto &n : player.partyNames) {
+        if (n != "") {
+            hasValid = true;
+            break;
+        }
+    }
+    
+    if (!hasValid) {
+        cout << "Party kosong! Pilih karakter dulu.\n";
+        return 0;
+    }
+    
+    playerTeam = buildPlayerTeam(player);
+
+    Character revenant = {"Bernacle Revenant", 30, 30, 15, 10, true, false, 0};
+    Character husk = {"Drowned Husk", 35, 35, 5, 3, true, false, 0};
+
+    revenant.skills.push_back({"Crushing Tide", "damage", 20, 0, 2});
+    husk.skills.push_back({"Rotting Gasp", "heal", 15, 0, 2});
+
+    vector<Character> enemyTeam = {revenant, husk};
+
+    while (teamAlive(playerTeam) and teamAlive(enemyTeam)) {
+        playerTurn(playerTeam, enemyTeam);
+        enemyTurn(enemyTeam, playerTeam);
+
+        update(playerTeam);
+        update(enemyTeam);
+    }
+
+    if (teamAlive(playerTeam)) {
+        setColor(YELLOW_COLOR);
+        for (auto &name : player.partyNames) {
+            for (auto &cd : player.ownedCharacters) {
+                if (cd.name == name) {
+                    addCharacterExp(cd, 50);
+                    break;
+                }
+            }
+        }
+        savePlayer(player);
+        cout << "Victory!\n";
+        return 1;
+    } else {
+        setColor(RED_COLOR);
+        cout << "Defeat...\n";
+        return 0;
+    }
+    setColor(DEFAULT_COLOR);
+
+    return 0;
+}
+
+int battle4(string username) {
+    prepareBattle(username);
+
+    system("cls");
+    // Nama - MaxHp - Hp - Atk - Def - CanDefend - CanDodge - DodgeChance
+    // Nama - Type - Power - Duration - CD
+
+    srand(time(0));
+    
+    PlayerData player = loadPlayer(username);
+    vector<Character> playerTeam;
+    bool hasValid = false;
+    for (auto &n : player.partyNames) {
+        if (n != "") {
+            hasValid = true;
+            break;
+        }
+    }
+    
+    if (!hasValid) {
+        cout << "Party kosong! Pilih karakter dulu.\n";
+        return 0;
+    }
+    
+    playerTeam = buildPlayerTeam(player);
+
+    Character tattoed = {"Tattoed", 20, 20, 10, 2, false, false, 0};
+    Character admiral = {"Dead Admiral", 15, 15, 5, 12, false, false, 0};
+
+    vector<Character> enemyTeam = {tattoed, admiral};
+
+    while (teamAlive(playerTeam) and teamAlive(enemyTeam)) {
+        playerTurn(playerTeam, enemyTeam);
+        enemyTurn(enemyTeam, playerTeam);
+
+        update(playerTeam);
+        update(enemyTeam);
+    }
+
+    if (teamAlive(playerTeam)) {
+        setColor(YELLOW_COLOR);
+        for (auto &name : player.partyNames) {
+            for (auto &cd : player.ownedCharacters) {
+                if (cd.name == name) {
+                    addCharacterExp(cd, 50);
+                    break;
+                }
+            }
+        }
+        savePlayer(player);
+        cout << "Victory!\n";
+        return 1;
+    } else {
+        setColor(RED_COLOR);
+        cout << "Defeat...\n";
+        return 0;
+    }
+    setColor(DEFAULT_COLOR);
+
+    return 0;
+}
+
+int battle5(string username) {
+    prepareBattle(username);
+
+    system("cls");
+    // Nama - MaxHp - Hp - Atk - Def - CanDefend - CanDodge - DodgeChance
+    // Nama - Type - Power - Duration - CD
+
+    srand(time(0));
+    
+    PlayerData player = loadPlayer(username);
+    vector<Character> playerTeam;
+    bool hasValid = false;
+    for (auto &n : player.partyNames) {
+        if (n != "") {
+            hasValid = true;
+            break;
+        }
+    }
+    
+    if (!hasValid) {
+        cout << "Party kosong! Pilih karakter dulu.\n";
+        return 0;
+    }
+    
+    playerTeam = buildPlayerTeam(player);
+
+    Character sickman = {"Tattoed", 20, 20, 10, 5, false, false, 0};
+    Character admiral = {"Dead Admiral", 15, 15, 5, 12, false, false, 0};
+    Character seaborn = {"Seaborn Lurker", 30, 30, 12, 8, true, false, 0};
+    Character husk = {"Drowned Husk", 15, 15, 5, 15, true, false, 0};
+
+    vector<Character> enemyTeam = {sickman, admiral, seaborn, husk};
+
+    while (teamAlive(playerTeam) and teamAlive(enemyTeam)) {
+        playerTurn(playerTeam, enemyTeam);
+        enemyTurn(enemyTeam, playerTeam);
+
+        update(playerTeam);
+        update(enemyTeam);
+    }
+
+    if (teamAlive(playerTeam)) {
+        setColor(YELLOW_COLOR);
+        for (auto &name : player.partyNames) {
+            for (auto &cd : player.ownedCharacters) {
+                if (cd.name == name) {
+                    addCharacterExp(cd, 50);
+                    break;
+                }
+            }
+        }
+        savePlayer(player);
+        cout << "Victory!\n";
+        return 1;
+    } else {
+        setColor(RED_COLOR);
+        cout << "Defeat...\n";
+        return 0;
+    }
+    setColor(DEFAULT_COLOR);
+
+    return 0;
+}
+
 int boss(string username) {
     prepareBattle(username);
 
@@ -729,11 +985,11 @@ int boss(string username) {
 //    Knight.skills.push_back({"Essence of Harmony", "heal", 25, 0, 3});
 
 
-    Character Vessel = {"Vessel of The Deep", 140, 140, 15, 5, true, false, 0};
+    Character Vessel = {"Vessel of The Deep", 5000, 5000, 100, 50, true, false, 0};
 
-    Vessel.skills.push_back({"Tide of Rebirth", "heal", 25, 0, 3});
-    Vessel.skills.push_back({"Crushing Depths", "damage", 20, 0, 4});
-    Vessel.skills.push_back({"Drowning Cataclysm", "aoe", 30, 0, 6});
+    Vessel.skills.push_back({"Abyssal Life", "heal", 50, 0, 2});
+    Vessel.skills.push_back({"Abyssal Attack", "damage", 100, 0, 3});
+    Vessel.skills.push_back({"Abyssal Cataclysm", "damage", 150, 0, 4});
 
 
     vector<Character> enemyTeam = {Vessel};
@@ -758,9 +1014,81 @@ int boss(string username) {
         }
         savePlayer(player);
         cout << "Victory!\n";
+        return 1;
     } else {
         setColor(RED_COLOR);
         cout << "Defeat...\n";
+        return 0;
+    }
+    setColor(DEFAULT_COLOR);
+
+    return 0;
+}
+
+int boss2(string username) {
+    prepareBattle(username);
+
+    system("cls");
+
+    srand(time(0));
+    
+    PlayerData player = loadPlayer(username);
+    vector<Character> playerTeam;
+    bool hasValid = false;
+    for (auto &n : player.partyNames) {
+        if (n != "") {
+            hasValid = true;
+            break;
+        }
+    }
+    
+    if (!hasValid) {
+        cout << "Party kosong! Pilih karakter dulu.\n";
+        return 0;
+    }
+
+    playerTeam = buildPlayerTeam(player);
+
+
+    // Character Knight = {"Knight", 60, 60, 10, 5, false, true, 60};
+
+//    Knight.skills.push_back({"Essence of Harmony", "heal", 25, 0, 3});
+
+
+    Character Vessel = {"Vessel of The Deep", 140, 140, 20, 15, true, false, 0};
+
+    Vessel.skills.push_back({"Abyssal Life", "heal", 10, 0, 2});
+    Vessel.skills.push_back({"Abyssal Attack", "damage", 30, 0, 3});
+    Vessel.skills.push_back({"Abyssal Cataclysm", "damage", 40, 0, 4});
+
+
+    vector<Character> enemyTeam = {Vessel};
+
+    while (teamAlive(playerTeam) and teamAlive(enemyTeam)) {
+        playerTurn(playerTeam, enemyTeam);
+        enemyTurn(enemyTeam, playerTeam);
+
+        update(playerTeam);
+        update(enemyTeam);
+    }
+
+    if (teamAlive(playerTeam)) {
+        setColor(YELLOW_COLOR);
+        for (auto &name : player.partyNames) {
+            for (auto &cd : player.ownedCharacters) {
+                if (cd.name == name) {
+                    addCharacterExp(cd, 50);
+                    break;
+                }
+            }
+        }
+        savePlayer(player);
+        cout << "Victory!\n";
+        return 1;
+    } else {
+        setColor(RED_COLOR);
+        cout << "Defeat...\n";
+        return 0;
     }
     setColor(DEFAULT_COLOR);
 

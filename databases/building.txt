@@ -14,3 +14,8 @@ Anubarak,Village Of Purification,1,4,Lumberyard,Stone Quarry,Scrap Reclamation C
 Anubarak,Masonwood,1,0,
 Anubarak,Rovenilla,1,10,Signal Transmission Tower,Governor Manor,Empty Land,Empty Land,Empty Land,Empty Land,Empty Land,Empty Land,Empty Land,Empty Land
 Anubarak,Moncini Basin,1,3,Purification Rail-Cannon,Aegis Resonance Pylon,Kinetic Harpoon Launcher
+Tresmun,Ariolla Monument,1,5,The Ariolla Statue,The Ship Docks,Ariolla Market,Ariolla Transit Station,Empty Land
+Tresmun,Village Of Purification,1,4,Lumberyard,Scrap Reclamation Center,Scrap Reclamation Center,Scrap Reclamation Center
+Tresmun,Masonwood,0,0,
+Tresmun,Rovenilla,0,10,Empty Land,Empty Land,Empty Land,Empty Land,Empty Land,Empty Land,Empty Land,Empty Land,Empty Land,Empty Land
+Tresmun,Moncini Basin,0,3,Empty Land,Empty Land,Empty Land

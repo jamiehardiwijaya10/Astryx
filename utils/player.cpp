@@ -280,7 +280,7 @@ void showParty(PlayerData &p) {
     if (p.partyNames.size() < 3) {
         p.partyNames.resize(3, "");
     }
-    cout << "\n=== PARTY ===\n";
+    cout << "\n======= PARTY =======\n";
     for (int i = 0; i < 3; i++) {
         cout << i + 1 << ". ";
         if (p.partyNames[i] == "")
@@ -334,8 +334,26 @@ void setParty(PlayerData &p) {
             int slot;
             cout << "Choose slot (1-3): ";
             cin >> slot;
+            
+            if (cin.fail()) {
+                cin.clear();
+                cin.ignore(1000, '\n');
+
+                cout << "\nInvalid! Please enter a valid choice\n";
+                system("pause");
+
+                continue;
+            }
 
             if (slot < 1 || slot > 3) continue;
+
+            if (!p.partyNames[slot - 1].empty()) {
+                cout << "\nYou must remove the current character first!\n";
+
+                system("pause");
+
+                continue;
+            }
 
             int idx = chooseCharacter(p);
             if (idx == -1) continue;
@@ -397,8 +415,10 @@ void prepareBattle(string username) {
     while (true) {
         system("cls");
 
-        cout << "=== PREPARE PARTY ===\n";
+        cout << "==== PREPARE PARTY ====\n";
         showParty(p);
+        
+        cout << "=======================";
 
         cout << "\n1. Party Selection\n";
         cout << "0. Start battle\n";
@@ -406,10 +426,29 @@ void prepareBattle(string username) {
 
         int pilih;
         cin >> pilih;
+        
+        if (cin.fail()) {
+            cin.clear();
+            cin.ignore(1000, '\n');
+
+            cout << "\nInvalid! Please enter a valid choice\n";
+            system("pause");
+
+            continue;
+        }
 
         if (pilih == 0) {
-            savePlayer(p);
-            return;
+            if (isPartyValid(p)) {
+                savePlayer(p);
+                
+                return;
+            } else {
+                cout << "\nYour team must contain at least 1 character\n";
+
+                system("pause");
+
+                continue;
+            }
         }
 
         if (pilih == 1) {

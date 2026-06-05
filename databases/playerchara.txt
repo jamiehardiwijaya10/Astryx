@@ -7,3 +7,7 @@ Elias 1 0 1 IronVerdict 1
 Ririsa 1 0 1 ButterflyBlessings 1
 Darius 1 0 1 ShieldThrust 1
 Kizuki 1 0 2 BambooSlash 1 DivineDivergence 1
+Tresmun 3
+Elias 1 0 1 IronVerdict 1
+Ririsa 1 0 1 ButterflyBlessings 1
+Darius 1 0 1 ShieldThrust 1

@@ -2,3 +2,4 @@ nama kayu batu scrap bamboo clay alloy hardwood limestone copper petrifiedWood m
 aku 1220 1120 825 0 0 0 0 0 0 0 0 0 0 0 0 100 1
 admin1 1890 1840 1460 0 0 0 0 0 0 0 0 0 0 0 0 210 1
 Anubarak 4220 4120 3825 0 0 0 0 0 0 0 0 0 0 0 0 16 1
+Tresmun 30 64 54 0 0 0 0 0 0 0 0 0 0 0 0 0 11

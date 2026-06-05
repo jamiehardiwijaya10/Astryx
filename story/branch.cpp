@@ -45,8 +45,9 @@ int choosePath(){
         }
         if(pilih == 1){
             return tree->left->id;
-
-        return tree->right->id;
+        }
+        else if(pilih == 2){
+            return tree->right->id;
         }
         else {
             cout << "Invalid choice!" << endl;

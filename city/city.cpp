@@ -68,7 +68,6 @@ struct Area
   Lahan bangunan[10];
 };Area daerah[5];
 
-bool notifStory = false;
 char quit;
 //PEKTOR as Bucketk
 vector <SumberDaya> players;
@@ -84,13 +83,13 @@ void garis(int ukuran){
 
 void setProduksi(Lahan &l){
     if (l.nama == "Lumberyard"){
-        l.pKayu = 10;
+        l.pKayu = 10; l.pBatu = 0; l.pScrap = 0;
     }
     else if (l.nama == "Stone Quarry"){
-        l.pBatu = 8;
+        l.pKayu = 0; l.pBatu = 8; l.pScrap = 0;
     }
     else if (l.nama == "Scrap Reclamation Center"){
-        l.pScrap = 6;
+        l.pKayu = 0; l.pBatu = 0; l.pScrap = 6;
     }
     else if(l.nama == "Empty Land"){
         l.pKayu = l.pBatu = l.pScrap = 0;
@@ -286,9 +285,9 @@ void ariollaMonument(string username, int area,int nomorlahan){
           header(username);
           cout << "|       "<< daerah[area].bangunan[nomorlahan].nama <<"      |" << endl;
           garis (39);
-          cout<<"1. 50 Wood (2 token)"<<endl;
-          cout<<"2. 40 Stone (2 token)"<<endl;
-          cout<<"3. 30 Scrap (3 token)"<<endl;
+          cout<<"1. 90 Wood (2 token)"<<endl;
+          cout<<"2. 70 Stone (2 token)"<<endl;
+          cout<<"3. 60 Scrap (2 token)"<<endl;
           cout<<"0. Back"<<endl;
           garis (39);
           cout<<"What you want to buy: ";cin>>pilih;
@@ -307,20 +306,21 @@ void ariollaMonument(string username, int area,int nomorlahan){
               if(pilih==1){
                 cout<<"You have purchased wood"<<endl;
                 p.token -= 2;
-                p.kayu += 50;
+                p.kayu += 90;
               }
               else if(pilih==2){
                 cout<<"You have purchased stone"<<endl;
                 p.token -= 2;
-                p.batu += 40;
+                p.batu += 70;
               }
               else if(pilih==3){
                 cout<<"You have purchased scrap"<<endl;
-                p.token -= 3;
-                p.scrap += 30;
+                p.token -= 2;
+                p.scrap += 60;
               }
               else if(pilih==0){
                 system("pause");
+                updatePlayer();
                 return;
               }
               else
@@ -331,7 +331,6 @@ void ariollaMonument(string username, int area,int nomorlahan){
               }
           }
         }
-        updatePlayer();
       }
       else{return;}
     }
@@ -339,9 +338,9 @@ void ariollaMonument(string username, int area,int nomorlahan){
 void villageOfPurification(string username, int area,int nomorlahan){
   int pilih;
 
-       cout << "1. Lumberyard\n";
-       cout << "2. Stone Quarry\n";
-       cout << "3. Scrap Reclamation Center\n";
+       cout << "1. Lumberyard (10 stone and 5 scrap)\n";
+       cout << "2. Stone Quarry (10 wood and 5 scrap)\n";
+       cout << "3. Scrap Reclamation Center (10 wood and 10 stone)\n";
        cout << "0. Batal\n";
        cout << "Pilih : "; cin >> pilih;
 
@@ -355,10 +354,10 @@ void villageOfPurification(string username, int area,int nomorlahan){
               cout << "Can't build the same buildings" << endl;
               system("pause");
             }
-            else if( p.batu >= 30 && p.scrap >= 5)
+            else if( p.batu >= 10 && p.scrap >= 5)
             {
               daerah[area].bangunan[nomorlahan].nama = "Lumberyard";
-              p.batu -= 30;
+              p.batu -= 10;
               p.scrap -= 5;
               updateBuilding(username);
               updatePlayer();
@@ -376,10 +375,10 @@ void villageOfPurification(string username, int area,int nomorlahan){
               cout << "Can't build the same buildings" << endl;
               system("pause");
             }
-            else if(p.kayu >=20 && p.scrap >= 5)
+            else if(p.kayu >=10 && p.scrap >= 5)
             {
             daerah[area].bangunan[nomorlahan].nama = "Stone Quarry";
-            p.kayu -= 20;
+            p.kayu -= 10;
             p.scrap -= 5;
             updateBuilding(username);
             updatePlayer();
@@ -397,11 +396,11 @@ void villageOfPurification(string username, int area,int nomorlahan){
               cout << "Can't build the same buildings" << endl;
               system("pause");
             }
-            else if(p.kayu >= 30 && p.batu >= 30)
+            else if(p.kayu >= 10 && p.batu >= 10)
             {
             daerah[area].bangunan[nomorlahan].nama = "Scrap Reclamation Center";
-            p.kayu -= 30;
-            p.batu -= 30;
+            p.kayu -= 10;
+            p.batu -= 10;
             updateBuilding(username);
             updatePlayer();
             }
@@ -427,11 +426,14 @@ void rovenilla(string username, int area,int nomorlahan){
       garis(39);
       if(daerah[area].bangunan[nomorlahan].nama == "Grand Roven Market")
       {
+        PlayerData x = loadPlayer(username);
         cout << "|       "<< daerah[area].bangunan[nomorlahan].nama <<"      |" << endl;
         garis (39);
-        cout<<"1. 80 Wood (2 token)"<<endl;
-        cout<<"2. 60 Stone (2 token)"<<endl;
-        cout<<"3. 50 Scrap (3 token)"<<endl;
+        cout<<"1. 100 Wood (2 token)"<<endl;
+        cout<<"2. 80 Stone (2 token)"<<endl;
+        cout<<"3. 70 Scrap (2 token)"<<endl;
+        cout<<"4. 5 Syringe (2 token)"<<endl;
+        cout<<"5. 5 Powder (2 token)"<<endl;
         cout<<"0. Keluar"<<endl;
         garis (39);
         cout<<"What you want to buy: ";cin>>pilih;
@@ -441,17 +443,34 @@ void rovenilla(string username, int area,int nomorlahan){
               if(pilih==1){
                 cout<<"You have purchased wood"<<endl;
                 p.token -= 2;
-                p.kayu += 80;
+                p.kayu += 100;
+                updatePlayer();
               }
               else if(pilih==2){
                 cout<<"You have purchased stone"<<endl;
                 p.token -= 2;
-                p.batu += 60;
+                p.batu += 80;
+                updatePlayer();
               }
               else if(pilih==3){
                 cout<<"You have purchased scrap"<<endl;
-                p.token -= 3;
-                p.scrap += 50;
+                p.token -= 2;
+                p.scrap += 70;
+                updatePlayer();
+              }
+              else if(pilih==4){
+                cout<<"You have purchased scrap"<<endl;
+                p.token -= 2;
+                x.syringe += 5;
+                updatePlayer();
+                savePlayer(x);
+              }
+              else if(pilih==5){
+                cout<<"You have purchased scrap"<<endl;
+                p.token -= 2;
+                x.powder += 5;
+                updatePlayer();
+                savePlayer(x);
               }
               else if(pilih==0){
                 system("pause");
@@ -663,8 +682,7 @@ void bangunLahan(string username, int area, int nomorlahan){
   else if(daerah[area].bangunan[nomorlahan].nama != "Empty Land"){
     cout <<"2. Destroy building"<<endl;
   }
-  if(daerah[area].bangunan[nomorlahan].nama == "Ariolla Market" ||
-      daerah[area].bangunan[nomorlahan].nama == "Ariolla Clinic"){
+  if(daerah[area].bangunan[nomorlahan].nama == "Ariolla Market"){
             cout <<"3. Enter the building"<<endl;}
     cout <<"0. Back"<<endl;
     garis (39);     
@@ -893,9 +911,9 @@ void bangunLahan(string username, int area, int nomorlahan){
     int pBuilding;
     int pBuild;
       Bangunan MB[] = {
-        {"Purification Rail-Cannon", false, 20, 50, 10, 0, 0, 0},
-        {"Aegis Resonance Pylon", false, 30, 30, 10, 0, 0, 0},
-        {"Kinetic Harpoon Launcher", false, 20, 40, 15, 0, 0, 0}
+        {"Purification Rail-Cannon", false, 150, 150, 100, 0, 0, 0},
+        {"Aegis Resonance Pylon", false, 100, 120, 150, 0, 0, 0},
+        {"Kinetic Harpoon Launcher", false, 100, 200, 120, 0, 0, 0}
       };
 
   if(daerah[area].bangunan[nomorlahan].nama == "Empty Land"){
@@ -1002,7 +1020,7 @@ void lahanKosong(string username,int i){
     cout<< "0. Back "<<endl;
     garis (39);
     if (i==1)
-        {statistikArea(i);}
+    {statistikArea(i);}
     cout<< "Choose land: ";cin>>pLahan;
 
     if (cin.fail())
@@ -1123,11 +1141,25 @@ bool act4(){
     }
 }
 
+void notifStory(int chapter, int scene){
+  if((act1() && chapter==1 && scene==8) || (act2() && chapter==1 && scene==10)||
+     (act3() && chapter==1 && scene==12) || (act4() && chapter==1 && (scene==16 || scene==18))){
+      system("cls");
+      cout<<"[!]New act is available\n[!]Now you can continue the story"<<endl;
+      waitEnter();
+      return;
+     }
+  else{
+    return;
+  }
+}
+
 void area(string username, int chapter, int scene){
   int pArea;
   bool ulang = true;
   while (ulang)
   {
+    notifStory(chapter,scene);
     system("cls");
     header(username);
     garis(39);

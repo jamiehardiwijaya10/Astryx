@@ -220,7 +220,11 @@ vector<Skill> getCharacterSkills(CharacterData &cd) {
         else if (skillName == "TrueshotAura")
             s = {"Trueshot Aura", "buff", 20 + (skillLvl * 5), 3, 4};
         else if (skillName == "MineFreeze")
-            s = {"Mine Freeze", "heal", 15 + (skillLvl * 6), 0, 3}; 
+            s = {"Mine Freeze", "heal", 15 + (skillLvl * 6), 0, 3};
+        else if (skillName == "BallsCracker")
+            s = {"Balls Cracker", "stun", 0, 0, 3}; 
+        else if (skillName == "HarbringersRoots")
+            s = {"Harbringers Roots", "stun", 0, 0, 3}; 
         else {
             continue; 
         }
@@ -572,7 +576,7 @@ void unlockCharacter(string charName) {
     }
 
     ofstream out("databases/characters.txt");
-    out << "name level HP ATK DEF skillCount skill1 skill2 unlocked\n";
+    out << "name level HP ATK DEF skillCount skill1 skill2 skill3 unlocked\n";
 
     for (auto &c : db) {
         out << c.name << " "

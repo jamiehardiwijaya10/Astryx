@@ -14,6 +14,7 @@ struct Character {
     int maxhp; // ini max xp nya, jadi kalo heal ga bisa ngelebihin maxhp
     int hp; // ini buat current health
     int atk, def;
+    bool stunned = false;
 
     bool canDefend;
     bool canDodge;
@@ -290,6 +291,30 @@ bool useSkill(Character &user, vector<Character> &playerTeam, vector<Character> 
             }
         }
 
+        else if (skill.type == "stun") {
+            int targetIndex;
+
+            for (int i = 0; i < enemyTeam.size(); i++) {
+                if (enemyTeam[i].alive) {
+                    cout << i + 1 << ". " << enemyTeam[i].name << endl;
+                }
+            }
+
+            cout << "Choose target : ";
+            cin >> targetIndex;
+            targetIndex--;
+
+            if (targetIndex >= 0 &&
+                targetIndex < enemyTeam.size() &&
+                enemyTeam[targetIndex].alive) {
+
+                enemyTeam[targetIndex].stunned = true;
+
+                cout << enemyTeam[targetIndex].name
+                    << " is stunned and will skip the next turn!\n";
+            }
+        }
+
         skill.currentCD = skill.cooldown;
         return true;
     }
@@ -334,6 +359,12 @@ void playerTurn(vector<Character> &playerTeam, vector<Character> &enemyTeam) {
         }
         
         if (!p.alive) {
+            continue;
+        }
+
+        if (p.stunned) {
+            cout << p.name << " is stunned and skips the turn!\n";
+            p.stunned = false;
             continue;
         }
 
@@ -458,6 +489,12 @@ void playerTurn(vector<Character> &playerTeam, vector<Character> &enemyTeam) {
 void enemyTurn(vector<Character> &enemyTeam, vector<Character> &playerTeam) {
     for (auto &e : enemyTeam) {
         if (!e.alive) {
+            continue;
+        }
+
+         if (e.stunned) {
+            cout << e.name << " is stunned and cannot move!\n";
+            e.stunned = false;
             continue;
         }
 

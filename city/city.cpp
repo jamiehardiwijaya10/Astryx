@@ -632,6 +632,12 @@ void academyMenu(PlayerData &p) {
 
             int idx = s - 1;
 
+            if (c.skillsName[idx] == "BallsCracker" || c.skillsName[idx] == "HarbringersRoots") {
+              cout << "\nThis skill cannot be upgraded!\n";
+              system("pause");
+              continue;
+            }
+
             cout << "\nUpgrade " << c.skillsName[idx] << "?\n";
             cout << "Need 1 Powder\n";
             cout << "1. Yes\n0. No\n";

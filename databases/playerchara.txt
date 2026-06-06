@@ -1,9 +1,9 @@
 admin1 1
 Elias 1 0 1 IronVerdict 1
-Anubarak 4
-Elias 50 0 1 IronVerdict 50
-Ririsa 50 0 2 ButterflyBlessings 50 TrueshotAura 50
-Darius 50 0 2 ShieldThrust 50 MineFreeze 50
-Kizuki 50 0 2 BambooSlash 50 DivineDivergence 50
 rusliebalistikklowor 1
 Elias 1 0 1 IronVerdict 1
+Anubarak 4
+Elias 50 0 2 IronVerdict 50 BallsCracker 1
+Ririsa 50 0 3 ButterflyBlessings 51 TrueshotAura 50 HarbringersRoots 1
+Darius 50 0 2 ShieldThrust 50 MineFreeze 50
+Kizuki 50 0 2 BambooSlash 50 DivineDivergence 50

@@ -1,5 +1,5 @@
-name level HP ATK DEF skillCount skill1 skill2 unlocked
-Elias 1 50 10 5 1 IronVerdict 1
+name level HP ATK DEF skillCount skill1 skill2 skill3 unlocked
+Elias 1 50 10 5 2 IronVerdict BallsCracker 1
 Darius 1 45 5 15 2 ShieldThrust MineFreeze 0
-Ririsa 1 55 8 8 2 ButterflyBlessings TrueshotAura 0
+Ririsa 1 55 8 8 3 ButterflyBlessings TrueshotAura HarbringersRoots 0
 Kizuki 1 60 20 5 2 BambooSlash DivineDivergence 0

@@ -4,6 +4,8 @@
 #include <vector>
 #include <string>
 #include <windows.h>
+#include <algorithm>
+#include <limits>
 
 using namespace std;
 
@@ -95,8 +97,6 @@ void title2(string text) {
     
 }
 
-#include <algorithm>
-
 bool waitOrSkip() {
     string input;
     cout << "\n(Enter = continue | Type 's' = skip): ";
@@ -108,8 +108,9 @@ bool waitOrSkip() {
         cout << "[Scene skipped]\n";
         return true;
     }
-
-    return false;
+    else {
+        return false;
+    }
 }
 
 void garis(int ukuran,char hurup){

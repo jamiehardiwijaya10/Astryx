@@ -152,7 +152,6 @@ void menusepsepan(){
       cin.ignore();
       string username = newGame();
 
-      // langsung mulai story
       prologue();
       chap1(1, username);
 

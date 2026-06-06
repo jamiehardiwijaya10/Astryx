@@ -779,20 +779,10 @@ int battle2(string username) {
     }
 
     if (teamAlive(playerTeam)) {
-        setColor(YELLOW_COLOR);
-        for (auto &name : player.partyNames) {
-            for (auto &cd : player.ownedCharacters) {
-                if (cd.name == name) {
-                    addCharacterExp(cd, 50);
-                    break;
-                }
-            }
-        }
         savePlayer(player);
         cout << "Victory!\n";
         return 1;
     } else {
-        setColor(RED_COLOR);
         cout << "Defeat...\n";
         return 0;
     }
@@ -844,20 +834,10 @@ int battle3(string username) {
     }
 
     if (teamAlive(playerTeam)) {
-        setColor(YELLOW_COLOR);
-        for (auto &name : player.partyNames) {
-            for (auto &cd : player.ownedCharacters) {
-                if (cd.name == name) {
-                    addCharacterExp(cd, 50);
-                    break;
-                }
-            }
-        }
         savePlayer(player);
         cout << "Victory!\n";
         return 1;
     } else {
-        setColor(RED_COLOR);
         cout << "Defeat...\n";
         return 0;
     }
@@ -906,20 +886,10 @@ int battle4(string username) {
     }
 
     if (teamAlive(playerTeam)) {
-        setColor(YELLOW_COLOR);
-        for (auto &name : player.partyNames) {
-            for (auto &cd : player.ownedCharacters) {
-                if (cd.name == name) {
-                    addCharacterExp(cd, 50);
-                    break;
-                }
-            }
-        }
         savePlayer(player);
         cout << "Victory!\n";
         return 1;
     } else {
-        setColor(RED_COLOR);
         cout << "Defeat...\n";
         return 0;
     }
@@ -970,20 +940,10 @@ int battle5(string username) {
     }
 
     if (teamAlive(playerTeam)) {
-        setColor(YELLOW_COLOR);
-        for (auto &name : player.partyNames) {
-            for (auto &cd : player.ownedCharacters) {
-                if (cd.name == name) {
-                    addCharacterExp(cd, 50);
-                    break;
-                }
-            }
-        }
         savePlayer(player);
         cout << "Victory!\n";
         return 1;
     } else {
-        setColor(RED_COLOR);
         cout << "Defeat...\n";
         return 0;
     }
@@ -1040,20 +1000,10 @@ int boss(string username) {
     }
 
     if (teamAlive(playerTeam)) {
-        setColor(YELLOW_COLOR);
-        for (auto &name : player.partyNames) {
-            for (auto &cd : player.ownedCharacters) {
-                if (cd.name == name) {
-                    addCharacterExp(cd, 50);
-                    break;
-                }
-            }
-        }
         savePlayer(player);
         cout << "Victory!\n";
         return 1;
     } else {
-        setColor(RED_COLOR);
         cout << "Defeat...\n";
         return 0;
     }
@@ -1110,20 +1060,10 @@ int boss2(string username) {
     }
 
     if (teamAlive(playerTeam)) {
-        setColor(YELLOW_COLOR);
-        for (auto &name : player.partyNames) {
-            for (auto &cd : player.ownedCharacters) {
-                if (cd.name == name) {
-                    addCharacterExp(cd, 50);
-                    break;
-                }
-            }
-        }
         savePlayer(player);
         cout << "Victory!\n";
         return 1;
     } else {
-        setColor(RED_COLOR);
         cout << "Defeat...\n";
         return 0;
     }

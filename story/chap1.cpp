@@ -749,8 +749,6 @@ int chap1e(string username){
     Sleep(500);
     typing("Something is wrong.\n", 30);
     Sleep(500);
-    typing("The city feels empty.\n", 30);
-    Sleep(500);
     typing("No signs of Professor Lucia.\n", 30);
     Sleep(500);
 
@@ -774,14 +772,12 @@ int chap1e(string username){
     }
     system("cls");
 
-    dialog("Elias", "So it's not just Ariolla...", 30);
+    dialog("Elias", "There's nobody here...", 30);
     Sleep(500);
-    dialog("Elias", "Something is happening here too.", 30);
+    dialog("Elias", "I better get going.", 30);
     Sleep(500);
 
     typing("Outside the window, distant silhouettes move between buildings.\n", 30);
-    Sleep(500);
-    typing("Not fully human... not fully monster either.\n", 30);
     Sleep(500);
 
     if (waitOrSkip()) {
@@ -2426,6 +2422,9 @@ int chap1h2(string username){
 
 int chap1i(string username){
     system("cls");
+
+    typing("ACT 5 - Ariolla's Truth", 50);
+    Sleep(800);
 
     typing("Several months have passed since the incident at Moncini Basin.\n",30);
     Sleep(500);

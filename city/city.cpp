@@ -653,7 +653,6 @@ void academyMenu(PlayerData &p) {
                 } else {
                     p.powder--;
 
-                    // 🔥 upgrade skill
                     c.skillLevels[idx]++;
                     if (c.skillLevels[idx] >= 50) {
                         cout << "Level maksimal!\n";

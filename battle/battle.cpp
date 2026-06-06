@@ -1120,18 +1120,18 @@ vector<Character> generateEnemy(int floor, string area) {
 
         if (area == "Masonwood") {
             musuh.name = "Konyian Soldiers " + to_string(i + 1);
-        } else if (area == "Tetsumori Forest") {
+        } else if (area == "TetsumoriForest") {
             musuh.name = "Forest Oni " + to_string(i + 1);
             baseHP += 25;
             baseDEF += 5;
         } else if (area == "Collosseum") {
             musuh.name = "Arena Beastmaster " + to_string(i + 1);
             baseATK += 10;
-        } else if (area == "Sacrificial Pit") {
+        } else if (area == "SacrificialPit") {
             musuh.name = "Bone Prisoner " + to_string(i + 1);
             baseHP += 40;
             musuh.canDodge = true;
-        } else if (area == "Gryphon Aviary"){
+        } else if (area == "GryphonAviary"){
             musuh.name = "Feathered Raider " + to_string(i + 1);
             baseHP += 25;
             baseDEF += 5;
@@ -1155,12 +1155,15 @@ vector<Character> generateEnemy(int floor, string area) {
         if (area == "Masonwood") {
             if (floor >= 6) {
                 musuh.name = "Seaborn Luker " + to_string(i + 1);
-                musuh.skills.push_back({"Brine Burst", "aoe", musuh.atk + floor * 2, 0, 2});
+                musuh.skills.push_back({"Brine Burst", "aoe", musuh.atk, 0, 2});
+            } else if (floor >= 11) {
+                musuh.name = "Bernacle Revenant " + to_string(i + 1);
+                musuh.skills.push_back({"Crushing Tide", "damage", musuh.atk + floor, 0, 3});
+            } else if (floor >= 21) {
+                musuh.name = "Drowned Husk " + to_string(i + 1);
+                musuh.skills.push_back({"Rotting Grasp", "damage", musuh.atk + floor * 2, 0, 3});
             }
-            if (floor >= 10) {
-                musuh.skills.push_back({"Hunter Rage", "aoe", 8 + floor, 0, 3});
-            }
-        } else if (area == "Tetsumori Forest") {
+        } else if (area == "TetsumoriForest") {
             if (floor >= 6) {
                 musuh.name = "Crimson Geisha " + to_string(i + 1);
                 musuh.skills.push_back({"Crimson Veil ", "buff", musuh.atk * 2 + floor, 1, 2});
@@ -1185,7 +1188,7 @@ vector<Character> generateEnemy(int floor, string area) {
                 musuh.name = "Bloodfang Gladiator " + to_string(i + 1);
                 musuh.skills.push_back({"Execution Rush", "damage", musuh.atk * 2 + floor * 2, 0, 3});
             }
-        } else if (area == "Sacrificial Pit") {
+        } else if (area == "SacrificialPit") {
             if (floor >= 6) {
                 musuh.name = "Bloodveil Necromancer " + to_string(i + 1);
                 musuh.skills.push_back({"Soul Extraction", "heal", musuh.hp + floor * 2, 0, 2});
@@ -1199,7 +1202,7 @@ vector<Character> generateEnemy(int floor, string area) {
                 musuh.name = "Damned High Priest " + to_string(i + 1);
                 musuh.skills.push_back({"Ritual of Ruin", "aoe", musuh.atk * 2 + floor * 2, 0, 3});
             }
-        } else if (area == "Gryphon Aviary"){
+        } else if (area == "GryphonAviary"){
             if (floor >= 6) {
                 musuh.name = "High Sanctifier " + to_string(i + 1);
                 musuh.skills.push_back({"Holy Decree", "buff", musuh.atk * 2 + floor, 2, 4});
@@ -1218,10 +1221,10 @@ vector<Character> generateEnemy(int floor, string area) {
         if (isBoss && i == 0) {
             if (area == "Masonwood") {
                 musuh.name = "VESSEL OF THE DEEP";
-                musuh.skills.push_back({"Abyssal Life", "heal", 35 + floor, 0, 2});
+                musuh.skills.push_back({"Abyssal Life", "heal", (musuh.atk + floor) * 3, 0, 2});
                 musuh.skills.push_back({"Abyssal Attack", "damage", musuh.atk + floor * 2, 0, 3});
-                musuh.skills.push_back({"Abyssal Cataclysm", "damage", (musuh.atk + floor) * 3, 0, 4});
-            } else if (area == "Tetsumori Forest") {
+                musuh.skills.push_back({"Abyssal Cataclysm", "damage", (musuh.atk + floor) * 2, 0, 4});
+            } else if (area == "TetsumoriForest") {
                 if(floor % 2 == 0){
                     musuh.name = "FALLEN AVATAR OF AMATERASU";
                     musuh.skills.push_back({"Solar Judgement", "damage", (musuh.atk + floor) * 2, 0, 2});
@@ -1245,32 +1248,32 @@ vector<Character> generateEnemy(int floor, string area) {
                     musuh.skills.push_back({"Stoneheart Regeneration", "heal", (musuh.hp + floor) * 2, 0, 3});
                     musuh.skills.push_back({"Wings of Ruin", "aoe", (musuh.atk + floor) * 2, 0, 4});
                 }
-            } else if (area == "Sacrificial Pit") {
+            } else if (area == "SacrificialPit") {
                 musuh.name = "THE LICH KING";
                 musuh.skills.push_back({"Frostmourne Cleave", "damage", (musuh.atk + floor) * 3, 0, 2});
                 musuh.skills.push_back({"Army of the Damned", "buff", musuh.atk + floor * 2, 0, 3});
                 musuh.skills.push_back({"Eternal Winter Apocalypse", "aoe", (musuh.atk + floor) * 3, 0, 4});
-            } else if (area == "Gryphon Aviary"){
-                if(floor % 4 == 0){
-                    musuh.name = "CROWNED GRYPHON EMPEROR";
-                    musuh.skills.push_back({"Talon of Dominion", "damage", (musuh.atk + floor) * 2, 0, 2});
-                    musuh.skills.push_back({"Imperial Roar", "buff", musuh.atk * 2 + floor, 0, 3});
-                    musuh.skills.push_back({"Skyfall Coronation", "aoe", musuh.atk + floor * 2, 0, 4});
-                } else if(floor % 4 == 1) {
-                    musuh.name = "SAINTESS OF THE ETERNAL SANCTUM";
-                    musuh.skills.push_back({"Sacred Chain", "damage", musuh.atk + floor, 0, 2});
-                    musuh.skills.push_back({"Blessing of Eternity", "heal", (musuh.hp + floor) * 6, 0, 3});
-                    musuh.skills.push_back({"Heavenly Revelation", "aoe", musuh.atk * 2 + floor, 0, 4});
-                } else if(floor % 4 == 2) {
-                    musuh.name = "KING OF THE CRIMSON THRONE";
-                    musuh.skills.push_back({"Crimson Edge", "damage", (musuh.atk + floor) * 2, 0, 2});
-                    musuh.skills.push_back({"Tyrant's Command", "buff", musuh.atk + floor * 2, 0, 3});
-                    musuh.skills.push_back({"Thronebreaker Cataclysm", "aoe", (musuh.atk + floor) * 2, 0, 4});
-                } else if(floor == 30){
+            } else if (area == "GryphonAviary"){
+                if(floor == 30){
                     musuh.name = "SOVEREIGN OF THE SCOURGE";
                     musuh.skills.push_back({"Void Rend", "damage", (musuh.atk + floor) * 2, 0, 2});
                     musuh.skills.push_back({"Scourge Dominion", "buff", musuh.atk + floor * 2, 0, 3});
                     musuh.skills.push_back({"End of Salvation", "aoe", (musuh.atk + floor) * 2, 0, 4});
+                } else if(floor % 3 == 0){
+                    musuh.name = "CROWNED GRYPHON EMPEROR";
+                    musuh.skills.push_back({"Talon of Dominion", "damage", (musuh.atk + floor) * 2, 0, 2});
+                    musuh.skills.push_back({"Imperial Roar", "buff", musuh.atk * 2 + floor, 0, 3});
+                    musuh.skills.push_back({"Skyfall Coronation", "aoe", musuh.atk + floor * 2, 0, 4});
+                } else if(floor % 3 == 1) {
+                    musuh.name = "SAINTESS OF THE ETERNAL SANCTUM";
+                    musuh.skills.push_back({"Sacred Chain", "damage", musuh.atk + floor, 0, 2});
+                    musuh.skills.push_back({"Blessing of Eternity", "heal", (musuh.hp + floor) * 6, 0, 3});
+                    musuh.skills.push_back({"Heavenly Revelation", "aoe", musuh.atk * 2 + floor, 0, 4});
+                } else if(floor % 3 == 2) {
+                    musuh.name = "KING OF THE CRIMSON THRONE";
+                    musuh.skills.push_back({"Crimson Edge", "damage", (musuh.atk + floor) * 2, 0, 2});
+                    musuh.skills.push_back({"Tyrant's Command", "buff", musuh.atk + floor * 2, 0, 3});
+                    musuh.skills.push_back({"Thronebreaker Cataclysm", "aoe", (musuh.atk + floor) * 2, 0, 4});
                 }
             }
 
@@ -1299,15 +1302,15 @@ void showBossHP(Character &boss) {
     cout << "[";
 
     for (int i = 0; i < totalBar; i++) {
+        if (boss.hp < boss.maxhp * 0.5) {
+            setColor(YELLOW_COLOR);
+        }
         if (i < current) {
             setColor(RED_COLOR);
             cout << "@";
         } else {
             setColor(GRAY_COLOR);
             cout << "-";
-        }
-        if (boss.hp < boss.maxhp * 0.3) {
-            setColor(YELLOW_COLOR);
         }
     }
 
@@ -1478,8 +1481,8 @@ int battleDungeon(int floor, string username, string area) {
                 enemyTeam[0].hp = enemyTeam[0].maxhp;
             }
 
-            enemyTeam[0].skills.push_back({"Eternal Hatred", "aoe", enemyTeam[0].atk * 4, 0, 2});
-            enemyTeam[0].skills.push_back({"Eclipse of the End", "aoe", enemyTeam[0].atk * 5, 0, 3});
+            enemyTeam[0].skills.push_back({"Eternal Hatred", "aoe", enemyTeam[0].atk * 2, 0, 2});
+            enemyTeam[0].skills.push_back({"Eclipse of the End", "aoe", enemyTeam[0].atk * 2, 0, 3});
 
             setColor(DEFAULT_COLOR);
             Sleep(2000);
@@ -1513,6 +1516,7 @@ int battleDungeon(int floor, string username, string area) {
             setColor(GRAY_COLOR);
 
             if (boss.name == "VESSEL OF THE DEEP") {
+                system("CLS");
                 string line1 = "\"You...No....\"";
                 for (char c : line1) {
                     cout << c << flush;

@@ -210,13 +210,17 @@ vector<Skill> getCharacterSkills(CharacterData &cd) {
         if (skillName == "IronVerdict")
             s = {"Iron Verdict", "damage", 20 + (skillLvl * 5), 0, 2};
         else if (skillName == "ShieldThrust")
-            s = {"Shield Thrust", "damage", 15 + (skillLvl * 4), 0, 1};
+            s = {"Shield Thrust", "damage", 15 + (skillLvl * 4), 0, 2};
         else if (skillName == "ButterflyBlessings")
             s = {"Butterfly Blessings", "heal", 25 + (skillLvl * 6), 0, 3};
         else if (skillName == "BambooSlash")
             s = {"Bamboo Slash", "damage", 18 + (skillLvl * 5), 0, 2};
         else if (skillName == "DivineDivergence")
             s = {"Divine Divergence", "aoe", 22 + (skillLvl * 5), 0, 4};
+        else if (skillName == "TrueshotAura")
+            s = {"Trueshot Aura", "buff", 20 + (skillLvl * 5), 3, 4};
+        else if (skillName == "MineFreeze")
+            s = {"Mine Freeze", "heal", 15 + (skillLvl * 6), 0, 3}; 
         else {
             continue; 
         }

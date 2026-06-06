@@ -549,7 +549,7 @@ void vanguardBarracks(PlayerData &p) {
             } else {
                 p.syringe--;
 
-                if (c.level >= 10) {
+                if (c.level >= 50) {
                   cout << "Level maksimal!\n";
                   return;
                 }
@@ -649,7 +649,7 @@ void academyMenu(PlayerData &p) {
 
                     // 🔥 upgrade skill
                     c.skillLevels[idx]++;
-                    if (c.skillLevels[idx] >= 10) {
+                    if (c.skillLevels[idx] >= 50) {
                         cout << "Level maksimal!\n";
                         return;
                     }

@@ -981,12 +981,12 @@ int boss(string username) {
 
 //    Knight.skills.push_back({"Essence of Harmony", "heal", 25, 0, 3});
 
+// Nama - MaxHp - Hp - Atk - Def - CanDefend - CanDodge - DodgeChance
+    Character Vessel = {"Vessel of The Deep", 9999, 9999, 1000, 9999, true, false, 0};
 
-    Character Vessel = {"Vessel of The Deep", 5000, 5000, 100, 50, true, false, 0};
-
-    Vessel.skills.push_back({"Abyssal Life", "heal", 50, 0, 2});
-    Vessel.skills.push_back({"Abyssal Attack", "damage", 100, 0, 3});
-    Vessel.skills.push_back({"Abyssal Cataclysm", "damage", 150, 0, 4});
+    Vessel.skills.push_back({"Abyssal Life", "heal", (Vessel.maxhp + Vessel.atk) * 3, 0, 2});
+    Vessel.skills.push_back({"Abyssal Attack", "damage", Vessel.atk * 5, 0, 3});
+    Vessel.skills.push_back({"Abyssal Cataclysm", "damage", Vessel.atk * 2, 0, 4});
 
 
     vector<Character> enemyTeam = {Vessel};
@@ -1001,7 +1001,11 @@ int boss(string username) {
 
     if (teamAlive(playerTeam)) {
         savePlayer(player);
-        cout << "Victory!\n";
+        cout<< "\nLoading";
+        for(int i = 0; i < 3; i++){
+            cout << ".";
+            Sleep(100);
+        }
         return 1;
     } else {
         cout << "Defeat...\n";

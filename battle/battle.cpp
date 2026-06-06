@@ -1190,21 +1190,23 @@ vector<Character> generateEnemy(int floor, string area) {
         musuh.alive = true;
 
         if (area == "Masonwood") {
-            if (floor >= 6) {
+            if (floor >= 6 && floor <= 10) {
                 musuh.name = "Seaborn Luker " + to_string(i + 1);
                 musuh.skills.push_back({"Brine Burst", "aoe", musuh.atk, 0, 2});
-            } else if (floor >= 11) {
+            }
+            else if (floor >= 11 && floor <= 20) {
                 musuh.name = "Bernacle Revenant " + to_string(i + 1);
-                musuh.skills.push_back({"Crushing Tide", "damage", musuh.atk + floor, 0, 3});
-            } else if (floor >= 21) {
+                musuh.skills.push_back({"Crushing Tide", "stun", musuh.atk + floor, 0, 3});
+            }
+            else if (floor >= 21) {
                 musuh.name = "Drowned Husk " + to_string(i + 1);
                 musuh.skills.push_back({"Rotting Grasp", "damage", musuh.atk + floor * 2, 0, 3});
             }
         } else if (area == "TetsumoriForest") {
-            if (floor >= 6) {
+            if (floor >= 6 && floor <= 10) {
                 musuh.name = "Crimson Geisha " + to_string(i + 1);
                 musuh.skills.push_back({"Crimson Veil ", "buff", musuh.atk * 2 + floor, 1, 2});
-            } else if (floor >= 11) {
+            } else if (floor >= 11 && floor <= 20) {
                 musuh.name = "Night Parade Monk " + to_string(i + 1);
                 musuh.skills.push_back({"Soul Catcher", "buff", musuh.atk + floor * 2, 2, 3});
             } else if (floor >= 21){
@@ -1212,10 +1214,10 @@ vector<Character> generateEnemy(int floor, string area) {
                 musuh.skills.push_back({"One Cursed Slash", "damage", musuh.atk * 2 + floor * 2, 0, 3});
             }
         } else if (area == "Collosseum") {
-            if (floor >= 6) {
+            if (floor >= 6 && floor <= 10) {
                 musuh.name = "Aurelis Centurion " + to_string(i + 1);
                 musuh.skills.push_back({"Golden Phalank", "buff", musuh.atk + floor, 2, 4});
-            } else if (floor >= 11) {
+            } else if (floor >= 11 && floor <= 20) {
                 musuh.name = "Gargantuan Idol " + to_string(i + 1);
                 musuh.skills.push_back({"Titan Crush", "aoe", musuh.atk * 2 + floor, 0, 2});
             } else if (floor >= 21){
@@ -1226,10 +1228,10 @@ vector<Character> generateEnemy(int floor, string area) {
                 musuh.skills.push_back({"Execution Rush", "damage", musuh.atk * 2 + floor * 2, 0, 3});
             }
         } else if (area == "SacrificialPit") {
-            if (floor >= 6) {
+            if (floor >= 6 && floor <= 10) {
                 musuh.name = "Bloodveil Necromancer " + to_string(i + 1);
                 musuh.skills.push_back({"Soul Extraction", "heal", musuh.hp + floor * 2, 0, 2});
-            } else if (floor >= 11) {
+            } else if (floor >= 11 && floor <= 20) {
                 musuh.name = "Abyssal Torturer " + to_string(i + 1);
                 musuh.skills.push_back({"Chain of Agony", "aoe", musuh.atk * 2 + floor, 0, 3});
             } else if (floor >= 21){
@@ -1240,10 +1242,10 @@ vector<Character> generateEnemy(int floor, string area) {
                 musuh.skills.push_back({"Ritual of Ruin", "aoe", musuh.atk * 2 + floor * 2, 0, 3});
             }
         } else if (area == "GryphonAviary"){
-            if (floor >= 6) {
+            if (floor >= 6 && floor <= 10) {
                 musuh.name = "High Sanctifier " + to_string(i + 1);
                 musuh.skills.push_back({"Holy Decree", "buff", musuh.atk * 2 + floor, 2, 4});
-            } else if (floor >= 11) {
+            } else if (floor >= 11 && floor <= 20) {
                 musuh.name = "Royal Executioner " + to_string(i + 1);
                 musuh.skills.push_back({"Kingbreaker Axe", "damage", musuh.atk * 3 + floor * 2, 0, 3});
             } else if (floor >= 21){

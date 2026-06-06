@@ -1969,11 +1969,12 @@ int chap1h1(string username){
 
     typing("Vessel of The Deep has emerged.\n",30);
     Sleep(500);
-
+    
     boss(username);
 
     Sleep(500);
 
+    
     if(waitOrSkip()) return 0;
     system("cls");
 
